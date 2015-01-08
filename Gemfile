@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'cuesmash'
+gem 'cucumber'
+gem 'rspec'
+gem 'rake'
+gem 'grape'
+gem 'appium_lib'
+gem 'appium_console' 
+gem 'json'
