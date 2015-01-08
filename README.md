@@ -1,0 +1,1 @@
+Example of how to throughly test data-driven, client-side applications
