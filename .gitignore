@@ -1,0 +1,10 @@
+# General 
+
+**.DS_Store
+
+# Android
+
+android/build*
+android/.gradle*
+**.iml
+**.idea/
