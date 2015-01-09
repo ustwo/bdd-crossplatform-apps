@@ -200,7 +200,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     US2Commit *commit = [self.commits objectAtIndex:indexPath.row];
-    
     [self performSegueWithIdentifier:@"showCommitDetail" sender:commit];
 }
 
