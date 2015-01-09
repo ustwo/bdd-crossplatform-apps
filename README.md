@@ -15,7 +15,17 @@ TBD
 
 ## Installation
 
+For all platforms:
+
 ```bundle```
+
+### iOS
+
+TBD
+
+### Android
+
+TBD
 
 ## Run tests
 
