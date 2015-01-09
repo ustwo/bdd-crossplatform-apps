@@ -8,8 +8,12 @@ module GitHubMockBackend
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
 
-    get '/repos/:name' do
+    get '/repos/:org/:repo' do
       API.static_json('default_repo')
+    end
+
+    get '/repos/:org/:repo/commits' do
+      API.static_json('default_commits')
     end
 
     get '/' do
