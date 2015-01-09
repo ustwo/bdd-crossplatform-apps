@@ -11,9 +11,11 @@
 @interface US2Commit : NSObject
 
 - (instancetype)initWithSha:(NSString *)sha
-                    message:(NSString *)message;
+                 andMessage:(NSString *)message
+                    andDate:(NSDate *)date;
 
 @property (nonatomic, copy, readwrite) NSString *sha;
 @property (nonatomic, copy, readwrite) NSString *message;
+@property (nonatomic, copy, readwrite) NSDate *date;
 
 @end

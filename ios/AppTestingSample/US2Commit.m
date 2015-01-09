@@ -11,12 +11,14 @@
 @implementation US2Commit
 
 - (instancetype)initWithSha:(NSString *)sha
-                    message:(NSString *)message {
+                 andMessage:(NSString *)message
+                    andDate:(NSDate *)date {
     
     self = [super init];
     if (self) {
         _sha = [sha copy];
         _message = [message copy];
+        _date = [date copy];
     }
     
     return self;

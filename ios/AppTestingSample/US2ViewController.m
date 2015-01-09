@@ -16,6 +16,7 @@
 @property (nonatomic, assign, readwrite) BOOL isLoading;
 @property (nonatomic, strong, readwrite) NSData *urlData;
 @property (nonatomic, strong, readwrite) NSArray *commits;
+@property (nonatomic, strong, readwrite) NSDateFormatter *dateFormatter;
 @end
 
 @implementation US2ViewController
@@ -99,15 +100,29 @@
         commit.sha = sha;
     }
     
-    id message = [dictionary objectForKey:@"message"];
-    if ([message isKindOfClass:NSString.class]) {
-        commit.message = message;
+    id commitDictionary = [dictionary objectForKey:@"commit"];
+    if ([commitDictionary isKindOfClass:NSDictionary.class]) {
+        id message = [commitDictionary objectForKey:@"message"];
+        if ([message isKindOfClass:NSString.class]) {
+            commit.message = message;
+        }
+        
+        id authorDictionary = [commitDictionary objectForKey:@"author"];
+        if ([authorDictionary isKindOfClass:NSDictionary.class]) {
+            id date = [authorDictionary objectForKey:@"date"];
+            if ([date isKindOfClass:NSString.class]) {
+                commit.date = [self.dateFormatter dateFromString:date];
+            }
+        }
     }
     
     return commit;
 }
 
 - (NSArray *)__commitsFromJSONArray:(NSArray *)array {
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+    
     NSMutableArray *commits = [@[] mutableCopy];
     
     if ([array isKindOfClass:NSArray.class]) {
@@ -133,7 +148,7 @@
     
     US2Commit *commit = [self.commits objectAtIndex:indexPath.row];
     cell.nameString = commit.message;
-    cell.dateString = commit.sha;
+    cell.dateString = [self.dateFormatter stringFromDate:commit.date];
     
     return cell;
 }
