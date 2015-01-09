@@ -9,6 +9,7 @@ Feature: display list of commits
   Scenario: display latest commits
     Then I should be able to see the latest 20 commits
 
+  # Question, do we define the date format in here?
   Scenario: per-commit information
     Then I should see the commit message and date of each commit
 
