@@ -26,11 +26,14 @@ module GitHubMockBackend
 
   class Boot
 
-    def initialize(full_url)
+    def initialize(host, port)
 
       config_ru_path = 'features/support/mock_backend/config.ru'
 
-      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3('shotgun', config_ru_path)
+      full_url = "http://#{host}:#{port}"
+      puts "About to boot up mock server at: #{full_url}"
+
+      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("shotgun -o #{host} -p #{port} #{config_ru_path}")
       @pid = @wait_thr[:pid]
 
       puts "Mock server PID: #{@pid}"
@@ -59,8 +62,8 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot(full_url)
-      @@boot = Boot.new(full_url)
+    def self.boot(host, port)
+      @@boot = Boot.new(host, port)
     end
 
     def self.exit
