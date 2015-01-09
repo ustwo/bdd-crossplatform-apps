@@ -16,6 +16,7 @@
 		5BC53EFC1A5EAE48006E398A /* AppTestingSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EFB1A5EAE48006E398A /* AppTestingSampleTests.m */; };
 		5BC53F071A5EB149006E398A /* US2Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F061A5EB149006E398A /* US2Commit.m */; };
 		5BC53F0A1A5EF6DD006E398A /* US2CommitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */; };
+		5BC53F0D1A6026D4006E398A /* US2CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		5BC53F061A5EB149006E398A /* US2Commit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2Commit.m; sourceTree = "<group>"; };
 		5BC53F081A5EF6DD006E398A /* US2CommitTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2CommitTableViewCell.h; sourceTree = "<group>"; };
 		5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitTableViewCell.m; sourceTree = "<group>"; };
+		5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2CommitDetailViewController.h; sourceTree = "<group>"; };
+		5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 				5BC53F061A5EB149006E398A /* US2Commit.m */,
 				5BC53F081A5EF6DD006E398A /* US2CommitTableViewCell.h */,
 				5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */,
+				5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */,
+				5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */,
 			);
 			path = AppTestingSample;
 			sourceTree = "<group>";
@@ -230,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC53F071A5EB149006E398A /* US2Commit.m in Sources */,
+				5BC53F0D1A6026D4006E398A /* US2CommitDetailViewController.m in Sources */,
 				5BC53F0A1A5EF6DD006E398A /* US2CommitTableViewCell.m in Sources */,
 				5BC53EE81A5EAE48006E398A /* US2ViewController.m in Sources */,
 				5BC53EE51A5EAE48006E398A /* US2AppDelegate.m in Sources */,

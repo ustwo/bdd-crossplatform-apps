@@ -25,19 +25,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W8D-JA-j45" id="cYf-S1-TSH">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#{nameLabel}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsz-JI-Ckl">
-                                                    <rect key="frame" x="57" y="29" width="269" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#{nameLabel}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsz-JI-Ckl">
+                                                    <rect key="frame" x="8" y="8" width="584" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#{dateLabel}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tp-tD-kxg">
-                                                    <rect key="frame" x="57" y="58" width="269" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#{dateLabel}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tp-tD-kxg">
+                                                    <rect key="frame" x="8" y="36" width="584" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2Tp-tD-kxg" firstAttribute="leading" secondItem="cYf-S1-TSH" secondAttribute="leading" constant="8" id="3Py-cC-orH"/>
+                                                <constraint firstItem="2Tp-tD-kxg" firstAttribute="top" secondItem="Fsz-JI-Ckl" secondAttribute="bottom" constant="8" id="7xh-Rg-UbZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Fsz-JI-Ckl" secondAttribute="trailing" constant="8" id="cXh-QC-Ndz"/>
+                                                <constraint firstItem="Fsz-JI-Ckl" firstAttribute="top" secondItem="cYf-S1-TSH" secondAttribute="top" constant="8" id="fcs-QN-tIu"/>
+                                                <constraint firstItem="Fsz-JI-Ckl" firstAttribute="leading" secondItem="cYf-S1-TSH" secondAttribute="leading" constant="8" id="nIF-aH-imy"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Tp-tD-kxg" secondAttribute="trailing" constant="8" id="nkc-N0-S0l"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="2Tp-tD-kxg" id="HQk-Pw-ogA"/>
@@ -50,29 +58,80 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="S7v-C0-wiY"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#{errorLabel}" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jn3-g5-yO9">
+                                <rect key="frame" x="8" y="290.5" width="584" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-h6-IPz">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Jn3-g5-yO9" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="8" id="275-gr-WPf"/>
                             <constraint firstAttribute="centerY" secondItem="eXK-h6-IPz" secondAttribute="centerY" id="DU5-Av-gxB"/>
                             <constraint firstItem="byn-HB-3rr" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="G6u-dY-gWj"/>
                             <constraint firstAttribute="centerX" secondItem="eXK-h6-IPz" secondAttribute="centerX" id="Nh1-Xs-vF7"/>
+                            <constraint firstAttribute="centerY" secondItem="Jn3-g5-yO9" secondAttribute="centerY" id="kok-IE-CW3"/>
                             <constraint firstItem="byn-HB-3rr" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="r00-r0-sPi"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="byn-HB-3rr" secondAttribute="bottom" id="r9V-uv-eeo"/>
+                            <constraint firstAttribute="trailing" secondItem="Jn3-g5-yO9" secondAttribute="trailing" constant="8" id="uac-on-1Wn"/>
                             <constraint firstAttribute="trailing" secondItem="byn-HB-3rr" secondAttribute="trailing" id="x15-ov-rBp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="#{repositoryTitleLabel}" id="ucj-H8-tzs"/>
                     <connections>
+                        <outlet property="errorLabel" destination="Jn3-g5-yO9" id="3IQ-at-pwq"/>
                         <outlet property="loadingActivityIndicatorView" destination="eXK-h6-IPz" id="G1C-d7-27Q"/>
                         <outlet property="tableView" destination="byn-HB-3rr" id="Lda-0b-GZM"/>
+                        <segue destination="G1b-ZM-OUx" kind="show" identifier="showCommitDetail" id="ZYl-sd-JES"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="912" y="111"/>
+            <point key="canvasLocation" x="856" y="-582"/>
+        </scene>
+        <!--#{commitDetailTitle}-->
+        <scene sceneID="vqX-5y-sC4">
+            <objects>
+                <viewController title="#{commitDetailTitle}" id="G1b-ZM-OUx" customClass="US2CommitDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2YO-2I-VRi"/>
+                        <viewControllerLayoutGuide type="bottom" id="V23-eS-u82"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2gw-dF-5sv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5yn-nc-DKf">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#{authorNameLabel}" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45D-Sw-ZdV">
+                                <rect key="frame" x="8" y="72" width="584" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="5yn-nc-DKf" secondAttribute="centerX" id="51W-2h-Mpa"/>
+                            <constraint firstAttribute="centerY" secondItem="5yn-nc-DKf" secondAttribute="centerY" id="hME-p8-d5I"/>
+                            <constraint firstItem="45D-Sw-ZdV" firstAttribute="leading" secondItem="2gw-dF-5sv" secondAttribute="leading" constant="8" id="rOo-N5-yhV"/>
+                            <constraint firstAttribute="trailing" secondItem="45D-Sw-ZdV" secondAttribute="trailing" constant="8" id="wYq-Xb-Wrm"/>
+                            <constraint firstItem="45D-Sw-ZdV" firstAttribute="top" secondItem="2YO-2I-VRi" secondAttribute="bottom" constant="8" id="yVj-vb-iHw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="authorNameLabel" destination="45D-Sw-ZdV" id="3c2-GR-zxg"/>
+                        <outlet property="loadingActivityIndicatorView" destination="5yn-nc-DKf" id="3xg-G5-8Hc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PDf-b6-0Zo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1663" y="-582"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="siI-ma-UDT">
