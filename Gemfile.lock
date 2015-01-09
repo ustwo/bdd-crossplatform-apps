@@ -63,6 +63,9 @@ GEM
       rack-mount
       virtus (>= 1.0.0)
     hashie (3.3.2)
+    httparty (0.13.2)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.1)
     json (1.8.1)
@@ -110,6 +113,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    shotgun (0.9)
+      rack (>= 1.0)
     slop (3.6.0)
     spec (5.3.4)
       chronic_duration (~> 0.10.2)
@@ -136,6 +141,8 @@ DEPENDENCIES
   cucumber
   cuesmash
   grape
+  httparty
   json
   rake
   rspec
+  shotgun
