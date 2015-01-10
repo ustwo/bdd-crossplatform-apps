@@ -1,9 +1,7 @@
-# require 'appium_lib'
-# require './features/step_definitions/screen'
-#
 require 'open3'
 require 'thread'
 require 'httparty'
+require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
 
 class CustomWorld
@@ -12,14 +10,6 @@ class CustomWorld
     $driver
   end
 end
-
-#
-# # Load the desired configuration from appium.txt, create a driver then
-# # Add the methods to the world
-# caps = Appium.load_appium_txt file: File.expand_path('./', __FILE__), verbose: true
-# Appium::Driver.new(caps)
-# Appium.promote_appium_methods AppiumWorld
-#
 
 World do
   CustomWorld.new
@@ -33,3 +23,18 @@ HOST = Socket.ip_address_list.find { |a| a.ipv4? && !a.ipv4_loopback? }.ip_addre
 PORT = 9999
 
 GitHubMockBackend::Boot.boot(HOST, PORT)
+
+# We can bind Appium to localhost because only the machine
+# running the tests needs access to it
+APPIUM_SERVER_URL = "http://localhost:4723"
+
+puts "Appium server URL: #{APPIUM_SERVER_URL}"
+
+# Boot up Appium here
+# node node_modules/appium/bin/appium -a HOST
+
+# Appium
+caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
+Appium::Driver.new({:caps => caps, :custom_url => APPIUM_SERVER_URL})
+Appium.promote_appium_methods CustomWorld
+$driver.start_driver

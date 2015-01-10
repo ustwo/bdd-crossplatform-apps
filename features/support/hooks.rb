@@ -1,6 +1,6 @@
-# Before { $driver.start_driver }
-# After { $driver.driver_quit }
+Before { $driver.reset }
 
 at_exit do
   GitHubMockBackend::Boot.exit
+  $driver.driver_quit
 end
