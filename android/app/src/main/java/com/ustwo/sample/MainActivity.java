@@ -32,10 +32,8 @@ import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private final RestAdapter mRestAdapter = new RestAdapter.Builder()
-            .setEndpoint("https://api.github.com")
-            .build();
-    private final GitHub mGitHubService = mRestAdapter.create(GitHub.class);
+    private RestAdapter mRestAdapter;
+    private GitHub mGitHubService;
 
     private ProgressDialog mProgressDialog;
 
@@ -44,6 +42,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        mRestAdapter = new RestAdapter.Builder()
+                .setEndpoint(getString(R.string.app_endpoint_url))
+                .build();
+        mGitHubService = mRestAdapter.create(GitHub.class);
 
         getListView().setOnItemClickListener(this);
 

@@ -11,8 +11,10 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-
+    productFlavors {
+        local {
+            applicationId "com.ustwo.sample.local"
+        }
     }
 }
 
