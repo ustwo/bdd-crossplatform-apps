@@ -1,6 +1,9 @@
 require 'tmpdir'
 require 'tenjin'
 require 'uri'
+require_relative 'features/support/commands/cucumber_command'
+require_relative 'features/support/commands/xcodebuild_command'
+require_relative 'features/support/commands/gradle_command'
 require_relative 'features/support/mock_backend/mock_backend'
 
 task :default => :bdd_ios
@@ -20,7 +23,7 @@ task :bdd_android do
 
   # compile
   Dir.chdir('android/')
-  puts `./gradlew assembleLocalDebug`
+  GradleCommand.new.execute
   Dir.chdir('../')
 
   # appium.txt
@@ -31,7 +34,7 @@ task :bdd_android do
   File.write('appium.txt', appium_txt)
 
   # cucumber
-  puts `cucumber`
+  CucumberCommand.new.execute
 end
 
 task :bdd_ios do
@@ -49,23 +52,21 @@ task :bdd_ios do
 
   tmpdir = Dir.mktmpdir
   scheme = 'AppTestingSample'
-  build_configuration = 'AppTestingSample-BDD'
+  configuration = 'AppTestingSample-BDD'
 
   # compile
   puts tmpdir
   Dir.chdir('ios/')
-  puts `xcodebuild -scheme #{scheme} -derivedDataPath #{tmpdir} -configuration #{build_configuration} OBJROOT=#{tmpdir} SYMROOT=#{tmpdir} -sdk iphonesimulator build`
+  XCodeBuildCommand.new(scheme, configuration, tmpdir).execute
   Dir.chdir('../')
 
   # appium.txt
-  # device = 'appium' # <-- emulator or device ID, must be connected and/or already running
   app = "#{tmpdir}/Release-iphonesimulator/AppTestingSample.app"
   appium_txt = tenjin.render('appium_ios.txt', {app: app})
 
   File.write('appium.txt', appium_txt)
 
-  # cucumber
-  puts `cucumber`
+  CucumberCommand.new.execute
 
   # clean up
   FileUtils.rm_rf(tmpdir)

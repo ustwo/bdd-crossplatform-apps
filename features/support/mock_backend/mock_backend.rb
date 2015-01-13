@@ -1,5 +1,6 @@
 require 'json'
 require 'grape'
+require_relative '../commands/shotgun_command'
 
 module GitHubMockBackend
     class API < Grape::API
@@ -59,10 +60,9 @@ module GitHubMockBackend
       host = Bind.host
       port = Bind.port
 
-      @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("shotgun -o #{host} -p #{port} #{config_ru_path}")
-      @pid = @wait_thr[:pid]
-
-      puts "Mock server PID: #{@pid}"
+      @shotgun = ShotgunCommand.new(host, port, config_ru_path)
+      @shotgun.execute
+      puts "Mock server PID: #{@shotgun.pid}"
 
       while true
 
@@ -79,12 +79,7 @@ module GitHubMockBackend
     end
 
     def close
-      @stdin.close
-      @stdout.close
-      @stderr.close
-
-      `kill -9 #{@pid}`
-
+      @shotgun.close
       puts "Mock server finished"
     end
 
