@@ -1,10 +1,11 @@
+require_relative '../support/mock_backend/mock_backend'
+
 Given(/^I am on the commit list screen$/) do
   @screen = launch_to_commit_list_screen
 end
 
 Then(/^I should be able to see the repository title$/) do
-  
-  expected_title = GitHubMockBackend.gimme_latest_json_for_whatever_endpoint
+  expected_title = 'Form validation framework for iOS.'
   actual_title = @screen.get_title
 
   expect(actual_title).to eq(expected_title)

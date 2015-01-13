@@ -1,6 +1,10 @@
 class CommitListScreen < BaseScreen
 
 	def get_title
-		find_element(id: ids.commit_list_screen_title).text
+		commitlist_header_title.text
+	end
+
+	def commitlist_header_title
+		return $driver.find_element(id: ids[:commitlist_header_title])
 	end
 end

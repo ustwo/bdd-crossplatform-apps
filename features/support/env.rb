@@ -3,7 +3,7 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
-require_relative 'element_id_map'
+require_relative 'element_ids'
 
 class CustomWorld
 

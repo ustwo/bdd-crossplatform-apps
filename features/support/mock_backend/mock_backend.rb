@@ -2,8 +2,7 @@ require 'json'
 require 'grape'
 
 module GitHubMockBackend
-
-  class API < Grape::API
+    class API < Grape::API
 
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
