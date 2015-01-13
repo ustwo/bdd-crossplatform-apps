@@ -1,5 +1,5 @@
 //
-//  US2ViewController.h
+//  US2RepositoryCommitsViewController.h
 //  AppTestingSample
 //
 //  Created by Martin on 08/01/2015.
@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface US2ViewController : UIViewController
+@interface US2RepositoryCommitsViewController : UIViewController
 @end

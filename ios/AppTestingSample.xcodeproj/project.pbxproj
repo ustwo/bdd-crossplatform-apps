@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5BC53EE21A5EAE48006E398A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE11A5EAE48006E398A /* main.m */; };
 		5BC53EE51A5EAE48006E398A /* US2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */; };
-		5BC53EE81A5EAE48006E398A /* US2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE71A5EAE48006E398A /* US2ViewController.m */; };
+		5BC53EE81A5EAE48006E398A /* US2RepositoryCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */; };
 		5BC53EEB1A5EAE48006E398A /* US2Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EE91A5EAE48006E398A /* US2Main.storyboard */; };
 		5BC53EED1A5EAE48006E398A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EEC1A5EAE48006E398A /* Images.xcassets */; };
 		5BC53EF01A5EAE48006E398A /* US2LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */; };
@@ -17,6 +17,8 @@
 		5BC53F071A5EB149006E398A /* US2Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F061A5EB149006E398A /* US2Commit.m */; };
 		5BC53F0A1A5EF6DD006E398A /* US2CommitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */; };
 		5BC53F0D1A6026D4006E398A /* US2CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */; };
+		5BE64F381A6437BE00AAA842 /* server.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BE64F371A6437BE00AAA842 /* server.json */; };
+		5BE64F3B1A64396900AAA842 /* US2Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64F3A1A64396900AAA842 /* US2Server.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +37,8 @@
 		5BC53EE11A5EAE48006E398A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5BC53EE31A5EAE48006E398A /* US2AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = US2AppDelegate.h; sourceTree = "<group>"; };
 		5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = US2AppDelegate.m; sourceTree = "<group>"; };
-		5BC53EE61A5EAE48006E398A /* US2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = US2ViewController.h; sourceTree = "<group>"; };
-		5BC53EE71A5EAE48006E398A /* US2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = US2ViewController.m; sourceTree = "<group>"; };
+		5BC53EE61A5EAE48006E398A /* US2RepositoryCommitsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = US2RepositoryCommitsViewController.h; sourceTree = "<group>"; };
+		5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = US2RepositoryCommitsViewController.m; sourceTree = "<group>"; };
 		5BC53EEA1A5EAE48006E398A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/US2Main.storyboard; sourceTree = "<group>"; };
 		5BC53EEC1A5EAE48006E398A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5BC53EEF1A5EAE48006E398A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/US2LaunchScreen.xib; sourceTree = "<group>"; };
@@ -49,6 +51,9 @@
 		5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitTableViewCell.m; sourceTree = "<group>"; };
 		5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2CommitDetailViewController.h; sourceTree = "<group>"; };
 		5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitDetailViewController.m; sourceTree = "<group>"; };
+		5BE64F371A6437BE00AAA842 /* server.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server.json; sourceTree = "<group>"; };
+		5BE64F391A64396900AAA842 /* US2Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2Server.h; sourceTree = "<group>"; };
+		5BE64F3A1A64396900AAA842 /* US2Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2Server.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +95,12 @@
 		5BC53EDE1A5EAE48006E398A /* AppTestingSample */ = {
 			isa = PBXGroup;
 			children = (
+				5BE64F391A64396900AAA842 /* US2Server.h */,
+				5BE64F3A1A64396900AAA842 /* US2Server.m */,
 				5BC53EE31A5EAE48006E398A /* US2AppDelegate.h */,
 				5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */,
-				5BC53EE61A5EAE48006E398A /* US2ViewController.h */,
-				5BC53EE71A5EAE48006E398A /* US2ViewController.m */,
+				5BC53EE61A5EAE48006E398A /* US2RepositoryCommitsViewController.h */,
+				5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */,
 				5BC53EE91A5EAE48006E398A /* US2Main.storyboard */,
 				5BC53EEC1A5EAE48006E398A /* Images.xcassets */,
 				5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */,
@@ -104,6 +111,7 @@
 				5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */,
 				5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */,
 				5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */,
+				5BE64F371A6437BE00AAA842 /* server.json */,
 			);
 			path = AppTestingSample;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 			files = (
 				5BC53EEB1A5EAE48006E398A /* US2Main.storyboard in Resources */,
 				5BC53EF01A5EAE48006E398A /* US2LaunchScreen.xib in Resources */,
+				5BE64F381A6437BE00AAA842 /* server.json in Resources */,
 				5BC53EED1A5EAE48006E398A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,7 +246,8 @@
 				5BC53F071A5EB149006E398A /* US2Commit.m in Sources */,
 				5BC53F0D1A6026D4006E398A /* US2CommitDetailViewController.m in Sources */,
 				5BC53F0A1A5EF6DD006E398A /* US2CommitTableViewCell.m in Sources */,
-				5BC53EE81A5EAE48006E398A /* US2ViewController.m in Sources */,
+				5BC53EE81A5EAE48006E398A /* US2RepositoryCommitsViewController.m in Sources */,
+				5BE64F3B1A64396900AAA842 /* US2Server.m in Sources */,
 				5BC53EE51A5EAE48006E398A /* US2AppDelegate.m in Sources */,
 				5BC53EE21A5EAE48006E398A /* main.m in Sources */,
 			);

@@ -1,12 +1,12 @@
 //
-//  US2ViewController.m
+//  US2RepositoryCommitsViewController.m
 //  AppTestingSample
 //
 //  Created by Martin on 08/01/2015.
 //  Copyright (c) 2015 ustwo. All rights reserved.
 //
 
-#import "US2ViewController.h"
+#import "US2RepositoryCommitsViewController.h"
 
 // Model
 #import "US2Commit.h"
@@ -16,8 +16,9 @@
 
 // Controller
 #import "US2CommitDetailViewController.h"
+#import "US2Server.h"
 
-@interface US2ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface US2RepositoryCommitsViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong, readwrite) IBOutlet UITableView *tableView;
 @property (nonatomic, strong, readwrite) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
 @property (nonatomic, strong, readwrite) IBOutlet UILabel *errorLabel;
@@ -28,7 +29,7 @@
 @property (nonatomic, strong, readwrite) NSDateFormatter *dateFormatter;
 @end
 
-@implementation US2ViewController
+@implementation US2RepositoryCommitsViewController
 
 #pragma mark - Life cycle
 
@@ -62,12 +63,16 @@
     self.isLoading = YES;
     [self __updateLoadingIndicator];
     
-    NSString *url = @"https://api.github.com/repos/ustwo/#{respository_name}/commits?per_page=#{count}";
-    url = [url stringByReplacingOccurrencesOfString:@"#{respository_name}" withString:repositoryName];
-    url = [url stringByReplacingOccurrencesOfString:@"#{count}" withString:@(count).stringValue];
+    NSURLComponents *components = [[NSURLComponents alloc] init];
+    [components setScheme:[US2Server scheme]];
+    [components setHost:[US2Server host]];
+    [components setPort:[US2Server port]];
+    [components setQuery:[NSString stringWithFormat:@"per_page=%lu", (unsigned long)count]];
+    [components setPath:[NSString stringWithFormat:@"/repos/ustwo/%@/commits", repositoryName]];
+    NSURL *url = [components URL];
     
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         self.isLoading = NO;
         
         if (error) {
@@ -167,6 +172,7 @@
 }
 
 - (void)__initLoadingIndicator {
+    [self.loadingActivityIndicatorView startAnimating];
     self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit-list.loading-indicator";
 }
 
