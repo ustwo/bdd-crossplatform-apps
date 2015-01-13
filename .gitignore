@@ -9,7 +9,7 @@ android/build*
 android/.gradle*
 **.iml
 **.idea/
-android/gradle/local.properties
+android/local.properties
 
 # iOS
 
