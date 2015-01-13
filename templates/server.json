@@ -1,0 +1,7 @@
+{
+    "server": {
+        "scheme": "${@schema}",
+        "host": "${@host}"
+        "port": "${@port}"
+    }
+}
