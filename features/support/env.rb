@@ -9,6 +9,15 @@ class CustomWorld
   def get_driver
     $driver
   end
+
+  def launch_to_commit_list_screen
+  	CommitListScreen.new (get_ids)
+  end
+
+  def get_ids
+  	# if Android/iOS/web
+  	AndroidIds.new
+  end
 end
 
 World do
