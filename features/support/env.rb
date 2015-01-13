@@ -3,6 +3,7 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
+require_relative 'element_id_map'
 
 class CustomWorld
 
@@ -11,12 +12,11 @@ class CustomWorld
   end
 
   def launch_to_commit_list_screen
-  	CommitListScreen.new (get_ids)
+  	CommitListScreen.new (element_ids)
   end
 
-  def get_ids
-  	# if Android/iOS/web
-  	AndroidIds.new
+  def element_ids
+    ids = ElementIds.ids('android')
   end
 end
 
