@@ -11,8 +11,8 @@ class CustomWorld
     $driver
   end
 
-  def element_id_map
-    map = ElementIdMap.map("android")
+  def element_ids
+    ids = ElementIds.ids('android')
   end
 end
 
