@@ -1,6 +1,7 @@
 # General
 
 **.DS_Store
+*.cache
 
 # Android
 
@@ -32,3 +33,7 @@ Pods/
 # node
 
 node_modules
+
+# appium
+
+appium.txt

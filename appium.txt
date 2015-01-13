@@ -1,4 +1,0 @@
-platformName = "iOS"
-platformVersion = "8.1"
-deviceName = "iPhone 6"
-app = "~/Library/Developer/Xcode/DerivedData/AppTestingSample-ggafmijozrhhbffilvfgzmrmtpln/Build/Products/Debug-iphonesimulator/AppTestingSample.app"

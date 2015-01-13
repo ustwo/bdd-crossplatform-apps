@@ -28,14 +28,37 @@ module GitHubMockBackend
 
   end
 
+  class Bind
+
+    def self.host
+
+      # mix of these two:
+      # http://stackoverflow.com/questions/14019287/get-the-ip-address-of-local-machine-rails
+      # http://stackoverflow.com/questions/5029427/ruby-get-local-ip-nix
+
+      Socket.ip_address_list.find { |a| a.ipv4? && !a.ipv4_loopback? }.ip_address
+    end
+
+    def self.port
+      9999
+    end
+
+    def self.url
+      "http://#{Bind.host}:#{Bind.port}"
+    end
+  end
+
   class Boot
 
-    def initialize(host, port)
+    def initialize
 
       config_ru_path = 'features/support/mock_backend/config.ru'
+      full_url = Bind.url
 
-      full_url = "http://#{host}:#{port}"
       puts "About to boot up mock server at: #{full_url}"
+
+      host = Bind.host
+      port = Bind.port
 
       @stdin, @stdout, @stderr, @wait_thr = Open3.popen3("shotgun -o #{host} -p #{port} #{config_ru_path}")
       @pid = @wait_thr[:pid]
@@ -66,8 +89,8 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot(host, port)
-      @@boot = Boot.new(host, port)
+    def self.boot
+      @@boot = Boot.new
     end
 
     def self.exit

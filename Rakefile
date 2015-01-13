@@ -1,18 +1,34 @@
 require 'tmpdir'
-
-# NOTE (JD): this is tmp work until
-# we get cuesmash to do most of it
+require 'tenjin'
+require_relative 'features/support/mock_backend/mock_backend'
 
 task :default => :bdd_android
 
 task :bdd_android do
 
+  puts "Android"
+
+  tenjin = Tenjin::Engine.new(path: ['templates'])
+
+  # update strings.xml
+  mock_backend_url = GitHubMockBackend::Bind.url
+
+  strings_xml = tenjin.render('strings.xml', {url: mock_backend_url})
+  File.write('android/app/src/local/res/values/strings.xml', strings_xml)
+
+  # compile
   Dir.chdir('android/')
-
-  puts `./gradlew a`
-
+  puts `./gradlew assembleLocalDebug`
   Dir.chdir('../')
 
+  # appium.txt
+  device = 'appium' # <-- emulator or device ID, must be connected and/or already running
+  apk = 'android/app/build/outputs/apk/app-debug.apk'
+  appium_txt = tenjin.render('appium_android.txt', {device: device, apk: apk})
+
+  File.write('appium.txt', appium_txt)
+
+  # cucumber
   puts `cucumber`
 end
 

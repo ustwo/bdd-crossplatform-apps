@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'cuesmash'
 gem 'cucumber'
 gem 'rspec'
 gem 'rake'
@@ -10,3 +9,4 @@ gem 'appium_console'
 gem 'json'
 gem 'httparty'
 gem 'shotgun'
+gem 'tenjin'
