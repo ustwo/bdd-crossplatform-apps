@@ -12,7 +12,7 @@ class CustomWorld
   end
 
   def element_id_map
-    map = ElementIdMap.map
+    map = ElementIdMap.map("android")
   end
 end
 

@@ -1,4 +1,4 @@
-require_relative 'element_id_map'
+require_relative 'element_ids'
 
-map = ElementIdMap.map
-puts map[:commitlist_button_refresh]
+ids = ElementIds.ids('android')
+puts ids[:commitlist_button_refresh]
