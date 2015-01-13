@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B6283B31A652E6200880D01 /* US2Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F061A5EB149006E398A /* US2Commit.m */; };
+		5B6283B41A652E6200880D01 /* US2CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */; };
+		5B6283B51A652E6200880D01 /* US2CommitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */; };
+		5B6283B61A652E6200880D01 /* US2RepositoryCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */; };
+		5B6283B71A652E6200880D01 /* US2Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64F3A1A64396900AAA842 /* US2Server.m */; };
+		5B6283B81A652E6200880D01 /* US2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */; };
+		5B6283B91A652E6200880D01 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE11A5EAE48006E398A /* main.m */; };
+		5B6283BC1A652E6200880D01 /* US2Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EE91A5EAE48006E398A /* US2Main.storyboard */; };
+		5B6283BD1A652E6200880D01 /* US2LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */; };
+		5B6283BE1A652E6200880D01 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC53EEC1A5EAE48006E398A /* Images.xcassets */; };
+		5B6283C51A652EF800880D01 /* server.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B6283C41A652EF800880D01 /* server.json */; };
+		5B6283C71A652F8500880D01 /* Info-BDD.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B6283C61A652F8500880D01 /* Info-BDD.plist */; };
 		5BC53EE21A5EAE48006E398A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE11A5EAE48006E398A /* main.m */; };
 		5BC53EE51A5EAE48006E398A /* US2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */; };
 		5BC53EE81A5EAE48006E398A /* US2RepositoryCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */; };
@@ -17,7 +29,6 @@
 		5BC53F071A5EB149006E398A /* US2Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F061A5EB149006E398A /* US2Commit.m */; };
 		5BC53F0A1A5EF6DD006E398A /* US2CommitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */; };
 		5BC53F0D1A6026D4006E398A /* US2CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */; };
-		5BE64F381A6437BE00AAA842 /* server.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BE64F371A6437BE00AAA842 /* server.json */; };
 		5BE64F3B1A64396900AAA842 /* US2Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE64F3A1A64396900AAA842 /* US2Server.m */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B6283C21A652E6200880D01 /* AppTestingSample-BDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppTestingSample-BDD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B6283C41A652EF800880D01 /* server.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server.json; sourceTree = "<group>"; };
+		5B6283C61A652F8500880D01 /* Info-BDD.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-BDD.plist"; sourceTree = "<group>"; };
 		5BC53EDC1A5EAE48006E398A /* AppTestingSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppTestingSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BC53EE01A5EAE48006E398A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BC53EE11A5EAE48006E398A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -51,12 +65,18 @@
 		5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitTableViewCell.m; sourceTree = "<group>"; };
 		5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2CommitDetailViewController.h; sourceTree = "<group>"; };
 		5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2CommitDetailViewController.m; sourceTree = "<group>"; };
-		5BE64F371A6437BE00AAA842 /* server.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server.json; sourceTree = "<group>"; };
 		5BE64F391A64396900AAA842 /* US2Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = US2Server.h; sourceTree = "<group>"; };
 		5BE64F3A1A64396900AAA842 /* US2Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = US2Server.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5B6283BA1A652E6200880D01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC53ED91A5EAE48006E398A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +108,7 @@
 			children = (
 				5BC53EDC1A5EAE48006E398A /* AppTestingSample.app */,
 				5BC53EF51A5EAE48006E398A /* AppTestingSampleTests.xctest */,
+				5B6283C21A652E6200880D01 /* AppTestingSample-BDD.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,17 +122,16 @@
 				5BC53EE41A5EAE48006E398A /* US2AppDelegate.m */,
 				5BC53EE61A5EAE48006E398A /* US2RepositoryCommitsViewController.h */,
 				5BC53EE71A5EAE48006E398A /* US2RepositoryCommitsViewController.m */,
-				5BC53EE91A5EAE48006E398A /* US2Main.storyboard */,
-				5BC53EEC1A5EAE48006E398A /* Images.xcassets */,
-				5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */,
-				5BC53EDF1A5EAE48006E398A /* Supporting Files */,
 				5BC53F051A5EB149006E398A /* US2Commit.h */,
 				5BC53F061A5EB149006E398A /* US2Commit.m */,
 				5BC53F081A5EF6DD006E398A /* US2CommitTableViewCell.h */,
 				5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */,
 				5BC53F0B1A6026D4006E398A /* US2CommitDetailViewController.h */,
 				5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */,
-				5BE64F371A6437BE00AAA842 /* server.json */,
+				5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */,
+				5BC53EE91A5EAE48006E398A /* US2Main.storyboard */,
+				5BC53EEC1A5EAE48006E398A /* Images.xcassets */,
+				5BC53EDF1A5EAE48006E398A /* Supporting Files */,
 			);
 			path = AppTestingSample;
 			sourceTree = "<group>";
@@ -119,7 +139,9 @@
 		5BC53EDF1A5EAE48006E398A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5B6283C41A652EF800880D01 /* server.json */,
 				5BC53EE01A5EAE48006E398A /* Info.plist */,
+				5B6283C61A652F8500880D01 /* Info-BDD.plist */,
 				5BC53EE11A5EAE48006E398A /* main.m */,
 			);
 			name = "Supporting Files";
@@ -145,6 +167,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5B6283B11A652E6200880D01 /* AppTestingSample-BDD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B6283BF1A652E6200880D01 /* Build configuration list for PBXNativeTarget "AppTestingSample-BDD" */;
+			buildPhases = (
+				5B6283B21A652E6200880D01 /* Sources */,
+				5B6283BA1A652E6200880D01 /* Frameworks */,
+				5B6283BB1A652E6200880D01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AppTestingSample-BDD";
+			productName = AppTestingSample;
+			productReference = 5B6283C21A652E6200880D01 /* AppTestingSample-BDD.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5BC53EDB1A5EAE48006E398A /* AppTestingSample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5BC53EFF1A5EAE49006E398A /* Build configuration list for PBXNativeTarget "AppTestingSample" */;
@@ -212,19 +251,31 @@
 			projectRoot = "";
 			targets = (
 				5BC53EDB1A5EAE48006E398A /* AppTestingSample */,
+				5B6283B11A652E6200880D01 /* AppTestingSample-BDD */,
 				5BC53EF41A5EAE48006E398A /* AppTestingSampleTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5B6283BB1A652E6200880D01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B6283BC1A652E6200880D01 /* US2Main.storyboard in Resources */,
+				5B6283BD1A652E6200880D01 /* US2LaunchScreen.xib in Resources */,
+				5B6283C51A652EF800880D01 /* server.json in Resources */,
+				5B6283BE1A652E6200880D01 /* Images.xcassets in Resources */,
+				5B6283C71A652F8500880D01 /* Info-BDD.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC53EDA1A5EAE48006E398A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5BC53EEB1A5EAE48006E398A /* US2Main.storyboard in Resources */,
 				5BC53EF01A5EAE48006E398A /* US2LaunchScreen.xib in Resources */,
-				5BE64F381A6437BE00AAA842 /* server.json in Resources */,
 				5BC53EED1A5EAE48006E398A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,6 +290,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5B6283B21A652E6200880D01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B6283B31A652E6200880D01 /* US2Commit.m in Sources */,
+				5B6283B41A652E6200880D01 /* US2CommitDetailViewController.m in Sources */,
+				5B6283B51A652E6200880D01 /* US2CommitTableViewCell.m in Sources */,
+				5B6283B61A652E6200880D01 /* US2RepositoryCommitsViewController.m in Sources */,
+				5B6283B71A652E6200880D01 /* US2Server.m in Sources */,
+				5B6283B81A652E6200880D01 /* US2AppDelegate.m in Sources */,
+				5B6283B91A652E6200880D01 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5BC53ED81A5EAE48006E398A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -291,6 +356,26 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5B6283C01A652E6200880D01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "AppTestingSample/Info-BDD.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "AppTestingSample-BDD";
+			};
+			name = Debug;
+		};
+		5B6283C11A652E6200880D01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "AppTestingSample/Info-BDD.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "AppTestingSample-BDD";
+			};
+			name = Release;
+		};
 		5BC53EFD1A5EAE48006E398A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -424,6 +509,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5B6283BF1A652E6200880D01 /* Build configuration list for PBXNativeTarget "AppTestingSample-BDD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B6283C01A652E6200880D01 /* Debug */,
+				5B6283C11A652E6200880D01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5BC53ED71A5EAE48006E398A /* Build configuration list for PBXProject "AppTestingSample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

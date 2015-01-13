@@ -1,6 +1,6 @@
 {
     "server": {
         "scheme": "https",
-        "host": "api.github.com",
+        "host": "api.github.co"
     }
 }
