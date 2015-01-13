@@ -3,11 +3,16 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
+require_relative 'element_id_map'
 
 class CustomWorld
 
   def get_driver
     $driver
+  end
+
+  def element_id_map
+    map = ElementIdMap.map
   end
 end
 
