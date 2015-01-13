@@ -12,7 +12,8 @@ TBD
 
 ### Android
 
-TBD
+ * Android SDK v21
+ * Java 7
 
 ## Installation
 
