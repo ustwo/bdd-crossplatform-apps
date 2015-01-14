@@ -17,7 +17,7 @@ class CustomWorld
   end
 
   def element_ids
-    platform = 'android'
+    puts 'platform element_ids ' + platform
 
     if (platform == 'android')
       ids = ElementIdsAndroid.ids
@@ -32,6 +32,11 @@ end
 World do
   CustomWorld.new
 end
+
+# Get the platform from rake
+platform = ENV['_PLATFORM']
+
+puts 'Platform: ' + platform
 
 GitHubMockBackend::Boot.boot
 

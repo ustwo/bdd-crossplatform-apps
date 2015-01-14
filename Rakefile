@@ -11,6 +11,7 @@ task :default => :bdd_ios
 task :bdd_android do
 
   puts "Android"
+  ENV['_PLATFORM'] = 'android'
 
   tenjin = Tenjin::Engine.new(path: ['templates'])
 
@@ -40,6 +41,7 @@ end
 task :bdd_ios do
 
   puts "iOS"
+  ENV['_PLATFORM'] = 'ios'
 
   tenjin = Tenjin::Engine.new(path: ['templates'])
 
