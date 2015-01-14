@@ -5,4 +5,4 @@
     android:paddingTop="5dp"
     android:paddingBottom="10dp"
     android:textColor="@android:color/black"
-    android:id="@+id/header_title" />
+    android:id="@+id/commit_list_listview_title" />

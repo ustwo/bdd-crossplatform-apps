@@ -46,8 +46,8 @@ public class CommitsAdapter extends BaseAdapter {
             v = mLayoutInflater.inflate(R.layout.item_commit, null);
 
             holder = new ViewHolder();
-            holder.message = (TextView) v.findViewById(R.id.commit_message);
-            holder.date = (TextView) v.findViewById(R.id.commit_date);
+            holder.message = (TextView) v.findViewById(R.id.commit_list_row_textview_message);
+            holder.date = (TextView) v.findViewById(R.id.commit_list_row_textview_date);
 
             v.setTag(holder);
         } else {
