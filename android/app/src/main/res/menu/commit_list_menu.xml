@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.ustwo.sample.MainActivity">
+
+    <item
+        android:id="@+id/commit_list_button_refresh"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/refresh"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+</menu>
