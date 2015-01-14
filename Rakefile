@@ -29,7 +29,7 @@ task :bdd_android do
 
   # appium.txt
   device = 'appium' # <-- emulator or device ID, must be connected and/or already running
-  apk = 'android/app/build/outputs/apk/app-debug.apk'
+  apk = 'android/app/build/outputs/apk/app-local-debug.apk'
   appium_txt = tenjin.render('appium_android.txt', {device: device, apk: apk})
 
   File.write('appium.txt', appium_txt)

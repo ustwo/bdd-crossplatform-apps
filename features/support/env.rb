@@ -8,6 +8,10 @@ require_relative 'element_ids_ios'
 
 class CustomWorld
 
+  def initialize platform
+    @platform = platform
+  end
+
   def get_driver
     $driver
   end
@@ -17,26 +21,23 @@ class CustomWorld
   end
 
   def element_ids
-    puts 'platform element_ids ' + platform
-
-    if (platform == 'android')
+    if (@platform == 'android')
       ids = ElementIdsAndroid.ids
-    elsif (platform == 'ios')
+    elsif (@platform == 'ios')
       ids = ElementIdsIos.ids
     else
-      raise 'Unexpected platform: ' + platform + ' cannot initialise ids'
+      raise 'Unexpected platform: ' + @platform + ' cannot initialise ids'
     end
   end
 end
 
-World do
-  CustomWorld.new
-end
-
 # Get the platform from rake
 platform = ENV['_PLATFORM']
-
 puts 'Platform: ' + platform
+
+World do
+  CustomWorld.new(platform)
+end
 
 GitHubMockBackend::Boot.boot
 
