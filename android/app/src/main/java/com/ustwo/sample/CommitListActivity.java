@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,6 +54,23 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         refresh();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.commit_list_button_refresh) {
+            refresh();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void refresh() {
         mProgressDialog = ProgressDialog.show(this, "", getString(R.string.loading), true, false);
         retrieveRepositoryInfo();
@@ -76,12 +94,9 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         mGitHubService.repository(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<RepositoryInfo>() {
             @Override
             public void success(RepositoryInfo repositoryInfo, Response response) {
-                View header = LayoutInflater.from(CommitListActivity.this).inflate(R.layout.listview_header, null);
-                getListView().addHeaderView(header);
-                ((TextView) header.findViewById(R.id.commit_list_listview_title)).setText(repositoryInfo.description);
+                ((TextView) findViewById(R.id.commit_list_textview_title)).setText(repositoryInfo.description);
 
                 retrieveCommitList();
-                Log.d(TAG, repositoryInfo.description);
             }
 
             @Override
