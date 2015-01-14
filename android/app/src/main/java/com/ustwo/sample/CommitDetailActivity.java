@@ -21,8 +21,8 @@ import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
 /**
  * Created by emma on 1/8/15.
  */
-public class DetailActivity extends ActionBarActivity {
-    private static final String TAG = DetailActivity.class.getSimpleName();
+public class CommitDetailActivity extends ActionBarActivity {
+    private static final String TAG = CommitDetailActivity.class.getSimpleName();
 
     private final RestAdapter mRestAdapter = new RestAdapter.Builder()
             .setEndpoint("https://api.github.com")
@@ -34,7 +34,7 @@ public class DetailActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_commit_detail);
 
         mProgressDialog = ProgressDialog.show(this, "", getString(R.string.loading), true, false);
 
@@ -73,9 +73,9 @@ public class DetailActivity extends ActionBarActivity {
     }
 
     private void updateUI(Commit commit) {
-        ((TextView) findViewById(R.id.detail_name)).setText(commit.author.name);
-        ((TextView) findViewById(R.id.detail_email)).setText(commit.author.email);
-        ((TextView) findViewById(R.id.detail_date)).setText(commit.author.date);
-        ((TextView) findViewById(R.id.detail_message)).setText(commit.message);
+        ((TextView) findViewById(R.id.commit_detail_textview_name)).setText(commit.author.name);
+        ((TextView) findViewById(R.id.commit_detail_textview_email)).setText(commit.author.email);
+        ((TextView) findViewById(R.id.commit_detail_textview_date)).setText(commit.author.date);
+        ((TextView) findViewById(R.id.commit_detail_textview_message)).setText(commit.message);
     }
 }

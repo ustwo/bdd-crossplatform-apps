@@ -29,8 +29,8 @@ import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
 /**
  * Created by emma@ustwo.com on 1/8/15.
  */
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class CommitListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+    private static final String TAG = CommitListActivity.class.getSimpleName();
 
     private RestAdapter mRestAdapter;
     private GitHub mGitHubService;
@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_commit_list);
 
         mRestAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.app_endpoint_url))
@@ -76,9 +76,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         mGitHubService.repository(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<RepositoryInfo>() {
             @Override
             public void success(RepositoryInfo repositoryInfo, Response response) {
-                View header = LayoutInflater.from(MainActivity.this).inflate(R.layout.listview_header, null);
+                View header = LayoutInflater.from(CommitListActivity.this).inflate(R.layout.listview_header, null);
                 getListView().addHeaderView(header);
-                ((TextView) header.findViewById(R.id.header_title)).setText(repositoryInfo.description);
+                ((TextView) header.findViewById(R.id.commit_list_listview_title)).setText(repositoryInfo.description);
 
                 retrieveCommitList();
                 Log.d(TAG, repositoryInfo.description);
@@ -109,14 +109,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     private ListView getListView() {
-        return (ListView) findViewById(R.id.main_listview);
+        return (ListView) findViewById(R.id.commit_list_listview_commits);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CommitSummary commit = (CommitSummary) (parent.getAdapter()).getItem(position);
 
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent(this, CommitDetailActivity.class);
         intent.putExtra(INTENT_KEY_COMMIT_SHA, commit.sha);
         startActivity(intent);
     }
