@@ -8,6 +8,16 @@ module GitHubMockBackend
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
 
+    @@requests = nil
+
+    before do
+
+      @@requests = [] if @@requests == nil
+      @@requests << request
+
+      puts ">>> #{request.fullpath}"
+    end
+
     get '/repos/:org/:repo' do
       API.static_json('default_repo')
     end
@@ -26,6 +36,9 @@ module GitHubMockBackend
       JSON.parse(file_path)
     end
 
+    def self.get_requests
+      @@requests
+    end
   end
 
   class Bind
