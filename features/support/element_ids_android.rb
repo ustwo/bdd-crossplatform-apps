@@ -3,10 +3,20 @@ class ElementIdsAndroid
   def self.ids
 
     map = Hash.new
-    map[:commitlist_header_title] = 'com.ustwo.sample:id/header_title'
 
-    map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commitlist_button_refresh'
-    map[:commitlist_list_row_label_author] = 'com.ustwo.sample:id/commitlist_list_row_label_author'
+    # Commit List Screen
+    map[:commitlist_textview_title] = 'com.ustwo.sample:id/commit_list_textview_title'
+    map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
+
+    # Commit List Row
+    map[:commitlist_row_textview_date] = 'com.ustwo.sample:id/commit_list_row_textview_date'
+    map[:commitlist_row_textview_message] = 'com.ustwo.sample:id/commit_list_row_textview_message'
+
+	# Commit Detail Screen
+    map[:commit_detail_textview_name] = 'com.ustwo.sample:id/commit_detail_textview_name'
+	map[:commit_detail_textview_email] = 'com.ustwo.sample:id/commit_detail_textview_email'
+	map[:commit_detail_textview_date] = 'com.ustwo.sample:id/commit_detail_textview_date'
+	map[:commit_detail_textview_message] = 'com.ustwo.sample:id/commit_detail_textview_message'
 
     return map
   end

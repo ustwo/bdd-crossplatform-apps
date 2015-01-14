@@ -3,7 +3,8 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
-require_relative 'element_ids'
+require_relative 'element_ids_android'
+require_relative 'element_ids_ios'
 
 class CustomWorld
 
@@ -16,7 +17,15 @@ class CustomWorld
   end
 
   def element_ids
-    ids = ElementIds.ids('android')
+    platform = 'android'
+
+    if (platform == 'android')
+      ids = ElementIdsAndroid.ids
+    elsif (platform == 'ios')
+      ids = ElementIdsIos.ids
+    else
+      raise 'Unexpected platform: ' + platform + ' cannot initialise ids'
+    end
   end
 end
 
