@@ -17,7 +17,9 @@ class CustomWorld
   end
 
   def launch_to_commit_list_screen
-  	CommitListScreen.new (element_ids)
+  	screen = CommitListScreen.new (element_ids)
+    screen.wait_for_load
+    screen
   end
 
   def element_ids

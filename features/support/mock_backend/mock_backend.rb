@@ -1,6 +1,6 @@
 require 'json'
 require 'grape'
-require_relative '../commands/shotgun_command'
+require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
     class API < Grape::API
@@ -8,18 +8,15 @@ module GitHubMockBackend
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
 
-    @@requests = nil
+    @@requests = []
+    @@repo_json = nil
 
     before do
-
-      @@requests = [] if @@requests == nil
       @@requests << request
-
-      puts ">>> #{request.fullpath}"
     end
 
     get '/repos/:org/:repo' do
-      API.static_json('default_repo')
+      @@repo_json = API.static_json('default_repo')
     end
 
     get '/repos/:org/:repo/commits' do
@@ -29,6 +26,15 @@ module GitHubMockBackend
     get '/' do
       content_type 'text/plain'
       body 'Hello World'
+    end
+
+    def self.init
+      @@requests = []
+      @@repo_json = nil
+    end
+
+    def self.get_latest_repo_json
+      @@repo_json
     end
 
     def self.static_json(file_name)
@@ -65,17 +71,14 @@ module GitHubMockBackend
 
     def initialize
 
-      config_ru_path = 'features/support/mock_backend/config.ru'
+      host = Bind.host
+      port = Bind.port
       full_url = Bind.url
 
       puts "About to boot up mock server at: #{full_url}"
 
-      host = Bind.host
-      port = Bind.port
-
-      @shotgun = ShotgunCommand.new(host, port, config_ru_path)
-      @shotgun.execute
-      puts "Mock server PID: #{@shotgun.pid}"
+      @bootup = BootupServerCommand.new(host, port)
+      @bootup.execute
 
       while true
 
@@ -92,7 +95,7 @@ module GitHubMockBackend
     end
 
     def close
-      @shotgun.close
+      @bootup.close
       puts "Mock server finished"
     end
 
