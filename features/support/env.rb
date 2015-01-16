@@ -8,8 +8,8 @@ require_relative 'element_ids_ios'
 
 class CustomWorld
 
-  def initialize platform
-    @platform = platform
+  def initialize ids
+    @ids = ids
   end
 
   def get_driver
@@ -17,28 +17,29 @@ class CustomWorld
   end
 
   def launch_to_commit_list_screen
-  	screen = CommitListScreen.new (element_ids)
+  	screen = CommitListScreen.new (@ids)
     screen.wait_for_load
     screen
   end
+end
 
-  def element_ids
-    if (@platform == 'android')
-      ids = ElementIdsAndroid.ids
-    elsif (@platform == 'ios')
-      ids = ElementIdsIos.ids
+class FactoryId
+
+  def self.get_ids platform
+
+    case platform
+    when 'android'
+      ElementIdsAndroid.ids
+    when 'ios'
+      ElementIdsIos.ids
     else
-      raise 'Unexpected platform: ' + @platform + ' cannot initialise ids'
+      raise "Unexpected platform '#{platform}', cannot initialise ids"
     end
   end
 end
 
-# Get the platform from rake
-platform = ENV['_PLATFORM']
-puts 'Platform: ' + platform
-
 World do
-  CustomWorld.new(platform)
+  CustomWorld.new(FactoryId.get_ids(ENV['_PLATFORM']))
 end
 
 GitHubMockBackend::Boot.boot
