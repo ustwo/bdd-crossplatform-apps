@@ -13,10 +13,12 @@ android {
     }
     productFlavors {
         production {
-            // default flavour
+            // default flavour, hits GitHub's api
+            // see strings.xml for endpoint
         }
         local {
-            applicationId "com.ustwo.sample.local"
+            // testing flavour, uses local mock server
+            // strings.xml file is generated into local directory
         }
     }
 }
