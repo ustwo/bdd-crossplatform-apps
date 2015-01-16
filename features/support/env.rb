@@ -17,6 +17,7 @@ class CustomWorld
   end
 
   def launch_to_commit_list_screen
+    $driver.start_driver
   	screen = CommitListScreen.new (@ids)
     screen.wait_for_load
     screen
@@ -57,4 +58,3 @@ puts "Appium server URL: #{APPIUM_SERVER_URL}"
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
 Appium::Driver.new({:caps => caps, :custom_url => APPIUM_SERVER_URL})
 Appium.promote_appium_methods CustomWorld
-$driver.start_driver

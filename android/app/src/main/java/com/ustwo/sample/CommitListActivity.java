@@ -111,7 +111,15 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         mGitHubService.commitList(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<List<CommitSummary>>() {
             @Override
             public void success(List<CommitSummary> commits, Response response) {
-                getListView().setAdapter(new CommitsAdapter(getApplicationContext(), commits));
+
+                if(commits.size() > 0) {
+                    getListView().setAdapter(new CommitsAdapter(getApplicationContext(), commits));
+                } else {
+
+                    findViewById(R.id.commit_list_listview_commits).setVisibility(View.GONE);
+                    findViewById(R.id.commit_list_no_commits_title).setVisibility(View.VISIBLE);
+                }
+
                 dismissProgressDialog();
             }
 

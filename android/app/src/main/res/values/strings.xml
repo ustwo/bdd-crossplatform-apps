@@ -7,5 +7,6 @@
     <string name="loading">Loading...</string>
     <string name="app_endpoint_url">https://api.github.com</string>
     <string name="refresh">Refresh</string>
+    <string name="no_commits_title">This repo has no commits</string>
 
 </resources>

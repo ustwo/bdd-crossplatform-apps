@@ -10,17 +10,27 @@ module GitHubMockBackend
 
     @@requests = []
     @@repo_json = nil
+    @@commits_json = nil
 
     before do
       @@requests << request
     end
 
     get '/repos/:org/:repo' do
-      @@repo_json = API.static_json('default_repo')
+
+      if @@repo_json.nil?
+        @@repo_json = API.static_json('default_repo')
+      else
+        @@repo_json
+      end
     end
 
     get '/repos/:org/:repo/commits' do
-      API.static_json('default_commits')
+      if @@commits_json.nil?
+        @@commits_json = API.static_json('default_commits')
+      else
+        @@commits_json
+      end
     end
 
     get '/' do
@@ -31,10 +41,19 @@ module GitHubMockBackend
     def self.init
       @@requests = []
       @@repo_json = nil
+      @@commits_json = nil
     end
 
-    def self.get_latest_repo_json
+    def self.get_repo_json
       @@repo_json
+    end
+
+    def self.set_repo_json file_name
+      @@repo_json = API.static_json(file_name)
+    end
+
+    def self.set_commits_json file_name
+      @@commits_json = API.static_json(file_name)
     end
 
     def self.static_json(file_name)

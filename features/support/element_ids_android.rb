@@ -7,6 +7,7 @@ class ElementIdsAndroid
     # Commit List Screen
     map[:commitlist_title] = 'com.ustwo.sample:id/commit_list_textview_title'
     map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
+    map[:commitlist_no_commits_indicator] = 'com.ustwo.sample:id/commit_list_no_commits_title'
 
     # Commit List Row
     map[:commitlist_row_textview_date] = 'com.ustwo.sample:id/commit_list_row_textview_date'

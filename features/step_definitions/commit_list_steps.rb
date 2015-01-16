@@ -5,7 +5,7 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  expected_title = GitHubMockBackend::API.get_latest_repo_json()['description']
+  expected_title = GitHubMockBackend::API.get_repo_json()['description']
   actual_title = @screen.get_title
 
   expect(actual_title).to eq(expected_title)
@@ -36,11 +36,11 @@ Then(/^I should see a loading indicator$/) do
 end
 
 Given(/^the repository has no commits$/) do
-  pending # express the regexp above with the code you wish you had
+  GitHubMockBackend::API.set_commits_json('no_commits_repo')
 end
 
 Then(/^I should see an indicator of no commits$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(@screen.has_no_commits_indicator).to be true
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do

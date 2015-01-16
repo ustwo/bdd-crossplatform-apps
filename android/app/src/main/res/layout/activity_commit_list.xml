@@ -4,7 +4,6 @@
               android:layout_height="wrap_content"
               android:orientation="vertical"
               tools:context="com.ustwo.sample.CommitListActivity">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,5 +24,17 @@
         android:id="@+id/commit_list_listview_commits"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/commit_list_margin_top"
+        android:paddingBottom="@dimen/commit_list_margin_bottom"
+        android:paddingLeft="@dimen/commit_list_margin_horizontal"
+        android:paddingRight="@dimen/commit_list_margin_horizontal"
+        android:textColor="@android:color/black"
+        android:text="@string/no_commits_title"
+        android:id="@+id/commit_list_no_commits_title"
+        android:visibility="gone"/>
 
 </LinearLayout>
