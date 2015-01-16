@@ -5,7 +5,6 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  
   expected_title = GitHubMockBackend::API.get_latest_repo_json()['description']
   actual_title = @screen.get_title
 

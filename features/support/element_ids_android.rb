@@ -5,7 +5,7 @@ class ElementIdsAndroid
     map = Hash.new
 
     # Commit List Screen
-    map[:commitlist_title] = 'com.ustwo.sample.sample:id/commit_list_textview_title'
+    map[:commitlist_title] = 'com.ustwo.sample:id/commit_list_textview_title'
     map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
 
     # Commit List Row

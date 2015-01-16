@@ -9,14 +9,13 @@ module GitHubMockBackend
     format :json
 
     @@requests = []
-    @@repo_json = nil
 
     before do
       @@requests << request
     end
 
     get '/repos/:org/:repo' do
-      @@repo_json = API.static_json('default_repo')
+      API.static_json('default_repo')
     end
 
     get '/repos/:org/:repo/commits' do
@@ -30,11 +29,10 @@ module GitHubMockBackend
 
     def self.init
       @@requests = []
-      @@repo_json = nil
     end
 
     def self.get_latest_repo_json
-      @@repo_json
+      API.static_json('default_repo')
     end
 
     def self.static_json(file_name)
