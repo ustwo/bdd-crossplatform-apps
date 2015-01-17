@@ -40,7 +40,7 @@ class FactoryId
 end
 
 World do
-  CustomWorld.new(FactoryId.get_ids(ENV['_PLATFORM']))
+  CustomWorld.new(FactoryId.get_ids(ENV['PLATFORM']))
 end
 
 GitHubMockBackend::Boot.boot
