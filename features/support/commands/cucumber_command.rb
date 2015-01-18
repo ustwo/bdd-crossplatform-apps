@@ -4,7 +4,7 @@ class CucumberCommand < BlockingCommand
 
   def initialize platform, tags
 
-    @cmd = "cucumber PLATFORM=#{platform}"
+    @cmd = "cucumber -c PLATFORM=#{platform}"
 
     if !tags.nil? && tags.size > 0
 
