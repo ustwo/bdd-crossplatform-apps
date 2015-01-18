@@ -1,5 +1,7 @@
 require 'json'
 require 'grape'
+require 'socket'
+
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
