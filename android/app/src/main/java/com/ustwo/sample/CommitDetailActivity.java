@@ -36,7 +36,7 @@ public class CommitDetailActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_commit_detail);
 
-        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.loading), true, false);
+        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
 
         retrieveCommitInfo(getIntent().getStringExtra(INTENT_KEY_COMMIT_SHA));
     }

@@ -72,7 +72,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     }
 
     private void refresh() {
-        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.loading), true, false);
+        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
         retrieveRepositoryInfo();
     }
 
@@ -101,34 +101,46 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
 
             @Override
             public void failure(RetrofitError error) {
+                showErrorMessage();
                 dismissProgressDialog();
+
                 Log.e(TAG, "Failed to get repository information", error);
             }
         });
+    }
+
+    private void showErrorMessage() {
+        getListView().setVisibility(View.GONE);
+
+        getStatusInformationTextView().setVisibility(View.VISIBLE);
+        getStatusInformationTextView().setText(R.string.commit_list_error);
     }
 
     private void retrieveCommitList() {
         mGitHubService.commitList(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<List<CommitSummary>>() {
             @Override
             public void success(List<CommitSummary> commits, Response response) {
-
-                if(commits.size() > 0) {
-                    getListView().setAdapter(new CommitsAdapter(getApplicationContext(), commits));
+                if (commits.isEmpty()) {
+                    getListView().setVisibility(View.GONE);
+                    getStatusInformationTextView().setVisibility(View.VISIBLE);
                 } else {
-
-                    findViewById(R.id.commit_list_listview_commits).setVisibility(View.GONE);
-                    findViewById(R.id.commit_list_no_commits_title).setVisibility(View.VISIBLE);
+                    getListView().setAdapter(new CommitsAdapter(getApplicationContext(), commits));
                 }
-
                 dismissProgressDialog();
             }
 
             @Override
             public void failure(RetrofitError error) {
+                showErrorMessage();
                 dismissProgressDialog();
+
                 Log.e(TAG, "Failed to get commits", error);
             }
         });
+    }
+
+    private TextView getStatusInformationTextView() {
+        return (TextView) findViewById(R.id.commit_list_textview_status_information);
     }
 
     private ListView getListView() {

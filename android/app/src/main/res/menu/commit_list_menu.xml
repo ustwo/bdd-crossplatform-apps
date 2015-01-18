@@ -6,7 +6,7 @@
     <item
         android:id="@+id/commit_list_button_refresh"
         android:icon="@android:drawable/ic_popup_sync"
-        android:title="@string/refresh"
+        android:title="@string/commit_list_refresh"
         android:orderInCategory="100"
         app:showAsAction="never"/>
 </menu>

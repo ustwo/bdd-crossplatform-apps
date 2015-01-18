@@ -1,9 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              tools:context="com.ustwo.sample.CommitListActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ustwo.sample.CommitListActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,9 +12,12 @@
         android:paddingLeft="@dimen/commit_list_margin_horizontal"
         android:paddingRight="@dimen/commit_list_margin_horizontal"
         android:textColor="@android:color/black"
-        android:id="@+id/commit_list_textview_title"/>
+        android:id="@+id/commit_list_textview_title"
+        android:gravity="top"
+        tools:text="Exciting repo name" />
 
     <ListView
+        android:layout_below="@id/commit_list_textview_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -23,18 +26,21 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:id="@+id/commit_list_listview_commits"
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"/>
+        android:scrollbarStyle="outsideOverlay" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/commit_list_margin_top"
-        android:paddingBottom="@dimen/commit_list_margin_bottom"
-        android:paddingLeft="@dimen/commit_list_margin_horizontal"
-        android:paddingRight="@dimen/commit_list_margin_horizontal"
-        android:textColor="@android:color/black"
-        android:text="@string/no_commits_title"
-        android:id="@+id/commit_list_no_commits_title"
-        android:visibility="gone"/>
+        android:id="@+id/commit_list_textview_status_information"
+        android:gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:layout_centerInParent="true"
+        android:drawableTop="@drawable/ic_launcher"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/commit_list_no_commits" />
 
-</LinearLayout>
+</RelativeLayout>
