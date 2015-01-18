@@ -5,11 +5,13 @@
 
 # Android
 
-android/build*
-android/.gradle*
 **.iml
-**.idea/
+android/.gradle
 android/local.properties
+android/.idea/*
+android/build
+android/app/build
+
 
 # iOS
 
