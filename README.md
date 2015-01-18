@@ -15,6 +15,8 @@ TBD
  * Android SDK v21
  * Java 7
 
+ Note: when opening the project in to Android Studio, be sure to choose the 'android' subdirectory or you may have problems compiling.
+
 ## Installation
 
 For all platforms:
