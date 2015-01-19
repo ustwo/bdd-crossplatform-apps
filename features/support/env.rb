@@ -6,41 +6,54 @@ require_relative 'mock_backend/mock_backend'
 require_relative 'element_ids_android'
 require_relative 'element_ids_ios'
 
+require_relative '../step_definitions/screens/android_commit_list_screen'
+
 class CustomWorld
 
-  def initialize ids
-    @ids = ids
+  def initialize screenFactory
+    @screenFactory = screenFactory
   end
 
-  def get_driver
-    $driver
-  end
-
-  def launch_to_commit_list_screen
+  def launch_to_screen screen
     $driver.start_driver
-  	screen = CommitListScreen.new (@ids)
     screen.wait_for_load
     screen
   end
+
+  def launch_to_commit_list_screen
+    launch_to_screen @screenFactory.get_commit_list_screen()
+  end
+
 end
 
-class FactoryId
+class ScreenFactory
 
-  def self.get_ids platform
+  def initialize platform
+    @platform = platform
 
-    case platform
+    @androidScreens = {commitlist: AndroidCommitListScreen.new(ElementIdsAndroid.ids)}
+    @iosScreens = {commitlist: CommitListScreen.new(ElementIdsIos.ids)}
+  end
+  
+  def get_commit_list_screen
+    get_screen_by_key :commitlist
+  end
+
+  def get_screen_by_key key
+    case @platform
     when 'android'
-      ElementIdsAndroid.ids
+      @androidScreens[key]
     when 'ios'
-      ElementIdsIos.ids
+      @iosScreens[key]
     else
-      raise "Unexpected platform '#{platform}', cannot initialise ids"
+      raise "Unexpected platform '#{@platform}', cannot get get screen by key '#{key}'"
     end
   end
+
 end
 
 World do
-  CustomWorld.new(FactoryId.get_ids(ENV['PLATFORM']))
+  CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
 end
 
 GitHubMockBackend::Boot.boot
