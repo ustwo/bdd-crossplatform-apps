@@ -111,7 +111,7 @@ task :ios_appium_config do
 
   puts "Generating appium.txt"
 
-  app = "ios/build/Release-iphonesimulator/AppTestingSample.app"
+  app = "ios/build/Release-iphonesimulator/AppTestingSample-BDD.app"
   appium_txt = tenjin.render('appium_ios.txt', {app: app})
 
   File.write('appium.txt', appium_txt)
