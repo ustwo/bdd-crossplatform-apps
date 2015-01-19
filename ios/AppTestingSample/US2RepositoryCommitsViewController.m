@@ -156,6 +156,7 @@
 - (void)__initUserInterface {
     [self __initTableView];
     [self __initErrorLabel];
+    [self __initTitle];
     [self __initLoadingIndicator];
     [self __dismissError];
     [self __updateRepositoryTitle];
@@ -168,7 +169,11 @@
 }
 
 - (void)__initErrorLabel {
-    self.errorLabel.accessibilityIdentifier = @"commit-list.error-label";
+    self.errorLabel.accessibilityIdentifier = @"commitlist_no_commits_indicator";
+}
+
+- (void)__initTitle {
+    self.navigationController.navigationBar.accessibilityIdentifier = @"commitlist_title";
 }
 
 - (void)__initLoadingIndicator {
