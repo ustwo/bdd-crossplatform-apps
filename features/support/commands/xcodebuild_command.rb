@@ -2,7 +2,7 @@ require_relative 'blocking_command'
 
 class XCodeBuildCommand < BlockingCommand
 
-  def initialize scheme, configuration, tmpdir 
-    @cmd = "xcodebuild -scheme #{scheme} -derivedDataPath #{tmpdir} -configuration #{configuration} OBJROOT=#{tmpdir} SYMROOT=#{tmpdir} -sdk iphonesimulator build"
+  def initialize scheme, configuration, build_dir
+    @cmd = "xcodebuild -scheme #{scheme} -derivedDataPath #{build_dir} -configuration #{configuration} OBJROOT=#{build_dir} SYMROOT=#{build_dir} -sdk iphonesimulator build"
   end
 end
