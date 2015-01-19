@@ -53,10 +53,15 @@ static const NSUInteger US2DefaultServerPort = 0;
 + (NSDictionary *)serverDictionary {
     NSString *jsonFileName = @"server";
     NSString *filePath = [[NSBundle mainBundle] pathForResource:jsonFileName ofType:@"json"];
-    NSData *jsonData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:nil];
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
     
-    NSDictionary *serverDictionary = jsonObject[@"server"];
+    NSDictionary *serverDictionary = nil;
+    if (filePath) {
+        NSData *jsonData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:nil];
+        NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+        
+        serverDictionary = jsonObject[@"server"];
+    }
+    
     return serverDictionary;
 }
 
