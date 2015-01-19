@@ -97,7 +97,7 @@ task :ios_compile do
   # because we change the working directory before
   # executing xcodebuild
   build_dir = 'build/'
-  scheme = 'AppTestingSample'
+  scheme = 'AppTestingSample-BDD'
   configuration = 'AppTestingSample-BDD'
 
   # compile
