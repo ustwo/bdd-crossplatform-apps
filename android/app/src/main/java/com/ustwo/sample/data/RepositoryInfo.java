@@ -5,4 +5,5 @@ package com.ustwo.sample.data;
  */
 public class RepositoryInfo {
     public String description;
+    public String name;
 }
