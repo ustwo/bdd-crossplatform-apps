@@ -34,6 +34,8 @@ TBD
 
 ## Running tests
 
+Requires an Appium server session running locally at default location ([http://localhost:4723](http://localhost:4723)) until #2 is fixed and manually editing device/emulator IDs in ```templates/appium_[android|ios].txt``` until #3 is fixed.
+
 Use either ```rake android_bdd``` or ```rake ios_bdd```. 
 
 You can limit the set of tests to be run by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!): 
