@@ -22,6 +22,7 @@
 @property (nonatomic, strong, readwrite) IBOutlet UITableView *tableView;
 @property (nonatomic, strong, readwrite) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
 @property (nonatomic, strong, readwrite) IBOutlet UILabel *errorLabel;
+@property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, assign, readwrite) BOOL isLoading;
 @property (nonatomic, strong, readwrite) NSData *urlData;
 @property (nonatomic, strong, readwrite) NSArray *commits;
@@ -207,7 +208,10 @@
 }
 
 - (void)__initTitle {
-    self.navigationController.navigationBar.accessibilityIdentifier = @"commitlist_title";
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, 30.0)];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.accessibilityIdentifier = @"commitlist_title";
+    self.navigationItem.titleView = self.titleLabel;
 }
 
 - (void)__initLoadingIndicator {
@@ -222,7 +226,7 @@
 }
 
 - (void)__updateRepositoryTitle {
-    self.title = self.repositoryName;
+    self.titleLabel.text = self.repositoryName;
 }
 
 - (void)__updateCommitList {
