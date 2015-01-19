@@ -1,4 +1,3 @@
-require 'tmpdir'
 require 'tenjin'
 require 'uri'
 require_relative 'features/support/commands/cucumber_command'
@@ -76,11 +75,10 @@ task :android_bdd, [:tags] => [:android_set_mock_server_url,
   Rake::Task[:cucumber].invoke('android', args[:tags])
 end
 
-desc 'Runs the BDD test suite for iOS'
-task :ios_bdd, [:tags] do |t, args|
+desc 'Sets the URL for the mock backend'
+task :ios_set_mock_server_url do
 
-  puts "iOS"
-  ENV['PLATFORM'] = 'ios'
+  puts "Updating mock backend URL"
 
   # find URL for the local mock server
   mock_backend_url = URI(GitHubMockBackend::Bind.url)
@@ -88,28 +86,46 @@ task :ios_bdd, [:tags] do |t, args|
   # update server json
   server_json = tenjin.render('server.json', {schema: mock_backend_url.scheme, host: mock_backend_url.host, port: mock_backend_url.port})
   File.write('ios/AppTestingSample/server.json', server_json)
+end
 
-  tmpdir = Dir.mktmpdir
-  scheme = 'AppTestingSample'
+desc 'Compiles the iOS app'
+task :ios_compile do
+
+  puts "Compiling iOS app"
+
+  # NOTE (JD): the final path will be 'ios/build'
+  # because we change the working directory before
+  # executing xcodebuild
+  build_dir = 'build/'
+  scheme = 'AppTestingSample-BDD'
   configuration = 'AppTestingSample-BDD'
 
   # compile
-  puts tmpdir
   Dir.chdir('ios/')
-  XCodeBuildCommand.new(scheme, configuration, tmpdir).execute
+  XCodeBuildCommand.new(scheme, configuration, build_dir).execute
   Dir.chdir('../')
+end
 
-  # appium.txt
-  app = "#{tmpdir}/Release-iphonesimulator/AppTestingSample.app"
+desc 'Generates the appium.txt file for iOS'
+task :ios_appium_config do
+
+  puts "Generating appium.txt"
+
+  app = "ios/build/Release-iphonesimulator/AppTestingSample-BDD.app"
   appium_txt = tenjin.render('appium_ios.txt', {app: app})
 
   File.write('appium.txt', appium_txt)
+end
+
+desc 'Runs the BDD test suite for iOS'
+task :ios_bdd, [:tags] =>
+                  [:ios_set_mock_server_url,
+                  :ios_compile,
+                  :ios_appium_config] do |t, args|
+
 
   # need to invoke by hand to pass on parameters
   Rake::Task[:cucumber].invoke('ios', args[:tags])
-
-  # clean up
-  FileUtils.rm_rf(tmpdir)
 end
 
 def tenjin
