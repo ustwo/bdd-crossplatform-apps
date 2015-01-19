@@ -1,3 +1,0 @@
-platformName = "Android"
-deviceName = "appium"
-app = "android/app/build/apk/app-debug.apk"
