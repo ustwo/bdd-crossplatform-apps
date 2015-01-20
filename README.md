@@ -34,7 +34,9 @@ TBD
 
 ## Running tests
 
-Requires an Appium server session running locally at default location ([http://localhost:4723](http://localhost:4723)) until #2 is fixed and manually editing device/emulator IDs in ```templates/appium_[android|ios].txt``` until #3 is fixed.
+Requires an Appium server session running locally at default location ([http://localhost:4723](http://localhost:4723)) until #2 is fixed.
+
+Copy and edit sample iOS and/or Android configuration files from the templates folder, updating the values as required. Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
 
 Use either ```rake android_bdd``` or ```rake ios_bdd```. 
 
