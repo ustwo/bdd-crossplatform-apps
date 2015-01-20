@@ -3,44 +3,28 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
-require_relative 'element_ids_android'
-require_relative 'element_ids_ios'
+require_relative '../step_definitions/screen_factory'
 
 class CustomWorld
 
-  def initialize ids
-    @ids = ids
+  def initialize screenFactory
+    @screenFactory = screenFactory
   end
 
-  def get_driver
-    $driver
-  end
-
-  def launch_to_commit_list_screen
+  def launch_to_screen screen
     $driver.start_driver
-  	screen = CommitListScreen.new (@ids)
     screen.wait_for_load
     screen
   end
-end
 
-class FactoryId
-
-  def self.get_ids platform
-
-    case platform
-    when 'android'
-      ElementIdsAndroid.ids
-    when 'ios'
-      ElementIdsIos.ids
-    else
-      raise "Unexpected platform '#{platform}', cannot initialise ids"
-    end
+  def launch_to_commit_list_screen
+    launch_to_screen @screenFactory.get_commit_list_screen()
   end
+
 end
 
 World do
-  CustomWorld.new(FactoryId.get_ids(ENV['PLATFORM']))
+  CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
 end
 
 GitHubMockBackend::Boot.boot

@@ -94,7 +94,8 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         mGitHubService.repository(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<RepositoryInfo>() {
             @Override
             public void success(RepositoryInfo repositoryInfo, Response response) {
-                ((TextView) findViewById(R.id.commit_list_textview_title)).setText(repositoryInfo.name);
+                ((TextView) findViewById(R.id.commit_list_textview_title)).setText(repositoryInfo.description);
+                getSupportActionBar().setTitle(repositoryInfo.name);
 
                 retrieveCommitList();
             }

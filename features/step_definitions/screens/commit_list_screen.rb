@@ -1,3 +1,5 @@
+require_relative 'base_screen'
+
 class CommitListScreen < BaseScreen
 
 	def get_title
@@ -5,7 +7,7 @@ class CommitListScreen < BaseScreen
 	end
 
 	def has_no_commits_indicator
-		!$driver.find_element(id: ids[:commitlist_no_commits_indicator]).nil?
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
 	end
 
 	def get_text id

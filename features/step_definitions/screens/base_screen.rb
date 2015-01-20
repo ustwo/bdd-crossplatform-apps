@@ -1,9 +1,7 @@
 class BaseScreen
 
-	attr_accessor :ids
-
-	def initialize ids
-		@ids = ids
+	def ids
+		raise "SubclassResponsibility - your AndroidScreen/IosScreen should override this method!" 
 	end
 
 	def wait_for_load
