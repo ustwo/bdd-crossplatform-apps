@@ -1,7 +1,7 @@
 class BaseScreen
 
 	def ids
-		raise "SubclassResponsibility" 
+		raise "SubclassResponsibility - your AndroidScreen/IosScreen should override this method!" 
 	end
 
 	def wait_for_load
