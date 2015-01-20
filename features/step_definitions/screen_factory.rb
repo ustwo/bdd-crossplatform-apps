@@ -1,27 +1,21 @@
-require_relative 'screens/android_commit_list_screen'
-require_relative 'screens/ios_commit_list_screen'
-
 class ScreenFactory
 
   def initialize platform
     @platform = platform
-
-    @androidScreens = {commitlist: AndroidCommitListScreen.new()}
-    @iosScreens = {commitlist: IosCommitListScreen.new()}
   end
   
   def get_commit_list_screen
-    get_screen_by_key :commitlist
+    get_screen_by_key "CommitListScreen"
   end
 
-  def get_screen_by_key key
+  def get_screen_by_key screen_name
     case @platform
     when 'android'
-      @androidScreens[key]
+      Object::const_get("Android#{screen_name}").new()
     when 'ios'
-      @iosScreens[key]
+      Object::const_get("Ios#{screen_name}").new()
     else
-      raise "Unexpected platform '#{@platform}', cannot get get screen by key '#{key}'"
+      raise "Unexpected platform '#{@platform}', cannot get get screen by screen_name '#{screen_name}'"
     end
   end
 
