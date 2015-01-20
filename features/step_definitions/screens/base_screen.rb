@@ -1,9 +1,7 @@
 class BaseScreen
 
-	attr_accessor :ids
-
-	def initialize ids
-		@ids = ids
+	def ids
+		raise "SubclassResponsibility" 
 	end
 
 	def wait_for_load

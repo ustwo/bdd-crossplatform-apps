@@ -3,10 +3,7 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require_relative 'mock_backend/mock_backend'
-require_relative 'element_ids_android'
-require_relative 'element_ids_ios'
-
-require_relative '../step_definitions/screens/android_commit_list_screen'
+require_relative '../step_definitions/screen_factory'
 
 class CustomWorld
 
@@ -22,32 +19,6 @@ class CustomWorld
 
   def launch_to_commit_list_screen
     launch_to_screen @screenFactory.get_commit_list_screen()
-  end
-
-end
-
-class ScreenFactory
-
-  def initialize platform
-    @platform = platform
-
-    @androidScreens = {commitlist: AndroidCommitListScreen.new(ElementIdsAndroid.ids)}
-    @iosScreens = {commitlist: CommitListScreen.new(ElementIdsIos.ids)}
-  end
-  
-  def get_commit_list_screen
-    get_screen_by_key :commitlist
-  end
-
-  def get_screen_by_key key
-    case @platform
-    when 'android'
-      @androidScreens[key]
-    when 'ios'
-      @iosScreens[key]
-    else
-      raise "Unexpected platform '#{@platform}', cannot get get screen by key '#{key}'"
-    end
   end
 
 end
