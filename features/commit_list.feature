@@ -1,6 +1,5 @@
 Feature: display list of commits
 
-@wip
   Scenario: display repository title
     Given I am on the commit list screen
     Then I should be able to see the repository title
@@ -26,7 +25,6 @@ Feature: display list of commits
     When data is loading
     Then I should see a loading indicator
 
-@wip
   Scenario: repository has no commits
     Given the repository has no commits
     And I am on the commit list screen
