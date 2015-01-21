@@ -37,18 +37,11 @@ task :android_appium_config do
 
   puts "Generating appium.txt"
 
-  android_config_file = 'android_config.yml'
-
-  if File.exist?(android_config_file)
-
-    device = YAML.load(File.read(android_config_file))['device']
-    apk = 'android/app/build/outputs/apk/app-local-debug.apk'
-    appium_txt = tenjin.render('appium_android.txt', {device: device, apk: apk})
-    File.write('appium.txt', appium_txt)
-  else
-
-    abort "Cannot find Android configuration file, please add one to the root folder. You can find an example in the templates folder."
-  end
+  config = get_configuration('android')
+  device = config['device']
+  apk = 'android/app/build/outputs/apk/app-local-debug.apk'
+  appium_txt = tenjin.render('appium_android.txt', {device: device, apk: apk})
+  File.write('appium.txt', appium_txt)
 end
 
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
@@ -72,7 +65,9 @@ task :cucumber, [:platform, :tags] do |t, args|
     end
   end
 
-  CucumberCommand.new(platform, tags).execute
+  appium_server_url = get_configuration(platform)['appium_server_url'] || 'http://localhost:4723'
+
+  CucumberCommand.new(platform, tags, appium_server_url).execute
 end
 
 desc 'Runs the BDD test suite for Android'
@@ -120,20 +115,13 @@ task :ios_appium_config do
 
   puts "Generating appium.txt"
 
-  ios_config_file = 'ios_config.yml'
+  config = get_configuration('ios')
+  device = config['device']
+  os = config['os']
+  app = "ios/build/Release-iphonesimulator/AppTestingSample-BDD.app"
+  appium_txt = tenjin.render('appium_ios.txt', {app: app, device: device, os: os})
 
-  if File.exist?(ios_config_file)
-
-    config = YAML.load(File.read(ios_config_file))
-    device = config['device']
-    os = config['os']
-    app = "ios/build/Release-iphonesimulator/AppTestingSample-BDD.app"
-    appium_txt = tenjin.render('appium_ios.txt', {app: app, device: device, os: os})
-
-    File.write('appium.txt', appium_txt)
-  else
-    abort "Cannot find iOS configuration file, please add one to the root folder. You can find an example in the templates folder."
-  end
+  File.write('appium.txt', appium_txt)
 end
 
 desc 'Runs the BDD test suite for iOS'
@@ -149,4 +137,22 @@ end
 
 def tenjin
   Tenjin::Engine.new(path: ['templates'])
+end
+
+def get_configuration platform
+
+  case platform.downcase
+  when 'android'
+    config_file_path = 'android_config.yml'
+  when 'ios'
+    config_file_path = 'ios_config.yml'
+  else
+    abort "Unknown platform #{platform}"
+  end
+
+  if File.exist?(config_file_path)
+    YAML.load(File.read(config_file_path))
+  else
+    abort "Cannot find configuration file, please add one to the root folder. You can find examples in the templates folder."
+  end
 end
