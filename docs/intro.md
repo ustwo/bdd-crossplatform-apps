@@ -8,7 +8,7 @@ Most of those are native mobile apps, but also incresingly web apps.
 
 We think collaboration is key to put together amazing products and we have found in BDD the perfect trojan horse to make that collaboration happen.
 
-The set up we describe below is what underpins the process from a technical point of view. WE don't claim it's perfect or the only way of doing it,it's simply hoy we do it. One of the expected outcomes of publishing it is gather feedback and improve it. So yeah, we are all ears.
+The set up we describe below is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how we do it. One of the expected outcomes of publishing it is gathering feedback and improveing it. So yeah, we are all ears.
 
 
 ### What this is about
@@ -36,6 +36,14 @@ Not an end to end testing set up.
  * [Appium](http://appium.io/) as the test automation framework
  
 
+### The application under test
+
+Needs little code or modification for the purposes of testing.
+
+We asume that the app solves the same business problems in all platforms. This will naturally lead to a very similar interface, which in turn helps sharing the testing codebase.
+
+Please note that there's still room for each app to follow the interaction guidelines of its platform. See the Cucumber section below.
+
 ### Mock backend
 
 Most client side applications are driven by data, typically coming from several sources. What happens on the client is dictated by the data the server feeds it.
@@ -54,6 +62,8 @@ Avoid implementing business logic.
 We consider Cucumber to be an esential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view.
 
 Non-technical people disconnect as soon as anything resembling code shows up in the screen.
+
+Declarative tests and page objects so the codebase is highly reusable across platforms. 
 
 Dirty POs, clean steps.
 
