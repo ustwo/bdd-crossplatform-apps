@@ -16,7 +16,16 @@ Then(/^I should be able to see the latest (\d+) commits$/) do |arg1|
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  pending # express the regexp above with the code you wish you had
+  json = GitHubMockBackend::API.get_commits_json()
+
+  json.each do |commit|
+    expected_message = commit['commit']['message']
+    expected_date = commit['commit']['author']['date']
+
+    # TODO: EJG throw a custom exception message if either of these is not met
+    expect(@screen.has_commit_message(expected_message)).to be true
+    expect(@screen.has_date(expected_date)).to be true
+  end
 end
 
 When(/^I choose to see the details of a specific commit$/) do

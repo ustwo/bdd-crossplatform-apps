@@ -50,6 +50,10 @@ module GitHubMockBackend
       @@repo_json
     end
 
+    def self.get_commits_json
+      @@commits_json
+    end
+
     def self.set_repo_json file_name
       @@repo_json = API.static_json(file_name)
     end
