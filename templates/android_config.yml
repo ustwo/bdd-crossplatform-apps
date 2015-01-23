@@ -1,0 +1,3 @@
+#  emulator or device ID, must be connected and/or already running
+device: 'XXXXX'
+appium_server_url: 'http://localhost:4723'

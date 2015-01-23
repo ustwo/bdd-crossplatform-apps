@@ -1,0 +1,5 @@
+# for example: iPhone 6
+device: 'iPhone 6'
+# for example: 8.1
+os: '8.1'
+appium_server_url: 'http://localhost:4723'

@@ -1,5 +1,6 @@
 require 'tenjin'
 require 'uri'
+require 'yaml'
 require_relative 'features/support/commands/cucumber_command'
 require_relative 'features/support/commands/xcodebuild_command'
 require_relative 'features/support/commands/gradle_command'
@@ -36,7 +37,8 @@ task :android_appium_config do
 
   puts "Generating appium.txt"
 
-  device = 'appium' # <-- emulator or device ID, must be connected and/or already running
+  config = get_configuration('android')
+  device = config['device']
   apk = 'android/app/build/outputs/apk/app-local-debug.apk'
   appium_txt = tenjin.render('appium_android.txt', {device: device, apk: apk})
   File.write('appium.txt', appium_txt)
@@ -63,7 +65,9 @@ task :cucumber, [:platform, :tags] do |t, args|
     end
   end
 
-  CucumberCommand.new(platform, tags).execute
+  appium_server_url = get_configuration(platform)['appium_server_url'] || 'http://localhost:4723'
+
+  CucumberCommand.new(platform, tags, appium_server_url).execute
 end
 
 desc 'Runs the BDD test suite for Android'
@@ -111,8 +115,11 @@ task :ios_appium_config do
 
   puts "Generating appium.txt"
 
+  config = get_configuration('ios')
+  device = config['device']
+  os = config['os']
   app = "ios/build/Release-iphonesimulator/AppTestingSample-BDD.app"
-  appium_txt = tenjin.render('appium_ios.txt', {app: app})
+  appium_txt = tenjin.render('appium_ios.txt', {app: app, device: device, os: os})
 
   File.write('appium.txt', appium_txt)
 end
@@ -130,4 +137,22 @@ end
 
 def tenjin
   Tenjin::Engine.new(path: ['templates'])
+end
+
+def get_configuration platform
+
+  case platform.downcase
+  when 'android'
+    config_file_path = 'android_config.yml'
+  when 'ios'
+    config_file_path = 'ios_config.yml'
+  else
+    abort "Unknown platform #{platform}"
+  end
+
+  if File.exist?(config_file_path)
+    YAML.load(File.read(config_file_path))
+  else
+    abort "Cannot find configuration file, please add one to the root folder. You can find examples in the templates folder."
+  end
 end

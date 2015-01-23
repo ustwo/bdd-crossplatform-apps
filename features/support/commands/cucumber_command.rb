@@ -2,9 +2,9 @@ require_relative 'blocking_command'
 
 class CucumberCommand < BlockingCommand
 
-  def initialize platform, tags
+  def initialize platform, tags, appium_server_url
 
-    @cmd = "cucumber -c PLATFORM=#{platform}"
+    @cmd = "cucumber -c PLATFORM=#{platform} APPIUM_SERVER_URL=#{appium_server_url}"
 
     if !tags.nil? && tags.size > 0
 
@@ -13,7 +13,7 @@ class CucumberCommand < BlockingCommand
       # a decent way of getting Cucumber and Rake to get on well because
       # of how rake tasks get parameters. I'm all ears.
       # More info:
-      #   * https://github.com/cucumber/cucumber/wiki/Tags 
+      #   * https://github.com/cucumber/cucumber/wiki/Tags
       @cmd = @cmd + ' --tags ' + tags.join(',')
     end
   end
