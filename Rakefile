@@ -1,10 +1,12 @@
 require 'tenjin'
 require 'uri'
 require 'yaml'
+require 'httparty'
 require_relative 'features/support/commands/cucumber_command'
 require_relative 'features/support/commands/xcodebuild_command'
 require_relative 'features/support/commands/gradle_command'
 require_relative 'features/support/mock_backend/mock_backend'
+require_relative 'features/support/appium_server/appium_server'
 
 task :default => :android_bdd
 
@@ -44,6 +46,17 @@ task :android_appium_config do
   File.write('appium.txt', appium_txt)
 end
 
+desc 'Boots up an Appium server if there isn\'t one running'
+task :boot_up_appium, [:platform] do |t, args|
+
+  platform = args[:platform]
+  appium_server_url = URI(get_configuration(platform)['appium_server_url'])
+  appium_server_host = appium_server_url.host
+  appium_server_port = appium_server_url.port
+
+  AppiumServer.boot(appium_server_host, appium_server_port)
+end
+
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
 task :cucumber, [:platform, :tags] do |t, args|
 
@@ -76,6 +89,7 @@ task :android_bdd, [:tags] => [:android_set_mock_server_url,
                       :android_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
+  Rake::Task[:boot_up_appium].invoke('android', args[:tags])
   Rake::Task[:cucumber].invoke('android', args[:tags])
 end
 
@@ -130,8 +144,8 @@ task :ios_bdd, [:tags] =>
                   :ios_compile,
                   :ios_appium_config] do |t, args|
 
-
   # need to invoke by hand to pass on parameters
+  Rake::Task[:boot_up_appium].invoke('ios', args[:tags])
   Rake::Task[:cucumber].invoke('ios', args[:tags])
 end
 
@@ -155,4 +169,8 @@ def get_configuration platform
   else
     abort "Cannot find configuration file, please add one to the root folder. You can find examples in the templates folder."
   end
+end
+
+at_exit do
+  AppiumServer.close
 end
