@@ -12,6 +12,7 @@ module GitHubMockBackend
 
     @@requests = []
     @@repo_json = nil
+    @@commit_json = nil
     @@commits_json = nil
 
     before do
@@ -32,6 +33,14 @@ module GitHubMockBackend
         @@commits_json = API.static_json('default_commits')
       else
         @@commits_json
+      end
+    end
+
+    get '/repos/:org/:repo/commits/:commit' do
+      if @@commit_json.nil?
+        @@commit_json = API.static_json('default_commit')
+      else
+        @@commit_json
       end
     end
 

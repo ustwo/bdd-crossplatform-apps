@@ -9,7 +9,7 @@ require_relative '../step_definitions/screen_factory'
 class CustomWorld
 
   def initialize screenFactory
-    @screenFactory = screenFactory
+    @screen_factory = screenFactory
   end
 
   def launch_to_screen screen
@@ -19,7 +19,13 @@ class CustomWorld
   end
 
   def launch_to_commit_list_screen
-    launch_to_screen @screenFactory.get_commit_list_screen()
+    launch_to_screen @screen_factory.get_commit_list_screen()
+  end
+
+  def get_commit_detail_screen
+    commit_detail_screen = @screen_factory.get_commit_detail_screen()
+    commit_detail_screen.wait_for_load
+    commit_detail_screen
   end
 
 end

@@ -20,19 +20,23 @@ Then(/^I should see the commit message and date of each commit$/) do
 end
 
 When(/^I choose to see the details of a specific commit$/) do
-  pending # express the regexp above with the code you wish you had
+  index = 2
+
+  @screen.click_on_commit(index)
 end
 
 Then(/^I should be taken to the commit details screen$/) do
-  pending # express the regexp above with the code you wish you had
+  @detail_screen = get_commit_detail_screen
+
+  expect(@detail_screen.is_on_commit_detail_screen).to be true
 end
 
 When(/^data is loading$/) do
-  pending # express the regexp above with the code you wish you had
+  @screen.set_data_loading
 end
 
 Then(/^I should see a loading indicator$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(@screen.loading_indicator_visible).to be true
 end
 
 Given(/^the repository has no commits$/) do
