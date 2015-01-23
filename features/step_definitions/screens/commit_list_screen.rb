@@ -6,16 +6,12 @@ class CommitListScreen < BaseScreen
 		get_text(:commitlist_title)
 	end
 
-	def has_commit_message message
-		listview = $driver.find_element(id: ids[:commitlist_list])
-
-		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => message)
+	def has_commit_message text
+		!$driver.find_element(name: text).nil?
 	end
 
-	def has_date date
-		listview = $driver.find_element(id: ids[:commitlist_list])
-
-		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => date)
+	def has_date text
+		!$driver.find_element(name: text).nil?
 	end
 
 	def has_no_commits_indicator

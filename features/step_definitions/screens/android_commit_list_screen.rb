@@ -7,6 +7,18 @@ class AndroidCommitListScreen < CommitListScreen
 		$driver.find_element(class: 'android.widget.TextView').name
 	end
 
+	def has_commit_message message
+		listview = $driver.find_element(id: ids[:commitlist_list])
+
+		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => message)
+	end
+
+	def has_date date
+		listview = $driver.find_element(id: ids[:commitlist_list])
+
+		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => date)
+	end
+
 	def ids
 	    map = Hash.new
 
