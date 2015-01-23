@@ -22,8 +22,8 @@ Then(/^I should see the commit message and date of each commit$/) do
     expected_message = commit['commit']['message']
     expected_date = commit['commit']['author']['date']
 
-    expect(@screen.has_commit_message(expected_message)).to be true #, "Expected message '#{expected_message}' was not found in the list of commits"
-    expect(@screen.has_date(expected_date)).to be true #, "Expected date '#{expected_date}' was not found in the list of commits"
+    expect(@screen.has_commit_message(expected_message)).to be(true), "Expected message '#{expected_message}' was not found in the list of commits"
+    expect(@screen.has_date(expected_date)).to be(true), "Expected date '#{expected_date}' was not found in the list of commits"
   end
 end
 
