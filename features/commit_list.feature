@@ -8,7 +8,6 @@ Feature: display list of commits
     Given I am on the commit list screen
     Then I should be able to see the latest 20 commits
 
-  # Question, do we define the date format in here?
   @wip
   Scenario: per-commit information
     Given I am on the commit list screen
