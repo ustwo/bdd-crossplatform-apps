@@ -26,7 +26,7 @@ class NonBlockingCommand
     @stdout.close
     @stderr.close
 
-    "About to kill process: #{@pid}"
+    puts "About to kill process: #{@pid}"
 
     `kill -9 #{@pid}`
   end
