@@ -19,7 +19,6 @@ module GitHubMockBackend
     end
 
     get '/repos/:org/:repo' do
-
       if @@repo_json.nil?
         @@repo_json = API.static_json('default_repo')
       else
