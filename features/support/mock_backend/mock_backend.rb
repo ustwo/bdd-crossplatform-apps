@@ -15,8 +15,15 @@ module GitHubMockBackend
     @@commit_json = nil
     @@commits_json = nil
 
+    @@request_delay = nil
+
     before do
       @@requests << request
+
+      if !@@request_delay.nil?
+        sleep @@request_delay
+        @@request_delay = nil
+      end
     end
 
     get '/repos/:org/:repo' do
@@ -49,10 +56,16 @@ module GitHubMockBackend
       body 'Hello World'
     end
 
+    # Called after every scenario
     def self.init
       @@requests = []
       @@repo_json = nil
       @@commits_json = nil
+      @@request_delay = nil
+    end
+
+    def self.set_request_delay delay
+      @@request_delay = delay
     end
 
     def self.get_repo_json

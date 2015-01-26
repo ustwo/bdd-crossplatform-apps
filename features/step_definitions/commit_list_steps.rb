@@ -31,12 +31,16 @@ Then(/^I should be taken to the commit details screen$/) do
   expect(@detail_screen.is_on_commit_detail_screen).to be true
 end
 
-When(/^data is loading$/) do
-  @screen.set_data_loading
+Given(/^the server is slow responding with data$/) do
+  GitHubMockBackend::API.set_request_delay(5)
 end
 
-Then(/^I should see a loading indicator$/) do
+Then(/^I should see a loading indicator until reponse has been received$/) do
   expect(@screen.loading_indicator_visible).to be true
+
+  sleep 5
+
+  expect(@screen.loading_indicator_visible).to be false
 end
 
 Given(/^the repository has no commits$/) do
