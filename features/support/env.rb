@@ -8,8 +8,8 @@ require_relative '../step_definitions/screen_factory'
 
 class CustomWorld
 
-  def initialize screenFactory
-    @screen_factory = screenFactory
+  def initialize screen_factory
+    @screen_factory = screen_factory
   end
 
   def launch_to_screen screen
