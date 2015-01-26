@@ -112,6 +112,8 @@ module GitHubMockBackend
 
   class Boot
 
+    @@boot = nil
+
     def initialize
 
       host = Bind.host
@@ -147,7 +149,9 @@ module GitHubMockBackend
     end
 
     def self.exit
-      @@boot.close
+      if !@@boot.nil?
+        @@boot.close
+      end
     end
   end
 end

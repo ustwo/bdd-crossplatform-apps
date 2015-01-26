@@ -34,17 +34,15 @@ TBD
 
 ## Running tests
 
-Requires an Appium server session running locally at default location ([http://localhost:4723](http://localhost:4723)) until #2 is fixed.
+Copy to the root folder the sample iOS and/or Android configuration files from the templates folder, updating the values as required. Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
 
-Copy and edit sample iOS and/or Android configuration files from the templates folder, updating the values as required. Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
+Use either ```rake android_bdd``` or ```rake ios_bdd```.
 
-Use either ```rake android_bdd``` or ```rake ios_bdd```. 
-
-You can limit the set of tests to be run by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!): 
+You can limit the set of tests to be run by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!):
 
 ```rake android_bdd[@wip]```
 
-Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced you can call Cucumber directly but you'll need to call the the dependant rake tasks first.   
+Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced you can call Cucumber directly but you'll need to call the the dependant rake tasks first.
 
 You can see all tasks available by running ```rake -T```.
 

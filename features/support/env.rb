@@ -36,9 +36,6 @@ end
 
 GitHubMockBackend::Boot.boot
 
-# Boot up Appium here
-# node node_modules/appium/bin/appium -a HOST
-
 # Appium
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
 Appium::Driver.new({:caps => caps, :custom_url => ENV['APPIUM_SERVER_URL']})
