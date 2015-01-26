@@ -32,7 +32,7 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(5)
+  GitHubMockBackend::API.set_request_delay(4)
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
