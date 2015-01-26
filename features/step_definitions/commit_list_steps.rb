@@ -55,8 +55,12 @@ Given(/^there is a server error retriving data$/) do
   pending # express the regexp above with the code you wish you had
 end
 
+Given(/^the json retrieved from the server is broken$/) do
+  GitHubMockBackend::API.set_commits_json('broken_json')
+end
+
 Then(/^I should see an indicator of server error$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(@screen.has_error_indicator).to be true
 end
 
 Given(/^the server times out when requesting data$/) do

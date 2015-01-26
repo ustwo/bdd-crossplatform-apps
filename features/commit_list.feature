@@ -45,4 +45,7 @@ Feature: display list of commits
     When I am on the commit list screen
     Then I should see an indicator slow server
 
+@wip
   Scenario: broken JSON
+    Given the json retrieved from the server is broken
+    Then I should see an indicator of server error
