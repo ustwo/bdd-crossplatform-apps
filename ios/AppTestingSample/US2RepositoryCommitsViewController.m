@@ -216,7 +216,7 @@
 
 - (void)__initLoadingIndicator {
     [self.loadingActivityIndicatorView startAnimating];
-    self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit-list.loading-indicator";
+    self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit_list_loading_indicator";
 }
 
 - (void)__updateUserInterface {

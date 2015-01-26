@@ -9,6 +9,7 @@ class IosCommitListScreen < CommitListScreen
 	    map[:commitlist_list_row_label_author] = 'commitlist_list_row_label_author'
 	    map[:commitlist_no_commits_indicator] = 'commitlist_no_commits_indicator'
 	    map[:commitlist_title] = 'commitlist_title'
+	    map[:commitlist_loading_indicator] = 'commit_list_loading_indicator'
 
 	    map
 	end
