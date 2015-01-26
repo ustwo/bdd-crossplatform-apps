@@ -5,14 +5,19 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  expected_title = GitHubMockBackend::API.get_repo_json()['name']
+  repo_json = GitHubMockBackend::API.get_repo_json()
+  expected_title = repo_json['name']
   actual_title = @screen.get_title
 
   expect(actual_title).to eq(expected_title)
 end
 
-Then(/^I should be able to see the latest (\d+) commits$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^I should be able to see the latest 10 commits$/) do
+  commits_json = GitHubMockBackend::API.get_commits_json()
+  expected_number_of_commits = commits_json.count
+  actual_number_of_commits = @screen.get_number_of_commits
+
+  expect(actual_number_of_commits).to eq(expected_number_of_commits)
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
