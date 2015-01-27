@@ -61,6 +61,10 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
+    def self.set_commits_error file_name
+      @@commits_json = error!(API.static_json(file_name), 404)
+    end
+
     def self.static_json(file_name)
       file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
       JSON.parse(file_path)

@@ -65,7 +65,7 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  pending # express the regexp above with the code you wish you had
+  GitHubMockBackend::API.set_commits_error('commits_error')
 end
 
 Then(/^I should see an indicator of server error$/) do
