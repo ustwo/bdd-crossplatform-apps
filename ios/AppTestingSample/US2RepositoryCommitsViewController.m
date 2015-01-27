@@ -76,7 +76,13 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         self.isLoading = NO;
         
-        if (error) {
+        NSHTTPURLResponse *httpUrlResponse = nil;
+        if ([response isKindOfClass:NSHTTPURLResponse.class]) {
+            httpUrlResponse = (NSHTTPURLResponse *)response;
+        }
+        
+        if (error ||
+            httpUrlResponse.statusCode > 400) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSString *errorMessage = @"Could not load commits";
                 [self __presentErrorWithMessage:errorMessage];
