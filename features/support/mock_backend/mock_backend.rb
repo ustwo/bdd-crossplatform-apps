@@ -19,7 +19,6 @@ module GitHubMockBackend
     end
 
     get '/repos/:org/:repo' do
-
       if @@repo_json.nil?
         @@repo_json = API.static_json('default_repo')
       else
@@ -60,7 +59,6 @@ module GitHubMockBackend
 
     def self.static_json(file_name)
       file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
-      JSON.parse(file_path)
     end
 
     def self.get_requests
