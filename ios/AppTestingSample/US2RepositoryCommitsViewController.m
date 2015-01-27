@@ -27,7 +27,6 @@
 @property (nonatomic, strong, readwrite) NSData *urlData;
 @property (nonatomic, strong, readwrite) NSArray *commits;
 @property (nonatomic, strong, readwrite) NSString *repositoryName;
-@property (nonatomic, strong, readwrite) NSDateFormatter *dateFormatter;
 @end
 
 @implementation US2RepositoryCommitsViewController
@@ -57,7 +56,7 @@
 }
 
 - (void)__updateData {
-    [self __requestCommitsByRepositoryName:@"US2FormValidator" withCount:20];
+    [self __requestCommitsByRepositoryName:@"US2FormValidator" withCount:4];
     [self __requestRepositoryByRepositoryName:@"US2FormValidator"];
 }
 
@@ -160,7 +159,7 @@
         if ([authorDictionary isKindOfClass:NSDictionary.class]) {
             id date = [authorDictionary objectForKey:@"date"];
             if ([date isKindOfClass:NSString.class]) {
-                commit.date = [self.dateFormatter dateFromString:date];
+                commit.date = date;
             }
         }
     }
@@ -169,9 +168,6 @@
 }
 
 - (NSArray *)__commitsFromJSONArray:(NSArray *)array {
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    self.dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-    
     NSMutableArray *commits = [@[] mutableCopy];
     
     if ([array isKindOfClass:NSArray.class]) {
@@ -200,7 +196,7 @@
 }
 
 - (void)__initTableView {
-    self.tableView.accessibilityIdentifier = @"commit-list.list";
+    self.tableView.accessibilityIdentifier = @"commitlist_list";
 }
 
 - (void)__initErrorLabel {
@@ -216,7 +212,7 @@
 
 - (void)__initLoadingIndicator {
     [self.loadingActivityIndicatorView startAnimating];
-    self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit-list.loading-indicator";
+    self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit_list_loading_indicator";
 }
 
 - (void)__updateUserInterface {
@@ -260,10 +256,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     US2CommitTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(US2CommitTableViewCell.class)];
+    cell.accessibilityIdentifier = @"commit_list_list_row";
     
     US2Commit *commit = [self.commits objectAtIndex:indexPath.row];
     cell.nameString = commit.message;
-    cell.dateString = [self.dateFormatter stringFromDate:commit.date];
+    cell.dateString = commit.date;
     
     return cell;
 }

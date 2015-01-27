@@ -12,7 +12,7 @@
 
 - (instancetype)initWithSha:(NSString *)sha
                  andMessage:(NSString *)message
-                    andDate:(NSDate *)date {
+                    andDate:(NSString *)date {
     
     self = [super init];
     if (self) {

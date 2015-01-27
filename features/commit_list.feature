@@ -6,9 +6,8 @@ Feature: display list of commits
 
   Scenario: display latest commits
     Given I am on the commit list screen
-    Then I should be able to see the latest 20 commits
+    Then I should be able to see the latest 10 commits
 
-  # Question, do we define the date format in here?
   Scenario: per-commit information
     Given I am on the commit list screen
     Then I should see the commit message and date of each commit
@@ -45,7 +44,6 @@ Feature: display list of commits
     When I am on the commit list screen
     Then I should see an indicator slow server
 
-@wip
   Scenario: broken JSON
     Given the json retrieved from the server is broken
     Then I should see an indicator of server error
