@@ -19,7 +19,6 @@ module GitHubMockBackend
     end
 
     get '/repos/:org/:repo' do
-
       if @@repo_json.nil?
         @@repo_json = API.static_json('default_repo')
       else
@@ -48,6 +47,10 @@ module GitHubMockBackend
 
     def self.get_repo_json
       @@repo_json
+    end
+
+    def self.get_commits_json
+      @@commits_json
     end
 
     def self.set_repo_json file_name
