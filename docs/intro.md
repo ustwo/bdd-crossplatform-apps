@@ -91,14 +91,28 @@ Cross-platform test automation framework that builds on top the JSON Wire Protoc
 
 During early stages of the development it's likely that we have an idea of what we want to test and how we want to test it, but might want to have go at it first before committing to it.
 
-An interactive session allows just that by preparing the whole system for a tesinng session in which we can poke around with the data coming from the mock server or the elements of the application.
+An interactive session allows just that by preparing the whole system for a tesinng session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
+
+```rake ios_interactive```
+
+This in turn:
 
  * Prepares and compiles the app pointing to the mock server
  * Boots up the mock server
- * Boots up Appium (which installs and launches the app in the device)
+ * Boots up a local Appium server 
  
-Once that is up and running, open a new terminal and start ```arc```.  
+Once that is up and running you can open up a new terminal and try something like (note that for Android this requires a device or emulator running already):
 
+```require 'appium_lib'
+caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
+driver = Appium::Driver.new({caps: caps})
+driver.start_driver```
+
+At that point Appium will install and start the app. You can beging the session by getting a dump of what is on screen:
+
+```driver.page```
+
+Use ```CTRL+C``` on the main tab to finish off the interactive session.  
 
 ### CI run through
 

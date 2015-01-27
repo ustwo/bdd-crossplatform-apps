@@ -57,6 +57,28 @@ task :boot_up_appium, [:platform] do |t, args|
   AppiumServer.boot(appium_server_host, appium_server_port)
 end
 
+desc 'Starts an interactive session for Android'
+task :android_interactive =>
+            [:android_set_mock_server_url,
+            :android_compile,
+            :android_appium_config,
+            :boot_up_mock] do
+
+
+  Rake::Task[:boot_up_appium].invoke('android')
+
+  puts "All ready, do your thing now. CTRL + C when you are done."
+
+  while true
+    sleep 0.1
+  end
+end
+
+desc 'Boots up the mock server'
+task :boot_up_mock do
+  GitHubMockBackend::Boot.boot
+end
+
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
 task :cucumber, [:platform, :tags] do |t, args|
 
@@ -89,7 +111,7 @@ task :android_bdd, [:tags] => [:android_set_mock_server_url,
                       :android_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_up_appium].invoke('android', args[:tags])
+  Rake::Task[:boot_up_appium].invoke('android')
   Rake::Task[:cucumber].invoke('android', args[:tags])
 end
 
@@ -138,6 +160,21 @@ task :ios_appium_config do
   File.write('appium.txt', appium_txt)
 end
 
+desc 'Starts an interactive session for iOS'
+task :ios_interactive => [:ios_set_mock_server_url,
+              :ios_compile,
+              :ios_appium_config,
+              :boot_up_mock] do
+
+  Rake::Task[:boot_up_appium].invoke('ios')
+
+  puts "All ready, do your thing now. CTRL + C when you are done."
+
+  while true
+    sleep 0.1
+  end
+end
+
 desc 'Runs the BDD test suite for iOS'
 task :ios_bdd, [:tags] =>
                   [:ios_set_mock_server_url,
@@ -145,7 +182,7 @@ task :ios_bdd, [:tags] =>
                   :ios_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_up_appium].invoke('ios', args[:tags])
+  Rake::Task[:boot_up_appium].invoke('ios')
   Rake::Task[:cucumber].invoke('ios', args[:tags])
 end
 
@@ -172,5 +209,6 @@ def get_configuration platform
 end
 
 at_exit do
+  GitHubMockBackend::Boot.exit
   AppiumServer.close
 end
