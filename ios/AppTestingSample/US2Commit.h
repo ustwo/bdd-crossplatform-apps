@@ -12,10 +12,10 @@
 
 - (instancetype)initWithSha:(NSString *)sha
                  andMessage:(NSString *)message
-                    andDate:(NSDate *)date;
+                    andDate:(NSString *)date;
 
 @property (nonatomic, copy, readwrite) NSString *sha;
 @property (nonatomic, copy, readwrite) NSString *message;
-@property (nonatomic, copy, readwrite) NSDate *date;
+@property (nonatomic, copy, readwrite) NSString *date;
 
 @end
