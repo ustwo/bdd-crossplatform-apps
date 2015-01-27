@@ -23,7 +23,7 @@ class CommitListScreen < BaseScreen
 	end
 
 	def get_number_of_commits
-		$driver.find_elements(name: @screen.ids[:commit_list_list_row]).count
+		$driver.find_elements(name: ids[:commit_list_list_row]).count
 	end
 
 	def get_text id
