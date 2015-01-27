@@ -26,6 +26,7 @@ class AndroidCommitListScreen < CommitListScreen
 	    map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
 	    map[:commitlist_no_commits_indicator] = 'com.ustwo.sample:id/commit_list_textview_status_information'
 	    map[:commitlist_list] = 'com.ustwo.sample:id/commit_list_listview_commits'
+	    map[:commit_list_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
 
     	map
   end
