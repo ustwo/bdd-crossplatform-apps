@@ -106,8 +106,7 @@ Once that is up and running you can open up a new terminal and try something lik
 ```require 'appium_lib'
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
 driver = Appium::Driver.new({caps: caps})
-driver.start_driver
-```
+driver.start_driver```
 
 At that point Appium will install and start the app. You can beging the session by getting a dump of what is on screen:
 
