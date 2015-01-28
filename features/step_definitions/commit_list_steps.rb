@@ -53,7 +53,7 @@ Given(/^the repository has no commits$/) do
 end
 
 Then(/^I should see an indicator of no commits$/) do
-  expect(@screen.has_no_commits_indicator).to be true
+  expect(@screen.has_commits_error_indicator).to be true
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do
@@ -69,7 +69,8 @@ Given(/^there is a server error retriving data$/) do
 end
 
 Then(/^I should see an indicator of server error$/) do
-  expect(@screen.shows_commits_error).to be true
+  expect(@screen.has_commits_error_indicator).to be true
+  expect(@screen.get_commits_error).to be eq("Could not load commits")
 end
 
 Given(/^the server times out when requesting data$/) do
