@@ -8,6 +8,8 @@ class CommitListScreen < BaseScreen
 
 	def click_on_commit index
 		$driver.find_elements(id: ids[:commitlist_row])[index].click
+	end
+	
 	def has_commit_message text
 		!$driver.find_element(name: text).nil?
 	end
