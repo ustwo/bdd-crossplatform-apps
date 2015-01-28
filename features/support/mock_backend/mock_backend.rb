@@ -5,7 +5,7 @@ require 'socket'
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
-    class API < Grape::API
+  class API < Grape::API
 
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
@@ -78,7 +78,6 @@ module GitHubMockBackend
   class Bind
 
     def self.host
-
       # mix of these two:
       # http://stackoverflow.com/questions/14019287/get-the-ip-address-of-local-machine-rails
       # http://stackoverflow.com/questions/5029427/ruby-get-local-ip-nix
@@ -96,7 +95,6 @@ module GitHubMockBackend
   end
 
   class Boot
-
     @@boot = nil
 
     def initialize
