@@ -61,7 +61,7 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
-    def self.set_commits_error file_name
+    def self.set_commits_error_json file_name
       @@commits_json = error!(API.static_json(file_name), 404)
     end
 
