@@ -98,7 +98,6 @@ module GitHubMockBackend
     @@boot = nil
 
     def initialize
-
       host = Bind.host
       port = Bind.port
       full_url = Bind.url
