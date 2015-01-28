@@ -45,15 +45,14 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(4)
+  GitHubMockBackend::API.set_request_delay(2)
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
   expect(@screen.loading_indicator_visible).to be true
-
-  sleep 5
-
-  expect(@screen.loading_indicator_visible).to be false
+  wait{
+    expect(@screen.loading_indicator_visible).to be false
+  }
 end
 
 Given(/^the repository has no commits$/) do

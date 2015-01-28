@@ -14,7 +14,6 @@ module GitHubMockBackend
     @@repo_json = nil
     @@commit_json = nil
     @@commits_json = nil
-
     @@request_delay = nil
 
     before do
@@ -22,7 +21,6 @@ module GitHubMockBackend
 
       if !@@request_delay.nil?
         sleep @@request_delay
-        @@request_delay = nil
       end
     end
 
