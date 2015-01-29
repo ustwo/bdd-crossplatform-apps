@@ -68,7 +68,7 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_commits_error_json('commits_error')
+  GitHubMockBackend::API.set_error_json('commits_error', 405)
 end
 
 Then(/^I should see an indicator of server error$/) do

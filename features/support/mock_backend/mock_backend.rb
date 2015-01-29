@@ -13,9 +13,17 @@ module GitHubMockBackend
     @@requests = []
     @@repo_json = nil
     @@commits_json = nil
+    @@error_json = nil
+    @@error_code = nil
 
     before do
       @@requests << request
+
+      # Response with error json and error code if error is set
+      if !@@error_json.nil?
+        && if !@@error_json.nil?
+        return error!(@@error_json, @@error_code)
+      end
     end
 
     get '/repos/:org/:repo' do
@@ -43,6 +51,8 @@ module GitHubMockBackend
       @@requests = []
       @@repo_json = nil
       @@commits_json = nil
+      @@error_json = nil
+      @@error_code = nil
     end
 
     def self.get_repo_json
@@ -61,8 +71,9 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
-    def self.set_commits_error_json file_name
-      @@commits_json = error!(API.static_json(file_name), 404)
+    def self.set_error_json file_name, error_code
+      @@error_json = API.static_json(file_name)
+      @@error_code = error_code
     end
 
     def self.static_json(file_name)
