@@ -71,10 +71,13 @@ module GitHubMockBackend
       @@requests = []
       @@repo_json = nil
       @@commits_json = nil
-      @@request_delay = delay
       @@request_delay = nil
       @@error_json = nil
       @@error_code = nil
+    end
+
+    def self.set_request_delay delay
+      @@request_delay = delay
     end
 
     def self.get_repo_json
