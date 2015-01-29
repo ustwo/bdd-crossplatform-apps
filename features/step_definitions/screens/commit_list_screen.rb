@@ -2,53 +2,55 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
-	# Generic
-	def get_text id
-		$driver.find_element(id: ids[id]).text
-	end
+  # Generic
+  def get_text id
+    $driver.find_element(id: ids[id]).text
+  end
 
-	# Title
-	def get_title
-		get_text(:commitlist_title)
-	end
+  # Title
+  def get_title
+    get_text(:commitlist_title)
+  end
 
-	# Commit list
-	def get_commit_list
-		$driver.find_element(id: ids[:commitlist_list])
-	end
+  # Commit list
+  def get_commit_list
+    $driver.find_element(id: ids[:commitlist_list])
+  end
 
     def click_on_commit index
-		$driver.find_elements(id: ids[:commitlist_row])[index].click
-	end
+    $driver.find_elements(id: ids[:commitlist_row])[index].click
+  end
 
-	# Commit message
-	def has_commit_message text
-		!$driver.find_element(name: text).nil?
-	end
+  def get_number_of_commits
+    $driver.find_elements(name: @screen.ids[:commit_list_list_row]).count
+  end
 
-	# Commit date
-	def has_date text
-		!$driver.find_element(name: text).nil?
-	end
+  # Commit message
+  def has_commit_message text
+    !$driver.find_element(name: text).nil?
+  end
 
-    def loading_indicator_visible
-		begin
-			# if we can't find the loading indicator, it's not visible
-			$driver.find_element(id: ids[:commitlist_loading_indicator]).displayed?
-		rescue
-			false
-		end
-	end
+  # Commit date
+  def has_date text
+    !$driver.find_element(name: text).nil?
+  end
 
-	def has_commits_error_indicator
-		get_commits_error_indicator.displayed?
-	end
+  # Loading indication
+  def loading_indicator_visible
+    begin
+      # if we can't find the loading indicator, it's not visible
+      $driver.find_element(id: ids[:commitlist_loading_indicator]).displayed?
+    rescue
+      false
+    end
+  end
 
-	def get_commits_error
-		get_commits_error_indicator.text
-	end
+  # Error indication
+  def has_commits_error_indicator
+    get_commits_error_indicator.displayed?
+  end
 
-	def get_number_of_commits
-		$driver.find_elements(name: @screen.ids[:commit_list_list_row]).count
-	end
+  def get_commits_error
+    get_commits_error_indicator.text
+  end
 end
