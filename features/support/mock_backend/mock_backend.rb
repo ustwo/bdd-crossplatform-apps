@@ -12,12 +12,19 @@ module GitHubMockBackend
 
     @@requests = []
     @@repo_json = nil
+    @@commit_json = nil
     @@commits_json = nil
+    @@request_delay = nil
     @@error_json = nil
     @@error_code = nil
 
     before do
       @@requests << request
+
+      if !@@request_delay.nil?
+        sleep @@request_delay
+        @@request_delay = nil
+      end
 
       # Response with error json and error code if error is set
       if !@@error_json.nil?
@@ -42,15 +49,26 @@ module GitHubMockBackend
       end
     end
 
+    get '/repos/:org/:repo/commits/:commit' do
+      if @@commit_json.nil?
+        @@commit_json = API.static_json('default_commit')
+      else
+        @@commit_json
+      end
+    end
+
     get '/' do
       content_type 'text/plain'
       body 'Hello World'
     end
 
+    # Called after every scenario
     def self.init
       @@requests = []
       @@repo_json = nil
       @@commits_json = nil
+      @@request_delay = delay
+      @@request_delay = nil
       @@error_json = nil
       @@error_code = nil
     end
