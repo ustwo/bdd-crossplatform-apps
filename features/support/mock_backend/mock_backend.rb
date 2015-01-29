@@ -26,10 +26,14 @@ module GitHubMockBackend
         @@request_delay = nil
       end
 
-      # Response with error json and error code if error is set
-      if !@@error_json.nil?
-        && if !@@error_json.nil?
-        return error!(@@error_json, @@error_code)
+      # Respond with error json and error code if error is set
+      if !@@error_json.nil? && !@@error_code.nil?
+        # json = @@error_json.dup
+        # code = @@error_code.dup
+        # @@error_json = nil
+        # @@error_code = nil
+
+        error!(@@error_json, @@error_code)
       end
     end
 
