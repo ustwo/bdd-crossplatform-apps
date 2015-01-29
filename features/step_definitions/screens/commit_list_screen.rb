@@ -18,11 +18,11 @@ class CommitListScreen < BaseScreen
   end
 
     def click_on_commit index
-    $driver.find_elements(id: ids[:commitlist_row])[index].click
+    $driver.find_elements(id: ids[:commit_list_list_row])[index].click
   end
 
   def get_number_of_commits
-    $driver.find_elements(name: @screen.ids[:commit_list_list_row]).count
+    $driver.find_elements(name: ids[:commit_list_list_row]).count
   end
 
   # Commit message
@@ -46,6 +46,10 @@ class CommitListScreen < BaseScreen
   end
 
   # Error indication
+  def get_commits_error_indicator
+    $driver.find_element(id: ids[:commitlist_no_commits_indicator])
+  end
+
   def has_commits_error_indicator
     get_commits_error_indicator.displayed?
   end
