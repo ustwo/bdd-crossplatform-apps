@@ -49,10 +49,8 @@ Given(/^the server is slow responding with data$/) do
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
-  expect(@screen.loading_indicator_visible).to be true
-  wait{
-    expect(@screen.loading_indicator_visible).to be false
-  }
+  expect(@screen.has_loading_indicator).to be true
+  expect(@screen.has_no_loading_indicator).to be true
 end
 
 Given(/^the repository has no commits$/) do
