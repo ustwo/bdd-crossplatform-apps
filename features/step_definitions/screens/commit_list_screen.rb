@@ -17,7 +17,7 @@ class CommitListScreen < BaseScreen
     $driver.find_element(id: ids[:commitlist_list])
   end
 
-    def click_on_commit index
+  def click_on_commit index
     $driver.find_elements(id: ids[:commit_list_list_row])[index].click
   end
 
