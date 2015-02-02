@@ -12,7 +12,7 @@
 
     <!-- Commit List Activity strings -->
     <string name="commit_list_refresh">Refresh</string>
-    <string name="commit_list_no_commits">This repo has no commits :(</string>
-    <string name="commit_list_error">Error retrieving repository information/commit list</string>
+    <string name="commit_list_no_commits">No commits available</string>
+    <string name="commit_list_error">Could not load commits</string>
 
 </resources>

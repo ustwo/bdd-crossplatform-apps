@@ -2,6 +2,10 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
+	def get_text id
+		$driver.find_element(id: ids[id]).text
+	end
+
 	def get_title
 		get_text(:commitlist_title)
 	end
@@ -39,11 +43,20 @@ class CommitListScreen < BaseScreen
 		$driver.find_elements(name: ids[:commit_list_list_row]).count
 	end
 
-	def get_text id
-		$driver.find_element(id: ids[id]).text
-	end
-
 	def get_commit_list
 		$driver.find_element(id: ids[:commitlist_list])
 	end
+
+  # Error indication
+  def get_commits_error_indicator
+    $driver.find_element(id: ids[:commitlist_no_commits_indicator])
+  end
+
+  def has_commits_error_indicator
+    get_commits_error_indicator.displayed?
+  end
+
+  def get_commits_error
+    get_commits_error_indicator.text
+  end
 end
