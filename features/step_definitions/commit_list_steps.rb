@@ -5,7 +5,7 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  json = JSON.parse(GitHubMockBackend::API.get_repo_json())
+  json = GitHubMockBackend::API.get_repo_json()
 
   expected_title = json['name']
   actual_title = @screen.get_title
@@ -14,7 +14,7 @@ Then(/^I should be able to see the repository title$/) do
 end
 
 Then(/^I should be able to see the latest 10 commits$/) do
-  commits_json = JSON.parse(GitHubMockBackend::API.get_repo_json())
+  commits_json = GitHubMockBackend::API.get_repo_json()
 
   expected_number_of_commits = commits_json.count
   actual_number_of_commits = @screen.get_number_of_commits
@@ -23,7 +23,7 @@ Then(/^I should be able to see the latest 10 commits$/) do
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  json = JSON.parse(GitHubMockBackend::API.get_commits_json())
+  json = GitHubMockBackend::API.get_commits_json()
 
   json.each do |commit|
     expected_message = commit['commit']['message']
@@ -35,19 +35,27 @@ Then(/^I should see the commit message and date of each commit$/) do
 end
 
 When(/^I choose to see the details of a specific commit$/) do
-  pending # express the regexp above with the code you wish you had
+  index = 2
+
+  @screen.click_on_commit(index)
 end
 
 Then(/^I should be taken to the commit details screen$/) do
-  pending # express the regexp above with the code you wish you had
+  @detail_screen = get_commit_detail_screen
+
+  expect(@detail_screen.is_on_commit_detail_screen).to be true
 end
 
-When(/^data is loading$/) do
-  pending # express the regexp above with the code you wish you had
+Given(/^the server is slow responding with data$/) do
+  GitHubMockBackend::API.set_request_delay(4)
 end
 
-Then(/^I should see a loading indicator$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see a loading indicator until reponse has been received$/) do
+  expect(@screen.loading_indicator_visible).to be true
+
+  sleep 5
+
+  expect(@screen.loading_indicator_visible).to be false
 end
 
 Given(/^the repository has no commits$/) do

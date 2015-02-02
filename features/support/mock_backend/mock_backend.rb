@@ -12,13 +12,19 @@ module GitHubMockBackend
 
     @@requests = []
     @@repo_json = nil
+    @@commit_json = nil
     @@commits_json = nil
     @@forced_body = nil
     @@forced_code = nil
     @@forced_type = nil
+    @@request_delay = nil
 
     before do
       @@requests << request
+
+      if !@@request_delay.nil?
+        sleep @@request_delay
+      end
 
       if !@@forced_type.nil?
         content_type @@forced_type
@@ -49,18 +55,33 @@ module GitHubMockBackend
       end
     end
 
+    get '/repos/:org/:repo/commits/:commit' do
+      if @@commit_json.nil?
+        @@commit_json = API.static_json('default_commit')
+      else
+        @@commit_json
+      end
+    end
+
     get '/' do
       content_type 'text/plain'
       body 'Hello World'
     end
 
+    # Called after every scenario
     def self.init
       @@requests = []
       @@repo_json = nil
+      @@commit_json = nil
       @@commits_json = nil
       @@forced_body = nil
       @@forced_code = nil
       @@forced_type = nil
+      @@request_delay = nil
+    end
+
+    def self.set_request_delay delay
+      @@request_delay = delay
     end
 
     def self.get_repo_json

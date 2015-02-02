@@ -19,11 +19,10 @@ Feature: display list of commits
     Then I should be taken to the commit details screen
 
   # UI scenarios below
-
   Scenario: display loading indicator
-    Given I am on the commit list screen
-    When data is loading
-    Then I should see a loading indicator
+    Given the server is slow responding with data
+    And I am on the commit list screen
+    Then I should see a loading indicator until reponse has been received
 
   Scenario: repository has no commits
     Given the repository has no commits
