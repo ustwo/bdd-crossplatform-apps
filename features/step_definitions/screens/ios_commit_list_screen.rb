@@ -5,7 +5,6 @@ class IosCommitListScreen < CommitListScreen
 	def ids
 	    map = Hash.new
 
-	    # Commit List Screen
 	    map[:commitlist_button_refresh] = 'commitlist_button_refresh'
 	    map[:commitlist_list] = 'commitlist_list'
 	    map[:commit_list_list_row] = 'commit_list_list_row'
