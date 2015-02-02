@@ -71,7 +71,7 @@ Given(/^there is a server error retriving data$/) do
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_commits_json('broken_json')
+  GitHubMockBackend::API.force_body_code_type GitHubMockBackend::API.file_content('broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do

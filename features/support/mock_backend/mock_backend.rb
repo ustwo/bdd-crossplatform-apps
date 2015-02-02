@@ -13,9 +13,24 @@ module GitHubMockBackend
     @@requests = []
     @@repo_json = nil
     @@commits_json = nil
+    @@forced_body = nil
+    @@forced_code = nil
+    @@forced_type = nil
 
     before do
       @@requests << request
+
+      if !@@forced_type.nil?
+        content_type @@forced_type
+      end
+
+      if !@@forced_code.nil?
+        status @@forced_code
+      end
+
+      if !@@forced_body.nil?
+        body @@forced_body
+      end
     end
 
     get '/repos/:org/:repo' do
@@ -43,6 +58,9 @@ module GitHubMockBackend
       @@requests = []
       @@repo_json = nil
       @@commits_json = nil
+      @@forced_body = nil
+      @@forced_code = nil
+      @@forced_type = nil
     end
 
     def self.get_repo_json
@@ -61,8 +79,18 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
+    def self.force_body_code_type forced_body=nil, forced_code=nil, forced_type=nil
+      @@forced_body = forced_body
+      @@forced_code = forced_code
+      @@forced_type = forced_type
+    end
+
+    def self.file_content(file_name)
+      File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
+    end
+
     def self.static_json(file_name)
-      file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
+      JSON.parse(file_content(file_name))
     end
 
     def self.get_requests
