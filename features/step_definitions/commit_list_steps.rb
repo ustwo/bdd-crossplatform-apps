@@ -63,8 +63,8 @@ end
 Then(/^I should see an indicator of no commits$/) do
   expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 
-  no_commits_available_text = 'No commits available'
-  expect(@screen.get_commits_error).to eq(no_commits_available_text), "Expected commit error indicator displaying message #{no_commits_available_text}"
+  expected_error_message = 'No commits available'
+  expect(@screen.get_commits_error).to eq(expected_error_message), "Expected commit error indicator displaying message #{expected_error_message}"
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do
@@ -82,8 +82,8 @@ end
 Then(/^I should see an indicator of server error$/) do
   expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 
-  could_not_load_commits_text = 'Could not load commits'
-  expect(@screen.get_commits_error).to eq(could_not_load_commits_text), "Expected commit error indicator displaying message #{could_not_load_commits_text}"
+  expected_error_message = 'Could not load commits'
+  expect(@screen.get_commits_error).to eq(expected_error_message), "Expected commit error indicator displaying message #{expected_error_message}"
 end
 
 Given(/^the server times out when requesting data$/) do
