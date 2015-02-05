@@ -128,28 +128,42 @@ module GitHubMockBackend
   class Boot
     @@boot = nil
 
-    def initialize
+    def initialize(stop_if_running)
       host = Bind.host
       port = Bind.port
       full_url = Bind.url
 
-      puts "About to boot up mock server at: #{full_url}"
+      if self.is_running?
 
-      @bootup = BootupServerCommand.new(host, port)
-      @bootup.execute
+        if stop_if_running
+          abort("ERROR: Mock server already running at #{full_url}. Please stop it and run this again.")
+        else
+          puts "Mock server already running at #{full_url}."
+        end
+      else
 
-      while true
+        puts "About to boot up mock server at: #{full_url}"
 
-        begin
-          break if HTTParty.get(full_url).response.code.to_i == 200
-        rescue
-          puts 'Waiting for mocked backend'
+        @bootup = BootupServerCommand.new(host, port)
+        @bootup.execute
+
+        while true
+
+          break if self.is_running?
+          puts 'Waiting for mock backend'
+          sleep 0.5
         end
 
-        sleep 0.5
+        puts "Mock server up and running"
       end
+    end
 
-      puts "Mock server up and running"
+    def is_running?
+      begin
+        HTTParty.get(Bind.url).response.code.to_i == 200
+      rescue
+        false
+      end
     end
 
     def close
@@ -157,8 +171,8 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot
-      @@boot = Boot.new
+    def self.boot stop_if_running=true
+      @@boot = Boot.new(stop_if_running)
     end
 
     def self.exit

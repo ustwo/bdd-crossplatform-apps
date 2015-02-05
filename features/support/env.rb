@@ -34,7 +34,7 @@ World do
   CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
 end
 
-GitHubMockBackend::Boot.boot
+GitHubMockBackend::Boot.boot(true)
 
 # Appium
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
