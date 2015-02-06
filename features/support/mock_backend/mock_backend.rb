@@ -5,7 +5,7 @@ require 'socket'
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
-    class API < Grape::API
+  class API < Grape::API
 
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
@@ -15,12 +15,19 @@ module GitHubMockBackend
     @@commit_json = nil
     @@commits_json = nil
     @@request_delay = nil
+    @@error_json = nil
+    @@error_code = nil
 
     before do
       @@requests << request
 
       if !@@request_delay.nil?
         sleep @@request_delay
+      end
+
+      # Respond with error json and error code if error is set
+      if !@@error_json.nil? && !@@error_code.nil?
+        error!(@@error_json, @@error_code)
       end
     end
 
@@ -59,6 +66,8 @@ module GitHubMockBackend
       @@repo_json = nil
       @@commits_json = nil
       @@request_delay = nil
+      @@error_json = nil
+      @@error_code = nil
     end
 
     def self.set_request_delay delay
@@ -81,6 +90,11 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
+    def self.set_error_json file_name, error_code
+      @@error_json = API.static_json(file_name)
+      @@error_code = error_code
+    end
+
     def self.static_json(file_name)
       file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
       JSON.parse(file_path)
@@ -94,7 +108,6 @@ module GitHubMockBackend
   class Bind
 
     def self.host
-
       # mix of these two:
       # http://stackoverflow.com/questions/14019287/get-the-ip-address-of-local-machine-rails
       # http://stackoverflow.com/questions/5029427/ruby-get-local-ip-nix
@@ -112,11 +125,9 @@ module GitHubMockBackend
   end
 
   class Boot
-
     @@boot = nil
 
     def initialize
-
       host = Bind.host
       port = Bind.port
       full_url = Bind.url

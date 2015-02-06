@@ -13,7 +13,7 @@ class CustomWorld
   end
 
   def launch_to_screen screen
-    $driver.start_driver
+    app_launch
     screen.wait_for_load
     screen
   end
@@ -28,6 +28,27 @@ class CustomWorld
     commit_detail_screen
   end
 
+  def app_close
+    $driver.close_app
+  end
+
+  private
+  def app_launch
+
+    # NOTE (JD): Not been able to find a cleaner way
+    # to workout whether an Appium session is already going
+    # Accessing the session id triggers an exception if there
+    # isn't one going.
+    # The code below effectively calls 'start_driver' once
+    # and 'launch_app' afterwards
+
+    begin
+      $driver.session_id
+      $driver.launch_app
+    rescue
+      $driver.start_driver
+    end
+  end
 end
 
 World do
