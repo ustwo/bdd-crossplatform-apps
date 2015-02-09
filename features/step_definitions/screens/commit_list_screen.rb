@@ -38,6 +38,18 @@ class CommitListScreen < BaseScreen
 		$driver.find_element(id: ids[:commitlist_list])
 	end
 
+	def get_commits_error_indicator
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator])
+	end
+
+	def has_commits_error_indicator
+		get_commits_error_indicator.displayed?
+	end
+
+	def get_commits_error
+		get_commits_error_indicator.text
+	end
+
 	private
 	def has_element id
 		begin
@@ -67,17 +79,4 @@ class CommitListScreen < BaseScreen
 	def get_text id
 		$driver.find_element(id: ids[id]).text
 	end
-
-  def get_commits_error_indicator
-    $driver.find_element(id: ids[:commitlist_no_commits_indicator])
-  end
-
-  def has_commits_error_indicator
-    get_commits_error_indicator.displayed?
-  end
-
-  def get_commits_error
-    get_commits_error_indicator.text
-  end
-
 end
