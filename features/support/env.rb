@@ -12,14 +12,24 @@ class CustomWorld
     @screen_factory = screen_factory
   end
 
-  def launch_to_screen screen
-    app_launch
-    screen.wait_for_load
-    screen
-  end
+  def launch_to_commit_list_screen options=nil
 
-  def launch_to_commit_list_screen
-    launch_to_screen @screen_factory.get_commit_list_screen()
+    ops = options ||= {wait_for_load: true}
+
+    if ops[:wait_for_load].nil?
+      wait_for_load = true
+    else
+      wait_for_load = ops[:wait_for_load]
+    end
+
+    app_launch
+    screen = @screen_factory.get_commit_list_screen()
+
+    if wait_for_load
+      screen.wait_for_load
+    end
+
+    screen
   end
 
   def get_commit_detail_screen

@@ -50,16 +50,18 @@ class CommitListScreen < BaseScreen
 
 	def has_no_element id
 
-		found = nil
-
 		$driver.set_wait(0)
-		$driver.wait_true {
-			!has_element(id: id)
-		}
+
+		has = nil
+
+		500.times do
+			has = has_element(id)
+			break if !has
+			sleep 0.2
+		end
 
 		$driver.set_wait(30)
-
-		!found
+		!has
 	end
 
 	def get_text id
