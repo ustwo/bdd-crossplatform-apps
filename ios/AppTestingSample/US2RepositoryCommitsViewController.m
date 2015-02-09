@@ -77,21 +77,14 @@
         self.isLoading = NO;
         
         if (error) {
-<<<<<<< HEAD
             self.repositoryName = @"";
             self.errorMessage = @"Could not load commits";
-=======
-            self.repositoryName = nil;
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
         }
         else {
             NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if (jsonDictionary == nil) {
                 self.repositoryName = nil;
-<<<<<<< HEAD
                 self.errorMessage = @"Could not load commits";
-=======
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
             }
             else {
                 NSString *repositoryName = [jsonDictionary objectForKey:@"name"];
@@ -107,13 +100,10 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self __updateRepositoryTitle];
             [self __updateLoadingIndicator];
-<<<<<<< HEAD
             
             if (self.errorMessage) {
                 [self __presentErrorWithMessage:self.errorMessage];
             }
-=======
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
         });
     }];
     [dataTask resume];
@@ -143,29 +133,15 @@
         if (error ||
             httpUrlResponse.statusCode > 400) {
             dispatch_async(dispatch_get_main_queue(), ^{
-<<<<<<< HEAD
                 self.errorMessage = @"Could not load commits";
-=======
-                NSString *errorMessage = @"Could not load commits";
-                [self __presentErrorWithMessage:errorMessage];
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
             });
         }
         else {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if (jsonArray == nil ||
                 jsonArray.count == 0) {
-<<<<<<< HEAD
                 self.commits = [@[] mutableCopy];
                 self.errorMessage = @"No commits available";
-=======
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *errorMessage = @"No commits available";
-                    [self __presentErrorWithMessage:errorMessage];
-                });
-                
-                self.commits = [@[] mutableCopy];
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
             }
             else {
                 self.commits = [self __commitsFromJSONArray:jsonArray];
@@ -174,13 +150,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self __updateUserInterface];
-<<<<<<< HEAD
             
             if (self.errorMessage) {
                 [self __presentErrorWithMessage:self.errorMessage];
             }
-=======
->>>>>>> 2bcf92dfae8eda94e37b07bb4eb3ed16e7d08cff
         });
     }];
     [dataTask resume];
