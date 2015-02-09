@@ -171,7 +171,21 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot stop_if_running=true
+    def self.boot options={stop_if_running: true}
+
+      if options.nil?
+        stop_if_running = true
+      else
+
+        opt_stop_if_running = options[:stop_if_running]
+
+        if opt_stop_if_running.nil?
+          stop_if_running = true
+        else
+          stop_if_running = opt_stop_if_running
+        end
+      end
+
       @@boot = Boot.new(stop_if_running)
     end
 
