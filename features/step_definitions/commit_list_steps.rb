@@ -49,7 +49,7 @@ Given(/^the server is slow responding with data$/) do
 end
 
 And(/^I am on the commit list screen before data has loaded/) do
-  @screen = launch_to_commit_list_screen({wait_for_load: false})
+  @screen = launch_to_commit_list_screen(wait_for_load: false)
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do

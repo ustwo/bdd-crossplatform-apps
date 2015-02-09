@@ -12,15 +12,7 @@ class CustomWorld
     @screen_factory = screen_factory
   end
 
-  def launch_to_commit_list_screen options=nil
-
-    ops = options ||= {wait_for_load: true}
-
-    if ops[:wait_for_load].nil?
-      wait_for_load = true
-    else
-      wait_for_load = ops[:wait_for_load]
-    end
+  def launch_to_commit_list_screen wait_for_load: true
 
     app_launch
     screen = @screen_factory.get_commit_list_screen()
@@ -65,7 +57,7 @@ World do
   CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
 end
 
-GitHubMockBackend::Boot.boot({stop_if_running: true})
+GitHubMockBackend::Boot.boot(stop_if_running: true)
 
 # Appium
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
