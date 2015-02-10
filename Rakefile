@@ -76,7 +76,7 @@ end
 
 desc 'Boots up the mock server'
 task :boot_up_mock do
-  GitHubMockBackend::Boot.boot
+  GitHubMockBackend::Boot.boot(stop_if_running: false)
 end
 
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'

@@ -5,7 +5,7 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  json = JSON.parse(GitHubMockBackend::API.get_repo_json())
+  json = GitHubMockBackend::API.get_repo_json()
 
   expected_title = json['name']
   actual_title = @screen.get_title
@@ -14,7 +14,7 @@ Then(/^I should be able to see the repository title$/) do
 end
 
 Then(/^I should be able to see the latest 10 commits$/) do
-  commits_json = JSON.parse(GitHubMockBackend::API.get_repo_json())
+  commits_json = GitHubMockBackend::API.get_repo_json()
 
   expected_number_of_commits = commits_json.count
   actual_number_of_commits = @screen.get_number_of_commits
@@ -23,7 +23,7 @@ Then(/^I should be able to see the latest 10 commits$/) do
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  json = JSON.parse(GitHubMockBackend::API.get_commits_json())
+  json = GitHubMockBackend::API.get_commits_json()
 
   json.each do |commit|
     expected_message = commit['commit']['message']
@@ -47,15 +47,16 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(4)
+  GitHubMockBackend::API.set_request_delay(3)
+end
+
+And(/^I am on the commit list screen before data has loaded/) do
+  @screen = launch_to_commit_list_screen(wait_for_load: false)
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
-  expect(@screen.loading_indicator_visible).to be true
-
-  sleep 5
-
-  expect(@screen.loading_indicator_visible).to be false
+  expect(@screen.has_loading_indicator).to be true
+  expect(@screen.has_no_loading_indicator).to be true
 end
 
 Given(/^the repository has no commits$/) do
@@ -63,7 +64,7 @@ Given(/^the repository has no commits$/) do
 end
 
 Then(/^I should see an indicator of no commits$/) do
-  expect(@screen.has_no_commits_indicator).to be true
+  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do
@@ -75,15 +76,15 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  pending # express the regexp above with the code you wish you had
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('commits_error'), status: 405
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_commits_json('broken_json')
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do
-  expect(@screen.has_error_indicator).to be true
+  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
 Given(/^the server times out when requesting data$/) do

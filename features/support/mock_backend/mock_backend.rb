@@ -5,7 +5,7 @@ require 'socket'
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
-    class API < Grape::API
+  class API < Grape::API
 
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
@@ -14,15 +14,33 @@ module GitHubMockBackend
     @@repo_json = nil
     @@commit_json = nil
     @@commits_json = nil
-
+    @@forced_body = nil
+    @@forced_status = nil
+    @@forced_type = nil
     @@request_delay = nil
+    @@error_json = nil
 
     before do
       @@requests << request
 
       if !@@request_delay.nil?
         sleep @@request_delay
-        @@request_delay = nil
+      end
+
+      if !@@forced_type.nil?
+        content_type @@forced_type
+      end
+
+      if !@@forced_status.nil?
+        status @@forced_status
+      end
+
+      if !@@forced_body.nil?
+        body @@forced_body
+      end
+
+      if !@@error_json.nil?
+        error!(@@error_json)
       end
     end
 
@@ -59,8 +77,13 @@ module GitHubMockBackend
     def self.init
       @@requests = []
       @@repo_json = nil
+      @@commit_json = nil
       @@commits_json = nil
+      @@forced_body = nil
+      @@forced_status = nil
+      @@forced_type = nil
       @@request_delay = nil
+      @@error_json = nil
     end
 
     def self.set_request_delay delay
@@ -83,8 +106,18 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
+    def self.set_response body: nil, status: nil, type: nil
+      @@forced_body = body
+      @@forced_status = status
+      @@forced_type = type
+    end
+
+    def self.file_content(file_name)
+      File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
+    end
+
     def self.static_json(file_name)
-      file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
+      JSON.parse(file_content(file_name))
     end
 
     def self.get_requests
@@ -95,7 +128,6 @@ module GitHubMockBackend
   class Bind
 
     def self.host
-
       # mix of these two:
       # http://stackoverflow.com/questions/14019287/get-the-ip-address-of-local-machine-rails
       # http://stackoverflow.com/questions/5029427/ruby-get-local-ip-nix
@@ -113,32 +145,44 @@ module GitHubMockBackend
   end
 
   class Boot
-
     @@boot = nil
 
-    def initialize
-
+    def initialize(stop_if_running)
       host = Bind.host
       port = Bind.port
       full_url = Bind.url
 
-      puts "About to boot up mock server at: #{full_url}"
+      if self.is_running?
 
-      @bootup = BootupServerCommand.new(host, port)
-      @bootup.execute
+        if stop_if_running
+          abort("ERROR: Mock server already running at #{full_url}. Please stop it and run this again.")
+        else
+          puts "Mock server already running at #{full_url}."
+        end
+      else
 
-      while true
+        puts "About to boot up mock server at: #{full_url}"
 
-        begin
-          break if HTTParty.get(full_url).response.code.to_i == 200
-        rescue
-          puts 'Waiting for mocked backend'
+        @bootup = BootupServerCommand.new(host, port)
+        @bootup.execute
+
+        while true
+
+          break if self.is_running?
+          puts 'Waiting for mock backend'
+          sleep 0.5
         end
 
-        sleep 0.5
+        puts "Mock server up and running"
       end
+    end
 
-      puts "Mock server up and running"
+    def is_running?
+      begin
+        HTTParty.get(Bind.url).response.code.to_i == 200
+      rescue
+        false
+      end
     end
 
     def close
@@ -146,8 +190,8 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot
-      @@boot = Boot.new
+    def self.boot stop_if_running: true
+      @@boot = Boot.new(stop_if_running)
     end
 
     def self.exit

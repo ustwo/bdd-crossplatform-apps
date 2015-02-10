@@ -1,5 +1,6 @@
 Feature: display list of commits
 
+
   Scenario: display repository title
     Given I am on the commit list screen
     Then I should be able to see the repository title
@@ -20,7 +21,7 @@ Feature: display list of commits
   # UI scenarios below
   Scenario: display loading indicator
     Given the server is slow responding with data
-    And I am on the commit list screen
+    And I am on the commit list screen before data has loaded
     Then I should see a loading indicator until reponse has been received
 
   Scenario: repository has no commits
@@ -45,4 +46,5 @@ Feature: display list of commits
 
   Scenario: broken JSON
     Given the json retrieved from the server is broken
+    Given I am on the commit list screen
     Then I should see an indicator of server error

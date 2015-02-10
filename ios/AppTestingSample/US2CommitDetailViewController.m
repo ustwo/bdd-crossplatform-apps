@@ -58,9 +58,14 @@
 #pragma mark - User interface
 
 - (void)__initUserInterface {
+    [self __initView];
     [self __initAuthorNameLabel];
     [self __updateAuthor];
     [self __updateLoadingIndicator];
+}
+
+- (void)__initView {
+    self.view.accessibilityIdentifier = @"commit_detail_view";
 }
 
 - (void)__initAuthorNameLabel {
