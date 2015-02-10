@@ -15,7 +15,7 @@ module GitHubMockBackend
     @@commit_json = nil
     @@commits_json = nil
     @@forced_body = nil
-    @@forced_code = nil
+    @@forced_status = nil
     @@forced_type = nil
     @@request_delay = nil
     @@error_json = nil
@@ -31,8 +31,8 @@ module GitHubMockBackend
         content_type @@forced_type
       end
 
-      if !@@forced_code.nil?
-        status @@forced_code
+      if !@@forced_status.nil?
+        status @@forced_status
       end
 
       if !@@forced_body.nil?
@@ -80,7 +80,7 @@ module GitHubMockBackend
       @@commit_json = nil
       @@commits_json = nil
       @@forced_body = nil
-      @@forced_code = nil
+      @@forced_status = nil
       @@forced_type = nil
       @@request_delay = nil
       @@error_json = nil
@@ -106,10 +106,10 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
-    def self.force_body_code_type forced_body=nil, forced_code=nil, forced_type=nil
-      @@forced_body = forced_body
-      @@forced_code = forced_code
-      @@forced_type = forced_type
+    def self.set_response body: nil, status: nil, type: nil
+      @@forced_body = body
+      @@forced_status = status
+      @@forced_type = type
     end
 
     def self.file_content(file_name)
@@ -118,11 +118,6 @@ module GitHubMockBackend
 
     def self.static_json(file_name)
       JSON.parse(file_content(file_name))
-    end
-
-    def self.set_error_json file_name, error_code=nil
-      @@error_json = API.static_json(file_name)
-      @@forced_code = error_code
     end
 
     def self.get_requests
