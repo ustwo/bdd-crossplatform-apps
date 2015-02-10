@@ -12,14 +12,16 @@ class CustomWorld
     @screen_factory = screen_factory
   end
 
-  def launch_to_screen screen
-    $driver.start_driver
-    screen.wait_for_load
-    screen
-  end
+  def launch_to_commit_list_screen wait_for_load: true
 
-  def launch_to_commit_list_screen
-    launch_to_screen @screen_factory.get_commit_list_screen()
+    app_launch
+    screen = @screen_factory.get_commit_list_screen()
+
+    if wait_for_load
+      screen.wait_for_load
+    end
+
+    screen
   end
 
   def get_commit_detail_screen
@@ -28,13 +30,34 @@ class CustomWorld
     commit_detail_screen
   end
 
+  def app_close
+    $driver.close_app
+  end
+
+  private
+  def app_launch
+
+    # NOTE (JD): Not been able to find a cleaner way
+    # to workout whether an Appium session is already going
+    # Accessing the session id triggers an exception if there
+    # isn't one going.
+    # The code below effectively calls 'start_driver' once
+    # and 'launch_app' afterwards
+
+    begin
+      $driver.session_id
+      $driver.launch_app
+    rescue
+      $driver.start_driver
+    end
+  end
 end
 
 World do
   CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
 end
 
-GitHubMockBackend::Boot.boot
+GitHubMockBackend::Boot.boot(stop_if_running: true)
 
 # Appium
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true

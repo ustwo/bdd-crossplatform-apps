@@ -27,7 +27,7 @@ After do |scenario|
   end
 
   GitHubMockBackend::API.init
-  $driver.reset
+  app_close
 end
 
 at_exit do

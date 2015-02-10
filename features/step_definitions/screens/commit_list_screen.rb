@@ -30,13 +30,12 @@ class CommitListScreen < BaseScreen
 		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
 	end
 
-	def loading_indicator_visible
-		begin
-			# if we can't find the loading indicator, it's not visible
-			$driver.find_element(id: ids[:commitlist_loading_indicator]).displayed?
-		rescue
-			false
-		end
+	def has_loading_indicator
+		has_element(ids[:commitlist_loading_indicator])
+	end
+
+	def has_no_loading_indicator
+		has_no_element(ids[:commitlist_loading_indicator])
 	end
 
 	def get_number_of_commits
@@ -47,16 +46,41 @@ class CommitListScreen < BaseScreen
 		$driver.find_element(id: ids[:commitlist_list])
 	end
 
-  # Error indication
-  def get_commits_error_indicator
-    $driver.find_element(id: ids[:commitlist_no_commits_indicator])
-  end
+	def get_commits_error_indicator
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator])
+	end
 
-  def has_commits_error_indicator
-    get_commits_error_indicator.displayed?
-  end
+	def has_commits_error_indicator
+		get_commits_error_indicator.displayed?
+	end
 
-  def get_commits_error
-    get_commits_error_indicator.text
-  end
+	def get_commits_error
+		get_commits_error_indicator.text
+	end
+
+	private
+	def has_element id
+		begin
+			element = $driver.find_element(id: id)
+			!element.nil? && element.displayed?
+		rescue
+			false
+		end
+	end
+
+	def has_no_element id
+
+		$driver.set_wait(0)
+
+		has = nil
+
+		500.times do
+			has = has_element(id)
+			break if !has
+			sleep 0.2
+		end
+
+		$driver.set_wait(30)
+		!has
+	end
 end
