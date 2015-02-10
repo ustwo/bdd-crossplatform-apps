@@ -14,9 +14,11 @@ module GitHubMockBackend
     @@repo_json = nil
     @@commit_json = nil
     @@commits_json = nil
+    @@forced_body = nil
+    @@forced_status = nil
+    @@forced_type = nil
     @@request_delay = nil
     @@error_json = nil
-    @@error_code = nil
 
     before do
       @@requests << request
@@ -25,9 +27,20 @@ module GitHubMockBackend
         sleep @@request_delay
       end
 
-      # Respond with error json and error code if error is set
-      if !@@error_json.nil? && !@@error_code.nil?
-        error!(@@error_json, @@error_code)
+      if !@@forced_type.nil?
+        content_type @@forced_type
+      end
+
+      if !@@forced_status.nil?
+        status @@forced_status
+      end
+
+      if !@@forced_body.nil?
+        body @@forced_body
+      end
+
+      if !@@error_json.nil?
+        error!(@@error_json)
       end
     end
 
@@ -64,10 +77,13 @@ module GitHubMockBackend
     def self.init
       @@requests = []
       @@repo_json = nil
+      @@commit_json = nil
       @@commits_json = nil
+      @@forced_body = nil
+      @@forced_status = nil
+      @@forced_type = nil
       @@request_delay = nil
       @@error_json = nil
-      @@error_code = nil
     end
 
     def self.set_request_delay delay
@@ -90,14 +106,18 @@ module GitHubMockBackend
       @@commits_json = API.static_json(file_name)
     end
 
-    def self.set_error_json file_name, error_code
-      @@error_json = API.static_json(file_name)
-      @@error_code = error_code
+    def self.set_response body: nil, status: nil, type: nil
+      @@forced_body = body
+      @@forced_status = status
+      @@forced_type = type
+    end
+
+    def self.file_content(file_name)
+      File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
     end
 
     def self.static_json(file_name)
-      file_path = File.read("#{File.dirname(__FILE__)}/responses/json/#{file_name}.json")
-      JSON.parse(file_path)
+      JSON.parse(file_content(file_name))
     end
 
     def self.get_requests

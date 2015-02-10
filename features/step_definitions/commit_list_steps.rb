@@ -5,15 +5,17 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  repo_json = GitHubMockBackend::API.get_repo_json()
-  expected_title = repo_json['name']
+  json = GitHubMockBackend::API.get_repo_json()
+
+  expected_title = json['name']
   actual_title = @screen.get_title
 
   expect(actual_title).to eq(expected_title)
 end
 
 Then(/^I should be able to see the latest 10 commits$/) do
-  commits_json = GitHubMockBackend::API.get_commits_json()
+  commits_json = GitHubMockBackend::API.get_repo_json()
+
   expected_number_of_commits = commits_json.count
   actual_number_of_commits = @screen.get_number_of_commits
 
@@ -75,7 +77,11 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_error_json('commits_error', 405)
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('commits_error'), status: 405
+end
+
+Given(/^the json retrieved from the server is broken$/) do
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do

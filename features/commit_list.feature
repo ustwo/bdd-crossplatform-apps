@@ -1,5 +1,6 @@
 Feature: display list of commits
 
+
   Scenario: display repository title
     Given I am on the commit list screen
     Then I should be able to see the repository title
@@ -44,3 +45,6 @@ Feature: display list of commits
     Then I should see an indicator slow server
 
   Scenario: broken JSON
+    Given the json retrieved from the server is broken
+    Given I am on the commit list screen
+    Then I should see an indicator of server error

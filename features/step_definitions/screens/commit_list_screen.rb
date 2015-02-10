@@ -2,6 +2,10 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
+	def get_text id
+		$driver.find_element(id: ids[id]).text
+	end
+
 	def wait_for_load
 		has_no_loading_indicator
 	end
@@ -10,10 +14,14 @@ class CommitListScreen < BaseScreen
 		get_text(:commitlist_title)
 	end
 
+	def has_error_indicator
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
+	end
+
 	def click_on_commit index
 		$driver.find_elements(id: ids[:commitlist_row])[index].click
 	end
-
+	
 	def has_commit_message text
 		!$driver.find_element(name: text).nil?
 	end
@@ -78,9 +86,5 @@ class CommitListScreen < BaseScreen
 
 		$driver.set_wait(30)
 		!has
-	end
-
-	def get_text id
-		$driver.find_element(id: ids[id]).text
 	end
 end
