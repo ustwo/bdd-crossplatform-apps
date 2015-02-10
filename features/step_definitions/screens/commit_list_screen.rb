@@ -2,6 +2,10 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
+	def wait_for_load
+		has_no_loading_indicator
+	end
+
 	def get_title
 		get_text(:commitlist_title)
 	end

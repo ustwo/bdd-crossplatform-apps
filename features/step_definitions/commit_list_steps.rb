@@ -54,6 +54,7 @@ end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
   expect(@screen.has_loading_indicator).to be true
+  @screen.wait_for_load
   expect(@screen.has_no_loading_indicator).to be true
 end
 
