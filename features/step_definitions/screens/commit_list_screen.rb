@@ -2,59 +2,85 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
-  # Generic
-  def get_text id
-    $driver.find_element(id: ids[id]).text
-  end
+	def wait_for_load
+		has_no_loading_indicator
+	end
 
-  # Title
-  def get_title
-    get_text(:commitlist_title)
-  end
+	def get_title
+		get_text(:commitlist_title)
+	end
 
-  # Commit list
-  def get_commit_list
-    $driver.find_element(id: ids[:commitlist_list])
-  end
+	def click_on_commit index
+		$driver.find_elements(id: ids[:commitlist_row])[index].click
+	end
 
-  def click_on_commit index
-    $driver.find_elements(id: ids[:commit_list_list_row])[index].click
-  end
+	def has_commit_message text
+		!$driver.find_element(name: text).nil?
+	end
 
-  def get_number_of_commits
-    $driver.find_elements(name: ids[:commit_list_list_row]).count
-  end
+	def has_date text
+		!$driver.find_element(name: text).nil?
+	end
 
-  # Commit message
-  def has_commit_message text
-    !$driver.find_element(name: text).nil?
-  end
+	def has_no_commits_indicator
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
+	end
 
-  # Commit date
-  def has_date text
-    !$driver.find_element(name: text).nil?
-  end
+	def has_loading_indicator
+		has_element(ids[:commitlist_loading_indicator])
+	end
 
-  # Loading indication
-  def loading_indicator_visible
-    begin
-      # if we can't find the loading indicator, it's not visible
-      $driver.find_element(id: ids[:commitlist_loading_indicator]).displayed?
-    rescue
-      false
-    end
-  end
+	def has_no_loading_indicator
+		has_no_element(ids[:commitlist_loading_indicator])
+	end
 
-  # Error indication
-  def get_commits_error_indicator
-    $driver.find_element(id: ids[:commitlist_no_commits_indicator])
-  end
+	def get_number_of_commits
+		$driver.find_elements(name: ids[:commit_list_list_row]).count
+	end
 
-  def has_commits_error_indicator
-    get_commits_error_indicator.displayed?
-  end
+	def get_commit_list
+		$driver.find_element(id: ids[:commitlist_list])
+	end
 
-  def get_commits_error
-    get_commits_error_indicator.text
-  end
+	def get_commits_error_indicator
+		$driver.find_element(id: ids[:commitlist_no_commits_indicator])
+	end
+
+	def has_commits_error_indicator
+		get_commits_error_indicator.displayed?
+	end
+
+	def get_commits_error
+		get_commits_error_indicator.text
+	end
+
+	private
+	def has_element id
+		begin
+			element = $driver.find_element(id: id)
+			!element.nil? && element.displayed?
+		rescue
+			false
+		end
+	end
+
+	def has_no_element id
+
+		$driver.set_wait(0)
+
+		has = nil
+
+		500.times do
+			has = has_element(id)
+			break if !has
+			sleep 0.2
+		end
+
+		$driver.set_wait(30)
+		!has
+	end
+
+	def get_text id
+		$driver.find_element(id: ids[id]).text
+	end
 end

@@ -26,7 +26,8 @@
 @property (nonatomic, assign, readwrite) BOOL isLoading;
 @property (nonatomic, strong, readwrite) NSData *urlData;
 @property (nonatomic, strong, readwrite) NSArray *commits;
-@property (nonatomic, strong, readwrite) NSString *repositoryName;
+@property (nonatomic, copy, readwrite) NSString *repositoryName;
+@property (nonatomic, copy, readwrite) NSString *errorMessage;
 @end
 
 @implementation US2RepositoryCommitsViewController
@@ -53,6 +54,7 @@
     self.commits = nil;
     self.isLoading = NO;
     self.repositoryName = @"";
+    self.errorMessage = @"";
 }
 
 - (void)__updateData {
@@ -75,12 +77,14 @@
         self.isLoading = NO;
         
         if (error) {
-            self.repositoryName = nil;
+            self.repositoryName = @"";
+            self.errorMessage = @"Could not load commits";
         }
         else {
             NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if (jsonDictionary == nil) {
                 self.repositoryName = nil;
+                self.errorMessage = @"Could not load commits";
             }
             else {
                 NSString *repositoryName = [jsonDictionary objectForKey:@"name"];
@@ -96,6 +100,10 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self __updateRepositoryTitle];
             [self __updateLoadingIndicator];
+            
+            if (self.errorMessage) {
+                [self __presentErrorWithMessage:self.errorMessage];
+            }
         });
     }];
     [dataTask resume];
@@ -125,20 +133,15 @@
         if (error ||
             httpUrlResponse.statusCode > 400) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *errorMessage = @"Could not load commits";
-                [self __presentErrorWithMessage:errorMessage];
+                self.errorMessage = @"Could not load commits";
             });
         }
         else {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if (jsonArray == nil ||
                 jsonArray.count == 0) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *errorMessage = @"No commits available";
-                    [self __presentErrorWithMessage:errorMessage];
-                });
-                
                 self.commits = [@[] mutableCopy];
+                self.errorMessage = @"No commits available";
             }
             else {
                 self.commits = [self __commitsFromJSONArray:jsonArray];
@@ -147,6 +150,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self __updateUserInterface];
+            
+            if (self.errorMessage) {
+                [self __presentErrorWithMessage:self.errorMessage];
+            }
         });
     }];
     [dataTask resume];

@@ -45,15 +45,17 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(4)
+  GitHubMockBackend::API.set_request_delay(3)
+end
+
+And(/^I am on the commit list screen before data has loaded/) do
+  @screen = launch_to_commit_list_screen(wait_for_load: false)
 end
 
 Then(/^I should see a loading indicator until reponse has been received$/) do
-  expect(@screen.loading_indicator_visible).to be true
-
-  sleep 5
-
-  expect(@screen.loading_indicator_visible).to be false
+  expect(@screen.has_loading_indicator).to be true
+  @screen.wait_for_load
+  expect(@screen.has_no_loading_indicator).to be true
 end
 
 Given(/^the repository has no commits$/) do
@@ -77,7 +79,7 @@ Given(/^there is a server error retriving data$/) do
 end
 
 Then(/^I should see an indicator of server error$/) do
-  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed" 
+  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
 Given(/^the server times out when requesting data$/) do

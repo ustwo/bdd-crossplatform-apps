@@ -23,7 +23,6 @@ module GitHubMockBackend
 
       if !@@request_delay.nil?
         sleep @@request_delay
-        @@request_delay = nil
       end
 
       # Respond with error json and error code if error is set
@@ -171,21 +170,7 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot options={stop_if_running: true}
-
-      if options.nil?
-        stop_if_running = true
-      else
-
-        opt_stop_if_running = options[:stop_if_running]
-
-        if opt_stop_if_running.nil?
-          stop_if_running = true
-        else
-          stop_if_running = opt_stop_if_running
-        end
-      end
-
+    def self.boot stop_if_running: true
       @@boot = Boot.new(stop_if_running)
     end
 
