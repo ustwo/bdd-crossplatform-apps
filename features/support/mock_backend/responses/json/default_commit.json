@@ -1,0 +1,27 @@
+{
+  "sha": "54c4882b15cd4e8514596a320bf83a678153ca7b",
+  "url": "https://api.github.com/repos/ustwo/US2FormValidator/git/commits/54c4882b15cd4e8514596a320bf83a678153ca7b",
+  "html_url": "https://github.com/ustwo/US2FormValidator/commit/54c4882b15cd4e8514596a320bf83a678153ca7b",
+  "author": {
+    "name": "Martin Stolz",
+    "email": "martin@ustwo.co.uk",
+    "date": "2013-11-27T13:11:12Z"
+  },
+  "committer": {
+    "name": "Martin Stolz",
+    "email": "martin@ustwo.co.uk",
+    "date": "2013-11-27T13:11:12Z"
+  },
+  "tree": {
+    "sha": "ed097f8f346b49b6d9211ce45126eaa82b950a66",
+    "url": "https://api.github.com/repos/ustwo/US2FormValidator/git/trees/ed097f8f346b49b6d9211ce45126eaa82b950a66"
+  },
+  "message": "Modified email recipients",
+  "parents": [
+    {
+      "sha": "b538cbaf3f1be3160e22638361401eab04f8389a",
+      "url": "https://api.github.com/repos/ustwo/US2FormValidator/git/commits/b538cbaf3f1be3160e22638361401eab04f8389a",
+      "html_url": "https://github.com/ustwo/US2FormValidator/commit/b538cbaf3f1be3160e22638361401eab04f8389a"
+    }
+  ]
+}

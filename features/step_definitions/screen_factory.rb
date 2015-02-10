@@ -8,6 +8,10 @@ class ScreenFactory
     get_screen_by_key "CommitListScreen"
   end
 
+  def get_commit_detail_screen
+    get_screen_by_key "CommitDetailScreen"
+  end
+
   def get_screen_by_key screen_name
     case @platform
     when 'android'
