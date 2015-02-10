@@ -32,5 +32,5 @@ end
 
 at_exit do
   GitHubMockBackend::Boot.exit
-  $driver.driver_quit
+  CustomWorld.exit
 end
