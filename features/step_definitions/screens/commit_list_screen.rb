@@ -6,6 +6,10 @@ class CommitListScreen < BaseScreen
 		$driver.find_element(id: ids[id]).text
 	end
 
+	def wait_for_load
+		has_no_loading_indicator
+	end
+
 	def get_title
 		get_text(:commitlist_title)
 	end
