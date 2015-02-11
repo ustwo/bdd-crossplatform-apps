@@ -2,36 +2,32 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
-	def get_text id
-		$driver.find_element(id: ids[id]).text
-	end
-
 	def wait_for_load
 		has_no_loading_indicator
 	end
 
 	def get_title
-		get_text(:commitlist_title)
+		get_text(ids[:commitlist_title])
 	end
 
 	def has_error_indicator
-		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
+		has_element(ids[:commitlist_no_commits_indicator])
 	end
 
 	def click_on_commit index
-		$driver.find_elements(id: ids[:commitlist_row])[index].click
+		elements(ids[:commitlist_row])[index].click
 	end
-	
+
 	def has_commit_message text
-		!$driver.find_element(name: text).nil?
+		!element_by_text(text).nil?
 	end
 
 	def has_date text
-		!$driver.find_element(name: text).nil?
+		!element_by_text(text).nil?
 	end
 
 	def has_no_commits_indicator
-		$driver.find_element(id: ids[:commitlist_no_commits_indicator]).displayed?
+		has_element(ids[:commitlist_no_commits_indicator])
 	end
 
 	def has_loading_indicator
@@ -43,48 +39,18 @@ class CommitListScreen < BaseScreen
 	end
 
 	def get_number_of_commits
-		$driver.find_elements(name: ids[:commit_list_list_row]).count
+		elements_by_text(ids[:commit_list_list_row]).count
 	end
 
 	def get_commit_list
-		$driver.find_element(id: ids[:commitlist_list])
-	end
-
-	def get_commits_error_indicator
-		$driver.find_element(id: ids[:commitlist_no_commits_indicator])
+		element(ids[:commitlist_list])
 	end
 
 	def has_commits_error_indicator
-		get_commits_error_indicator.displayed?
+		has_element(ids[:commitlist_no_commits_indicator])
 	end
 
 	def get_commits_error
-		get_commits_error_indicator.text
-	end
-
-	private
-	def has_element id
-		begin
-			element = $driver.find_element(id: id)
-			!element.nil? && element.displayed?
-		rescue
-			false
-		end
-	end
-
-	def has_no_element id
-
-		$driver.set_wait(0)
-
-		has = nil
-
-		500.times do
-			has = has_element(id)
-			break if !has
-			sleep 0.2
-		end
-
-		$driver.set_wait(30)
-		!has
+		get_text(ids[:commitlist_no_commits_indicator])
 	end
 end

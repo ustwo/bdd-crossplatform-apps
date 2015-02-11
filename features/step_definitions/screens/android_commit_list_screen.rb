@@ -1,22 +1,22 @@
 require_relative 'commit_list_screen'
 
 class AndroidCommitListScreen < CommitListScreen
-	
+
 	def get_title
 		# Get the ActionBar text - assume its the first TextView in the view hierarchy
-		$driver.find_element(class: 'android.widget.TextView').name
+		@driver.find_element(class: 'android.widget.TextView').name
 	end
 
 	def has_commit_message message
-		listview = $driver.find_element(id: ids[:commitlist_list])
+		listview = element(ids[:commitlist_list])
 
-		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => message)
+		@driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => message)
 	end
 
 	def has_date date
-		listview = $driver.find_element(id: ids[:commitlist_list])
+		listview = element(ids[:commitlist_list])
 
-		$driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => date)
+		@driver.execute_script("mobile: scrollTo", :element => listview.ref, :text => date)
 	end
 
 	def ids
@@ -36,5 +36,5 @@ class AndroidCommitListScreen < CommitListScreen
 
     	map
   end
-	
+
 end

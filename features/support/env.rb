@@ -8,7 +8,8 @@ require_relative '../step_definitions/screen_factory'
 
 class CustomWorld
 
-  def initialize screen_factory
+  def initialize driver, screen_factory
+    @@driver = driver
     @screen_factory = screen_factory
   end
 
@@ -31,7 +32,7 @@ class CustomWorld
   end
 
   def app_close
-    $driver.close_app
+    @@driver.close_app
   end
 
   private
@@ -45,21 +46,25 @@ class CustomWorld
     # and 'launch_app' afterwards
 
     begin
-      $driver.session_id
-      $driver.launch_app
+      @@driver.session_id
+      @@driver.launch_app
     rescue
-      $driver.start_driver
+      @@driver.start_driver
     end
   end
-end
 
-World do
-  CustomWorld.new(ScreenFactory.new(ENV['PLATFORM']))
+  def self.exit
+    @@driver.driver_quit
+  end
 end
 
 GitHubMockBackend::Boot.boot(stop_if_running: true)
 
-# Appium
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
-Appium::Driver.new({:caps => caps, :custom_url => ENV['APPIUM_SERVER_URL']})
+driver = Appium::Driver.new({:caps => caps, :custom_url => ENV['APPIUM_SERVER_URL']})
 Appium.promote_appium_methods CustomWorld
+
+World do
+  screen_factory = ScreenFactory.new(ENV['PLATFORM'], driver)
+  CustomWorld.new(driver, screen_factory)
+end
