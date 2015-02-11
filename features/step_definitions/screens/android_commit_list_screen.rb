@@ -28,11 +28,10 @@ class AndroidCommitListScreen < CommitListScreen
 	    map[:commitlist_loading_indicator] = 'android:id/progress'
 
 	    # Commit List Row
-	    map[:commit_list_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
+	    map[:commitlist_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
 	    map[:commitlist_row_textview_date] = 'com.ustwo.sample:id/commit_list_row_textview_date'
 	    map[:commitlist_row_textview_message] = 'com.ustwo.sample:id/commit_list_row_textview_message'
 	    map[:commitlist_list] = 'com.ustwo.sample:id/commit_list_listview_commits'
-	    map[:commit_list_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
 
     	map
   end
