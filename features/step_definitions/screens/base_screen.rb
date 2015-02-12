@@ -4,6 +4,10 @@ class BaseScreen
 		@driver = driver
 	end
 
+	def id
+		raise 'Abstract'
+	end
+
 	def wait_for_load
 		# NOTE (JD): get rid of the sleep
 		# and monitor the state of the loaders

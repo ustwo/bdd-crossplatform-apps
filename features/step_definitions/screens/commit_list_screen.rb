@@ -18,12 +18,8 @@ class CommitListScreen < BaseScreen
 		elements(ids[:commitlist_list_row])[index].click
 	end
 
-	def has_commit_message text
-		!element_by_text(text).nil?
-	end
-
-	def has_date text
-		!element_by_text(text).nil?
+	def get_commit index
+		raise 'Abstract'
 	end
 
 	def has_no_commits_indicator

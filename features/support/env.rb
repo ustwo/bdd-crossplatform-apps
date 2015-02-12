@@ -26,9 +26,16 @@ class CustomWorld
   end
 
   def get_commit_detail_screen
-    commit_detail_screen = @screen_factory.get_commit_detail_screen()
-    commit_detail_screen.wait_for_load
-    commit_detail_screen
+    @screen_factory.get_commit_detail_screen()
+  end
+
+  def is_on_screen screen
+    begin
+      element = @@driver.find_element(id: screen.id)
+      !element.nil? && element.displayed?
+    rescue
+      false
+    end
   end
 
   def app_close

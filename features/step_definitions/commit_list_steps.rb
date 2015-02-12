@@ -14,36 +14,33 @@ Then(/^I should be able to see the repository title$/) do
 end
 
 Then(/^I should be able to see the latest 10 commits$/) do
-  commits_json = GitHubMockBackend::API.get_repo_json()
-
-  expected_number_of_commits = commits_json.count
-  actual_number_of_commits = @screen.get_number_of_commits
-
-  expect(actual_number_of_commits).to eq(expected_number_of_commits)
+  step 'I should see the commit message and date of each commit'
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  json = GitHubMockBackend::API.get_commits_json()
+  commits_json = GitHubMockBackend::API.get_commits_json()
 
-  json.each do |commit|
-    expected_message = commit['commit']['message']
-    expected_date = commit['commit']['author']['date']
+  6.times do |index|
 
-    expect(@screen.has_commit_message(expected_message)).to be(true), "Expected message '#{expected_message}' was not found in the list of commits"
-    expect(@screen.has_date(expected_date)).to be(true), "Expected date '#{expected_date}' was not found in the list of commits"
+    commit_json = commits_json[index]
+    expected_message = commit_json['commit']['message']
+    expected_date = commit_json['commit']['author']['date']
+
+    actual_commit = @screen.get_commit(index)
+
+    expect(actual_commit[:text]).to eq expected_message
+    expect(actual_commit[:date]).to eq expected_date
   end
 end
 
 When(/^I choose to see the details of a specific commit$/) do
-  index = 2
-
-  @screen.click_on_commit(index)
+  @screen.click_on_commit(2)
+  @detail_screen = get_commit_detail_screen
+  @detail_screen.wait_for_load
 end
 
 Then(/^I should be taken to the commit details screen$/) do
-  @detail_screen = get_commit_detail_screen
-
-  expect(@detail_screen.is_on_commit_detail_screen).to be true
+  expect(is_on_screen(@detail_screen)).to be true
 end
 
 Given(/^the server is slow responding with data$/) do
