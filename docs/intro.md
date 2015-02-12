@@ -13,7 +13,7 @@ The set up we describe below is what underpins the process from a technical poin
 
 ### What this is about
 
-A setup that enables:
+A reference for a project setup that enables:
 
  * Collaboration
  * Visibility over the development process
@@ -27,6 +27,10 @@ Not a tutorial about BDD or Cucumber.
 Not about testing server-side applications.
 
 Not an end to end testing set up.
+
+Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of beig distracted from the bigger picture.
+
+Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
 ## Main actors
 
@@ -89,15 +93,15 @@ Cross-platform test automation framework that builds on top the JSON Wire Protoc
 
 ### Interactive sessions
 
-During early stages of the development it's likely that we have an idea of what we want to test and how we want to test it, but might want to have go at it first before committing to it.
+During early stages of the development it's likely that we have an idea of what we want to test and how we want to test it, but might want to have a go at it first before committing to it.
 
-An interactive session allows just that by preparing the whole system for a tesinng session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
+An interactive session allows just that by preparing the whole system for a testing session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
 
 ```rake ios_interactive```
 
 This in turn:
 
- * Prepares and compiles the app pointing to the mock server
+ * Prepares and compiles the app pointing it to the mock server
  * Boots up the mock server
  * Boots up a local Appium server 
  

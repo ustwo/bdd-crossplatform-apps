@@ -133,16 +133,8 @@ task :ios_compile do
 
   puts "Compiling iOS app"
 
-  # NOTE (JD): the final path will be 'ios/build'
-  # because we change the working directory before
-  # executing xcodebuild
-  build_dir = 'build/'
-  scheme = 'AppTestingSample-BDD'
-  configuration = 'AppTestingSample-BDD'
-
-  # compile
   Dir.chdir('ios/')
-  XCodeBuildCommand.new(scheme, configuration, build_dir).execute
+  XCodeBuildCommand.new.execute
   Dir.chdir('../')
 end
 
