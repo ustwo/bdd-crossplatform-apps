@@ -15,7 +15,7 @@ class CommitListScreen < BaseScreen
 	end
 
 	def click_on_commit index
-		elements(ids[:commitlist_row])[index].click
+		elements(ids[:commitlist_list_row])[index].click
 	end
 
 	def has_commit_message text
