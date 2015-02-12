@@ -1,3 +1,4 @@
 platformName = "Android"
 deviceName = "${@device}"
 app = "${@apk}"
+newCommandTimeout = "999999"
