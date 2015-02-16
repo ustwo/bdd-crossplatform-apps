@@ -24,10 +24,6 @@ import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
 public class CommitDetailActivity extends ActionBarActivity {
     private static final String TAG = CommitDetailActivity.class.getSimpleName();
 
-    private final RestAdapter mRestAdapter = new RestAdapter.Builder()
-            .setEndpoint("https://api.github.com")
-            .build();
-
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -56,7 +52,11 @@ public class CommitDetailActivity extends ActionBarActivity {
     }
 
     private void retrieveCommitInfo(String commit) {
-        GitHub service = mRestAdapter.create(GitHub.class);
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(getString(R.string.app_endpoint_url))
+                .build();
+        
+        GitHub service = restAdapter.create(GitHub.class);
         service.commit(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, commit, new Callback<Commit>() {
             @Override
             public void success(Commit commit, Response response) {
