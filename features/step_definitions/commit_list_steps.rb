@@ -28,8 +28,8 @@ Then(/^I should see the commit message and date of each commit$/) do
 
     actual_commit = @screen.get_commit(index)
 
-    expect(actual_commit[:text]).to eq expected_message
-    expect(actual_commit[:date]).to eq expected_date
+    expect(actual_commit[:text]).to eq(expected_message), "Expected message for commit ##{index} is '#{expected_message}', found '#{actual_commit[:text]}' instead"
+    expect(actual_commit[:date]).to eq(expected_date), "Expected date for commit ##{index} is #{expected_date}, found #{actual_commit[:date]} instead"
   end
 end
 
