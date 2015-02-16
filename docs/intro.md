@@ -39,7 +39,6 @@ Not a project template that you can clone, modify a few values on a configuratio
  * [Cucumber](http://cukes.info/) as the BDD tool of choice 
  * [Appium](http://appium.io/) as the test automation framework
  
-
 ### The application under test
 
 Needs little code or modification for the purposes of testing.
@@ -59,7 +58,6 @@ Other ways of achieving a similar outcome is using staging servers or local deve
 The downside is mostly (most likely manual) effort of keeping it sync with the real API. Its API must be a mirror of the production server API. 
 
 Avoid implementing business logic.
-
  
 ### Cucumber
 
@@ -85,9 +83,6 @@ Cross-platform test automation framework that builds on top the JSON Wire Protoc
  * Launch the app, take it to the point we want to test: ```And we are on the commit list screen```.
  * Assert the expected behaviour: ```Then we should see the no commits indicator```.
  
-  
- 
- 
 ## Expected usage
 
 
@@ -107,14 +102,18 @@ This in turn:
  
 Once that is up and running you can open up a new terminal and try something like (note that for Android this requires a device or emulator running already):
 
-```require 'appium_lib'
+```ruby
+require 'appium_lib'
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
 driver = Appium::Driver.new({caps: caps})
-driver.start_driver```
+driver.start_driver
+```
 
 At that point Appium will install and start the app. You can beging the session by getting a dump of what is on screen:
 
-```driver.page```
+```ruby
+driver.page
+```
 
 Use ```CTRL+C``` on the main tab to finish off the interactive session.  
 
