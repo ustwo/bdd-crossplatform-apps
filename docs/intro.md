@@ -2,42 +2,38 @@
 
 ## Introduction
 
-At ustwo we help clients define, design, build and test products. We also do it for ourselves.
+At ustwo we define, design, build and test digital products, for our clients and for ourselves.
 
 Most of those are native mobile apps, but also incresingly web apps.
 
-We think collaboration is key to put together amazing products and we have found in BDD the perfect trojan horse to make that collaboration happen.
+We think collaboration is key to putting together amazing products and we have found in BDD the perfect trojan horse to make that collaboration happen.
 
-The set up we describe below is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how we do it. One of the expected outcomes of publishing it is gathering feedback and improveing it. So yeah, we are all ears.
-
+The setup we describe below is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how *we* do it. One of the expected outcomes of making it public is gathering feedback and improving it. So yeah, we are all ears.
 
 ### What this is about
 
-A reference for a project setup that enables:
+A reference or guide for a project setup that enables:
 
- * Collaboration
- * Visibility over the development process
- * Robust client-side applications
- * Faster and cheaper testing of cross-platform applications
+ * Collaboration, particularly with non-technical people.
+ * Visibility over the development process.
+ * Robust client-side applications.
+ * Faster and cheaper testing of cross-platform applications.
+ * Faster, cheaper integration with backend.
 
-### What is not about
+### What this is not about
 
-Not a tutorial about BDD or Cucumber.
-
-Not about testing server-side applications.
-
-Not an end to end testing set up.
-
-Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of beig distracted from the bigger picture.
-
-Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
+ * Not a tutorial about BDD or Cucumber.
+ * Not about testing server-side applications.
+ * Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
+ * Not an end to end testing setup.
+ * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
 ## Main actors
 
- * Mobile app (iOS/Android) as the application under test
- * [Grape](http://intridea.github.io/grape/)/[Sinatra](http://www.sinatrarb.com/) as our local mock server
- * [Cucumber](http://cukes.info/) as the BDD tool of choice 
- * [Appium](http://appium.io/) as the test automation framework
+ * Mobile app (iOS/Android) as the application under test.
+ * [Grape](http://intridea.github.io/grape/)/[Sinatra](http://www.sinatrarb.com/) as our local mock server.
+ * [Cucumber](http://cukes.info/) as the BDD tool of choice.
+ * [Appium](http://appium.io/) as the functional automation framework.
  
 ### The application under test
 
@@ -45,7 +41,7 @@ Needs little code or modification for the purposes of testing.
 
 We asume that the app solves the same business problems in all platforms. This will naturally lead to a very similar interface, which in turn helps sharing the testing codebase.
 
-Please note that there's still room for each app to follow the interaction guidelines of its platform. See the Cucumber section below.
+Please note that there's still room for each app to follow the interaction guidelines of its platform and platform specific test if required. See the Cucumber section below.
 
 ### Mock backend
 
