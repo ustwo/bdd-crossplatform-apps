@@ -45,25 +45,29 @@ Please note that there's still room for each app to follow the interaction guide
 
 ### Mock backend
 
-Most client side applications are driven by data, typically coming from several sources. What happens on the client is dictated by the data the server feeds it.
+Most client side applications are driven by data, typically coming from several sources. What happens on the client is mostly dictated by the data the server feeds it.
 
-So if we are going to thoroughly test how our client side application behaves then we need full control of what data the server is giving to it.
+So if we are going to thoroughly test how our client side application behaves, particularly in non-ideal scenarios, then we need full control of what data the server is giving to it.
 
-Other ways of achieving a similar outcome is using staging servers or local development servers. We think a dumb mock server offers advantages over those methods: simple, lightweight, flexible.
+Other ways of achieving a similar outcome are using services like [Apiary](http://apiary.io/), staging servers or local development servers, but we think a *dumb* mock server offers advantages over those methods: simpler, lightweight, more flexible.
 
-The downside is mostly (most likely manual) effort of keeping it sync with the real API. Its API must be a mirror of the production server API. 
+For example, imagine we want to test how our application behaves when the server returns a 500 error for an API call. Forcing this on an instance of the real server, even if it's running locally, is not straightforward. Let alone that sometimes fronted teams can't possibly run local versions of the backend (complicated dev environments, belongs to a 3rd party).
 
-Avoid implementing business logic.
+This is where a local mock backend excels. It's very easy from a Cucumber step definition to force the mock backend to return a 500 error for a given API call, then assert in another step that the application is handling the error as expected (displaying an appropriate error message, for example).
+
+The downside of the mock server is mostly the manual effort required to keep it in sync with the real API. 
+
+We always try to avoid implementing business logic in the mock backend and limit it to returning static resources (JSON, images). 
  
 ### Cucumber
 
-We consider Cucumber to be an esential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view.
+We consider Cucumber to be an esential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view over other lower level, platform specific options.
 
-Non-technical people disconnect as soon as anything resembling code shows up in the screen.
+Cucumber scenarios are written in plain text enabling tests written in a language that is very close to the domain problem ([DSLs](http://martinfowler.com/bliki/BusinessReadableDSL.html)). This highly increases the chances of engaging non-technical people, which is crucial to collaboration.
 
 Declarative tests and page objects so the codebase is highly reusable across platforms. 
 
-Dirty POs, clean steps.
+Step definitions are kept free of UI and automation framework specifics, making them easier to read and less brittle. The complexities of extracting information or interacting with the interface are kept inside the page objects. We always aim for "clean steps and dirty POs".
 
 ### Appium
 
