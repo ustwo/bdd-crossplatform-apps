@@ -4,15 +4,13 @@
 
 At ustwo we define, design, build and test digital products, for our clients and for ourselves.
 
-Most of those are native mobile apps, but also incresingly web apps.
-
-We think collaboration is key to putting together amazing products and we have found in BDD the perfect trojan horse to make that collaboration happen.
+We think collaboration is key to putting together amazing products and we have found in BDD the perfect excuse to make that collaboration happen.
 
 The setup we describe below is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how *we* do it. One of the expected outcomes of making it public is gathering feedback and improving it. So yeah, we are all ears.
 
 ### What this is about
 
-A reference or guide for a project setup that enables:
+A reference for a project setup that enables:
 
  * Collaboration, particularly with non-technical people.
  * Visibility over the development process.
@@ -23,15 +21,15 @@ A reference or guide for a project setup that enables:
 ### What this is not about
 
  * Not a tutorial about BDD or Cucumber.
- * Not about testing server-side applications.
+ * Not about testing backend applications.
  * Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
- * Not an end to end testing setup.
+ * Not an end-to-end testing setup.
  * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
 ## Main actors
 
  * Mobile app (iOS/Android) as the application under test.
- * [Grape](http://intridea.github.io/grape/)/[Sinatra](http://www.sinatrarb.com/) as our local mock server.
+ * [Grape](http://intridea.github.io/grape/) as our local mock server.
  * [Cucumber](http://cukes.info/) as the BDD tool of choice.
  * [Appium](http://appium.io/) as the functional automation framework.
  
@@ -39,9 +37,7 @@ A reference or guide for a project setup that enables:
 
 Needs little code or modification for the purposes of testing.
 
-We asume that the app solves the same business problems in all platforms. This will naturally lead to a very similar interface, which in turn helps sharing the testing codebase.
-
-Please note that there's still room for each app to follow the interaction guidelines of its platform and platform specific test if required. See the Cucumber section below.
+We asume that the application solves the same business problems in all platforms which will naturally lead to a similar interface. However, the setup still leaves room for some platform specific differences, see the Cucumber section below.
 
 ### Mock backend
 
@@ -65,9 +61,9 @@ We consider Cucumber to be an esential part of the workflow. The benefits it bri
 
 Cucumber scenarios are written in plain text enabling tests written in a language that is very close to the domain problem ([DSLs](http://martinfowler.com/bliki/BusinessReadableDSL.html)). This increases the chances of engaging non-technical people and reduces the chances of misunderstandings.
 
-We favour [declarative vs imperative](http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html) tests and use [page objects](http://developer.xamarin.com/guides/testcloud/calabash/xplat-best-practices/) so the testing codebase is highly reusable across platforms. 
+We favour [declarative vs imperative](http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html) tests and use [page objects](http://developer.xamarin.com/guides/testcloud/calabash/xplat-best-practices/) (POs) so the testing codebase is highly reusable across platforms. This combination also enables platform specific implementation of behaviours. For example, selecting an item on a list could be implemented as a swipe on iOS and as a long press on Android.
 
-Step definitions are kept free of UI and automation framework specifics, making them easier to read and less brittle. The complexities of extracting information or interacting with the interface are kept inside the page objects. We always for "clean steps and dirty POs".
+Step definitions are kept free of UI and automation framework specifics, making them easier to read and less brittle. The complexities of extracting information or interacting with the interface are kept inside the page objects. We aim for "*clean steps and dirty POs*".
 
 ### Appium
 
@@ -92,11 +88,13 @@ At this point is Cucumber business as usual, for example:
 
 ### Interactive sessions
 
-During early stages of the development it's likely that we have an idea of what we want to test and how we want to test it, but might want to have a go at it first before committing to it.
+During early stages of the development it's likely that we have an idea of what we want to test, but not sure how.
 
-An interactive session allows just that by preparing the whole system for a testing session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
+An interactive session facilitates this by preparing the whole system for a session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
 
-```rake ios_interactive```
+```ruby
+rake ios_interactive
+```
 
 This in turn:
 
@@ -104,7 +102,7 @@ This in turn:
  * Boots up the mock server, if required
  * Boots up a local Appium server, if required   
  
-Once that is up and running you can open up a new terminal and try something like (note that for Android this requires a device connected or the emulator running already):
+Once all is up and running you can open up a new terminal and try something like (note that for Android this requires a device connected or the emulator running already):
 
 ```ruby
 require 'appium_lib'
@@ -123,7 +121,7 @@ Use ```CTRL+C``` on the main tab to finish off the interactive session.
 
 ### CI run through
 
-This is where the CI (or a developer's machine) runs a subset of tests (using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags)) or full regression.
+This is when the CI (or a developer's machine) runs the tests or a subset of them.
 
 This is done by running something like:
 
@@ -146,7 +144,7 @@ However, the risk can be reduced by using a subset of the BDD tests for end-to-e
 
 ## Links
 
-Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS). Might be able to use Espresso as well.
+Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS). 
 
 [Appium concepts](https://github.com/appium/appium/blob/master/docs/en/about-appium/intro.md).
 
