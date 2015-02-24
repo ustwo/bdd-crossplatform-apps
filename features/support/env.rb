@@ -65,7 +65,7 @@ class CustomWorld
   end
 end
 
-GitHubMockBackend::Boot.boot(stop_if_running: true)
+GitHubMockBackend::Boot.boot
 
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
 driver = Appium::Driver.new({:caps => caps, :custom_url => ENV['APPIUM_SERVER_URL']})

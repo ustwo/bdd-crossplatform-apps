@@ -73,8 +73,16 @@ module GitHubMockBackend
       body 'Hello World'
     end
 
-    # Called after every scenario
-    def self.init
+    # Below this point there is the API used to
+    # force specific mock server behaviours such as
+    # slow responses, broken JSON responses, etc
+
+    # Each endpoint can be easily called from the steps
+    # through static methods at the bottom
+
+    # Called before and after every scenario
+    # to be sure there are no leftovers from previous tests
+    get '/init' do
       @@requests = []
       @@repo_json = nil
       @@commit_json = nil
@@ -84,32 +92,89 @@ module GitHubMockBackend
       @@forced_type = nil
       @@request_delay = nil
       @@error_json = nil
+      {}
     end
 
-    def self.set_request_delay delay
+    post '/request_delay' do
+
+      delay = params[:delay].to_i
       @@request_delay = delay
+      {}
     end
 
-    def self.get_repo_json
+    get '/repo_json' do
       @@repo_json
     end
 
-    def self.get_commits_json
+    get '/commits_json' do
       @@commits_json
     end
 
-    def self.set_repo_json file_name
+    post '/repo_json' do
+      file_name = params[:filename]
       @@repo_json = API.static_json(file_name)
+      {}
     end
 
-    def self.set_commits_json file_name
+    post '/commits_json' do
+      file_name = params[:filename]
       @@commits_json = API.static_json(file_name)
+      {}
+    end
+
+    post '/response' do
+      @@forced_body = (params[:body].empty?)? nil : params[:body]
+      @@forced_status = (params[:status].empty?)? nil : params[:status]
+      @@forced_type = (params[:type].empty?)? nil : params[:type]
+      {}
+    end
+
+    get '/requests' do
+
+      requests = []
+
+      @@requests.each do |request|
+        requests << {fullpath: request.fullpath} unless request.fullpath == '/requests'
+      end
+
+      requests
+    end
+
+    # ####################
+
+    def self.init
+      HTTParty.get(Bind.url + '/init')
+    end
+
+    def self.set_request_delay delay
+      HTTParty.post(Bind.url + '/request_delay', body: {delay: delay})
+    end
+
+    def self.get_repo_json
+      response = HTTParty.get(Bind.url + '/repo_json')
+      JSON.parse(response.body)
+    end
+
+    def self.get_commits_json
+      response = HTTParty.get(Bind.url + '/commits_json')
+      JSON.parse(response.body)
+    end
+
+    def self.set_repo_json file_name
+      HTTParty.post(Bind.url + '/repo_json', body: {filename: file_name})
     end
 
     def self.set_response body: nil, status: nil, type: nil
-      @@forced_body = body
-      @@forced_status = status
-      @@forced_type = type
+      HTTParty.post(Bind.url + '/response', body: {body: body, status: status, type: type})
+    end
+
+    def self.set_commits_json file_name
+      HTTParty.post(Bind.url + '/commits_json', body: {filename: file_name})
+    end
+
+    def self.get_requests
+      response = HTTParty.get(Bind.url + '/requests')
+      JSON.parse(response.body)
     end
 
     def self.file_content(file_name)
@@ -118,10 +183,6 @@ module GitHubMockBackend
 
     def self.static_json(file_name)
       JSON.parse(file_content(file_name))
-    end
-
-    def self.get_requests
-      @@requests
     end
   end
 
@@ -147,18 +208,13 @@ module GitHubMockBackend
   class Boot
     @@boot = nil
 
-    def initialize(stop_if_running)
+    def initialize
       host = Bind.host
       port = Bind.port
       full_url = Bind.url
 
       if self.is_running?
-
-        if stop_if_running
-          abort("ERROR: Mock server already running at #{full_url}. Please stop it and run this again.")
-        else
-          puts "Mock server already running at #{full_url}."
-        end
+        puts "Mock server already running at #{full_url}."
       else
 
         puts "About to boot up mock server at: #{full_url}"
@@ -190,8 +246,8 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot stop_if_running: true
-      @@boot = Boot.new(stop_if_running)
+    def self.boot
+      @@boot = Boot.new
     end
 
     def self.exit
