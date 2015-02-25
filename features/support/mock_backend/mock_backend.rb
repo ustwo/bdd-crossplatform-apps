@@ -45,27 +45,15 @@ module GitHubMockBackend
     end
 
     get '/repos/:org/:repo' do
-      if @@repo_json.nil?
-        @@repo_json = API.static_json('default_repo')
-      else
-        @@repo_json
-      end
+      @@repo_json ||= API.static_json('default_repo')
     end
 
     get '/repos/:org/:repo/commits' do
-      if @@commits_json.nil?
-        @@commits_json = API.static_json('default_commits')
-      else
-        @@commits_json
-      end
+      @@commits_json ||= API.static_json('default_commits')
     end
 
     get '/repos/:org/:repo/commits/:commit' do
-      if @@commit_json.nil?
-        @@commit_json = API.static_json('default_commit')
-      else
-        @@commit_json
-      end
+      @commit_json ||= API.static_json('default_commit')
     end
 
     get '/' do
@@ -86,7 +74,7 @@ module GitHubMockBackend
       @@error_json = nil
     end
 
-    def self.set_request_delay delay
+    def self.set_request_delay(delay)
       @@request_delay = delay
     end
 
@@ -98,15 +86,15 @@ module GitHubMockBackend
       @@commits_json
     end
 
-    def self.set_repo_json file_name
+    def self.set_repo_json(file_name)
       @@repo_json = API.static_json(file_name)
     end
 
-    def self.set_commits_json file_name
+    def self.set_commits_json(file_name)
       @@commits_json = API.static_json(file_name)
     end
 
-    def self.set_response body: nil, status: nil, type: nil
+    def self.set_response(body: nil, status: nil, type: nil)
       @@forced_body = body
       @@forced_status = status
       @@forced_type = type
@@ -126,7 +114,6 @@ module GitHubMockBackend
   end
 
   class Bind
-
     def self.host
       # mix of these two:
       # http://stackoverflow.com/questions/14019287/get-the-ip-address-of-local-machine-rails
@@ -153,21 +140,18 @@ module GitHubMockBackend
       full_url = Bind.url
 
       if self.is_running?
-
         if stop_if_running
           abort("ERROR: Mock server already running at #{full_url}. Please stop it and run this again.")
         else
           puts "Mock server already running at #{full_url}."
         end
       else
-
         puts "About to boot up mock server at: #{full_url}"
 
         @bootup = BootupServerCommand.new(host, port)
         @bootup.execute
 
-        while true
-
+        loop do
           break if self.is_running?
           puts 'Waiting for mock backend'
           sleep 0.5
@@ -178,8 +162,7 @@ module GitHubMockBackend
     end
 
     def is_running?
-      begin
-        HTTParty.get(Bind.url).response.code.to_i == 200
+      HTTParty.get(Bind.url).response.code.to_i == 200
       rescue
         false
       end
@@ -190,14 +173,12 @@ module GitHubMockBackend
       puts "Mock server finished"
     end
 
-    def self.boot stop_if_running: true
+    def self.boot(stop_if_running: true)
       @@boot = Boot.new(stop_if_running)
     end
 
     def self.exit
-      if !@@boot.nil?
-        @@boot.close
-      end
+      @@boot.close unless @@boot.nil?
     end
   end
 end

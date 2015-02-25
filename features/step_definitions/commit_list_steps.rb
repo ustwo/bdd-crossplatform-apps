@@ -5,7 +5,7 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  json = GitHubMockBackend::API.get_repo_json()
+  json = GitHubMockBackend::API.get_repo_json
 
   expected_title = json['name']
   actual_title = @screen.get_title
@@ -18,18 +18,19 @@ Then(/^I should be able to see the latest 10 commits$/) do
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  commits_json = GitHubMockBackend::API.get_commits_json()
+  commits_json = GitHubMockBackend::API.get_commits_json
 
   6.times do |index|
-
     commit_json = commits_json[index]
     expected_message = commit_json['commit']['message']
     expected_date = commit_json['commit']['author']['date']
 
     actual_commit = @screen.get_commit(index)
 
-    expect(actual_commit[:text]).to eq(expected_message), "Expected message for commit ##{index} is '#{expected_message}', found '#{actual_commit[:text]}' instead"
-    expect(actual_commit[:date]).to eq(expected_date), "Expected date for commit ##{index} is #{expected_date}, found #{actual_commit[:date]} instead"
+    expect(actual_commit[:text])
+      .to eq(expected_message), "Expected message for commit #{index} is '#{expected_message}', found '#{actual_commit[:text]}' instead"
+    expect(actual_commit[:date])
+      .to eq(expected_date), "Expected date for commit #{index} is #{expected_date}, found #{actual_commit[:date]} instead"
   end
 end
 
@@ -74,11 +75,11 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('commits_error'), status: 405
+  GitHubMockBackend::API.set_response(body: GitHubMockBackend::API.file_content('commits_error'), status: 405)
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('broken_json')
+  GitHubMockBackend::API.set_response(body: GitHubMockBackend::API.file_content('broken_json'))
 end
 
 Then(/^I should see an indicator of server error$/) do

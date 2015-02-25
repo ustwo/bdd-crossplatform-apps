@@ -1,6 +1,5 @@
 class ScreenFactory
-
-  def initialize platform, driver
+  def initialize(platform, driver)
     @platform = platform
     @driver = driver
   end
@@ -13,15 +12,14 @@ class ScreenFactory
     get_screen_by_key "CommitDetailScreen"
   end
 
-  def get_screen_by_key screen_name
+  def get_screen_by_key(screen_name)
     case @platform
-    when 'android'
-      Object::const_get("Android#{screen_name}").new(@driver)
-    when 'ios'
-      Object::const_get("Ios#{screen_name}").new(@driver)
+    when "android"
+      Object.const_get("Android#{screen_name}").new(@driver)
+    when "ios"
+      Object.const_get("Ios#{screen_name}").new(@driver)
     else
-      raise "Unexpected platform '#{@platform}', cannot get get screen by screen_name '#{screen_name}'"
+      fail "Unexpected platform '#{@platform}', cannot get get screen by screen_name '#{screen_name}'"
     end
   end
-
 end
