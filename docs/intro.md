@@ -130,9 +130,11 @@ This is done by running something like:
 
 ## Tips and tricks
 
-Keep an Appium server session opened at all times so it doesn't need to be booted up everytime the tests are run, saving time and noise in the terminal. 
+Keep instances of the mock backend and the local Appium server running on their own tabs so consecutive test runs are faster and there is less noise on the terminal.
 
 ## Limitations, considerations
+
+### Appium limitations
 
 ### Not end to end testing
 
@@ -141,6 +143,8 @@ Automated functional testing of the client side application does not guarantee t
 However, the risk can be reduced by using a subset of the BDD tests for end-to-end tests, using the real application server and the real application under test.
 
 ### Always put time aside for exploratory testing
+
+Even assuming that you could achieve 100% automation coverage, is always important to do some exploratory testing.  
 
 ## Links
 
