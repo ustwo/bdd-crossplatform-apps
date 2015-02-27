@@ -76,8 +76,6 @@ module GitHubMockBackend
     # force specific mock server behaviours such as
     # slow responses, broken JSON responses, etc
 
-    # Called before and after every scenario
-    # to be sure there are no leftovers from previous tests
     get '/init' do
       @@requests = []
       @@repo_json = nil
