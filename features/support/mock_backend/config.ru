@@ -1,4 +1,3 @@
-require 'grape'
-require_relative 'mock_backend'
+require_relative 'server'
 
-run GitHubMockBackend::API
+run GitHubMockBackend::Server

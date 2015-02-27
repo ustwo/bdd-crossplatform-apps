@@ -3,7 +3,8 @@ require 'thread'
 require 'httparty'
 require 'appium_lib'
 require 'yaml'
-require_relative 'mock_backend/mock_backend'
+
+require_relative 'mock_backend/boot'
 require_relative '../step_definitions/screen_factory'
 
 class CustomWorld

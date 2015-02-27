@@ -1,4 +1,4 @@
-require_relative '../support/mock_backend/mock_backend'
+require_relative '../support/mock_backend/utils'
 
 Given(/^I am on the commit list screen$/) do
   @screen = launch_to_commit_list_screen
@@ -74,11 +74,11 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('commits_error'), status: 405
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content('commits_error'), status: 405
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('broken_json')
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content('broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do
