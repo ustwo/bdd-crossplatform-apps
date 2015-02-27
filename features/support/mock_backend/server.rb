@@ -4,6 +4,10 @@ require 'grape'
 require_relative 'utils'
 
 module GitHubMockBackend
+
+  # Web server implementing a subset of the GitHub API.
+  # Mostly returns static JSON files store in ```responses/json```.
+  # It has a 'backdoor' API that allows to force specific responses, error codes, etc., see API for more info.
   class Server < Grape::API
 
     version 'v1', using: :header, vendor: 'ustwo'
@@ -43,30 +47,34 @@ module GitHubMockBackend
       end
     end
 
+    # Returns repo JSON file.
     get '/repos/:org/:repo' do
       if @@repo_json.nil?
-        @@repo_json = Utils.static_json('default_repo')
+        @@repo_json = Utils.static_json(file_name: 'default_repo')
       else
         @@repo_json
       end
     end
 
+    # Returns repo's commit JSON file.
     get '/repos/:org/:repo/commits' do
       if @@commits_json.nil?
-        @@commits_json = Utils.static_json('default_commits')
+        @@commits_json = Utils.static_json(file_name: 'default_commits')
       else
         @@commits_json
       end
     end
 
+    # Returns a commit JSON file.
     get '/repos/:org/:repo/commits/:commit' do
       if @@commit_json.nil?
-        @@commit_json = Utils.static_json('default_commit')
+        @@commit_json = Utils.static_json(file_name: 'default_commit')
       else
         @@commit_json
       end
     end
 
+    # NOT part of the official API, just a helper to know we are up and running.
     get '/' do
       content_type 'text/plain'
       body 'Hello World'
@@ -106,13 +114,13 @@ module GitHubMockBackend
 
     post '/repo_json' do
       file_name = params[:filename]
-      @@repo_json = Utils.static_json(file_name)
+      @@repo_json = Utils.static_json(file_name: file_name)
       {}
     end
 
     post '/commits_json' do
       file_name = params[:filename]
-      @@commits_json = Utils.static_json(file_name)
+      @@commits_json = Utils.static_json(file_name: file_name)
       {}
     end
 

@@ -74,11 +74,11 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content('commits_error'), status: 405
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'commits_error'), status: 405
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content('broken_json')
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do
