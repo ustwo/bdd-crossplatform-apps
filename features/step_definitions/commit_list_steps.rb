@@ -1,4 +1,4 @@
-require_relative '../support/mock_backend/mock_backend'
+require_relative '../support/mock_backend/utils'
 
 Given(/^I am on the commit list screen$/) do
   @screen = launch_to_commit_list_screen
@@ -44,7 +44,7 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(3)
+  GitHubMockBackend::API.set_request_delay(delay: 3)
 end
 
 And(/^I am on the commit list screen before data has loaded/) do
@@ -58,7 +58,7 @@ Then(/^I should see a loading indicator until reponse has been received$/) do
 end
 
 Given(/^the repository has no commits$/) do
-  GitHubMockBackend::API.set_commits_json('no_commits_repo')
+  GitHubMockBackend::API.set_commits_json(file_name: 'no_commits_repo')
 end
 
 Then(/^I should see an indicator of no commits$/) do
@@ -74,11 +74,11 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('commits_error'), status: 405
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'commits_error'), status: 405
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::API.file_content('broken_json')
+  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do

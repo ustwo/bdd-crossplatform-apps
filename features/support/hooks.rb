@@ -1,4 +1,5 @@
 Before do
+  GitHubMockBackend::API.init
 end
 
 After do |scenario|
@@ -13,6 +14,7 @@ After do |scenario|
 
   puts title
 
+  GitHubMockBackend::API.set_response body: nil, status: nil, type: nil
   requests = GitHubMockBackend::API.get_requests
 
   if !requests.nil? && requests.size > 0
@@ -20,7 +22,7 @@ After do |scenario|
     puts "Requests to mocked backend (#{requests.size}):"
 
     requests.each do |request|
-      puts "\t >>> #{request.fullpath}"
+      puts "\t >>> #{request['fullpath']}"
     end
   else
     puts "No requests made to the mock backend"

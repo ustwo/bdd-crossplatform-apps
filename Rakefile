@@ -5,7 +5,8 @@ require 'httparty'
 require_relative 'features/support/commands/cucumber_command'
 require_relative 'features/support/commands/xcodebuild_command'
 require_relative 'features/support/commands/gradle_command'
-require_relative 'features/support/mock_backend/mock_backend'
+require_relative 'features/support/mock_backend/bind'
+require_relative 'features/support/mock_backend/boot'
 require_relative 'features/support/appium_server/appium_server'
 
 task :default => :android_bdd
@@ -76,7 +77,7 @@ end
 
 desc 'Boots up the mock server'
 task :boot_up_mock do
-  GitHubMockBackend::Boot.boot(stop_if_running: false)
+  GitHubMockBackend::Boot.boot
 end
 
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
