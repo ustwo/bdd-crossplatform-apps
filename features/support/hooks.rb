@@ -3,7 +3,6 @@ Before do
 end
 
 After do |scenario|
-
   if scenario.is_a?(Cucumber::Ast::OutlineTable::ExampleRow)
     title = "#{scenario.scenario_outline.feature.title}: #{scenario.scenario_outline.name} #{scenario.name}"
   elsif scenario.is_a?(Cucumber::Ast::Scenario)
@@ -11,21 +10,18 @@ After do |scenario|
   else
     title = ""
   end
-
-  puts title
+  $stdout.puts "\n\t#{title}"
 
   GitHubMockBackend::API.set_response body: nil, status: nil, type: nil
   requests = GitHubMockBackend::API.get_requests
-
   if !requests.nil? && requests.size > 0
+    $stdout.puts "\t#{requests.size} requests made to the mocked backend"
 
-    puts "Requests to mocked backend (#{requests.size}):"
-
-    requests.each do |request|
-      puts "\t >>> #{request['fullpath']}"
+    requests.each_with_index do |request, index|
+      $stdout.puts "\t\t##{index+1} #{request.fullpath}"
     end
   else
-    puts "No requests made to the mock backend"
+    $stdout.puts "\tNo requests made to the mocked backend"
   end
 
   GitHubMockBackend::API.init
