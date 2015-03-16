@@ -11,7 +11,7 @@ class BaseScreen
   end
 
   def id
-    fail 'Abstract'
+    fail NotImplementedError, "You must implement a #id method when subclassing"
   end
 
   def wait_for_load
@@ -21,7 +21,7 @@ class BaseScreen
   end
 
   def ids
-    fail "SubclassResponsibility - your AndroidScreen/IosScreen should override this method!"
+    fail NotImplementedError, "AndroidScreen/IosScreen should override this method when subclassing"
   end
 
   private

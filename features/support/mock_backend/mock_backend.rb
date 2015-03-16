@@ -10,6 +10,7 @@ module GitHubMockBackend
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
 
+    # TODO: could this be read into a Pstore instead of class vars?
     @@requests = []
     @@repo_json = nil
     @@commit_json = nil
@@ -22,26 +23,11 @@ module GitHubMockBackend
 
     before do
       @@requests << request
-
-      if !@@request_delay.nil?
-        sleep @@request_delay
-      end
-
-      if !@@forced_type.nil?
-        content_type @@forced_type
-      end
-
-      if !@@forced_status.nil?
-        status @@forced_status
-      end
-
-      if !@@forced_body.nil?
-        body @@forced_body
-      end
-
-      if !@@error_json.nil?
-        error!(@@error_json)
-      end
+      sleep @@request_delay unless @@request_delay.nil?
+      content_type @@forced_type unless @@forced_type.nil?
+      status @@forced_status unless @@forced_status.nil?
+      body @@forced_body unless @@forced_body.nil?
+      error!(@@error_json) unless @@error_json.nil?
     end
 
     get '/repos/:org/:repo' do

@@ -278,6 +278,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     US2CommitTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(US2CommitTableViewCell.class)];
     cell.accessibilityIdentifier = @"commit_list_list_row";
+    cell.isAccessibilityElement = YES;
     
     US2Commit *commit = [self.commits objectAtIndex:indexPath.row];
     cell.nameString = commit.message;

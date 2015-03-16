@@ -36,7 +36,15 @@
 - (void)setDateString:(NSString *)dateString {
     _dateString = [dateString copy];
     
-    self.dateLabel.text = _dateString;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'hh:mm:ss'Z'"];
+    NSDate *date = [dateFormatter dateFromString:_dateString];
+    
+    NSString *formatedDateString = [NSDateFormatter localizedStringFromDate:date
+                                                                  dateStyle:NSDateFormatterMediumStyle
+                                                                  timeStyle:NSDateFormatterLongStyle];
+    
+    self.dateLabel.text = formatedDateString;
 }
 
 @end

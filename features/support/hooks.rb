@@ -2,7 +2,6 @@ Before do
 end
 
 After do |scenario|
-
   if scenario.is_a?(Cucumber::Ast::OutlineTable::ExampleRow)
     title = "#{scenario.scenario_outline.feature.title}: #{scenario.scenario_outline.name} #{scenario.name}"
   elsif scenario.is_a?(Cucumber::Ast::Scenario)
