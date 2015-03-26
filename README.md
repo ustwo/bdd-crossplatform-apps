@@ -46,11 +46,10 @@ Please note that filtering scenarios using tags can get pretty complex, so if yo
 
 You can see all tasks available by running ```rake -T```.
 
-
 ## Mock backend
 
 Can be run standalone:
 
-```shotgun features/support/mock_backend/config.ru```
+```rackup features/support/mock_backend/config.ru```
 
 By default binds [http://localhost:9393](http://localhost:9393), use ```-o``` and ```-p``` to change the host or port.

@@ -29,10 +29,10 @@ A reference for a project setup that enables:
 ## Main actors
 
  * Mobile app (iOS/Android) as the application under test.
- * [Grape](http://intridea.github.io/grape/) as our local mock server.
+ * [Sinatra](http://www.sinatrarb.com/) as our local mock server.
  * [Cucumber](http://cukes.info/) as the BDD tool of choice.
  * [Appium](http://appium.io/) as the functional automation framework.
- 
+
 ### The application under test
 
 Needs little code or modification for the purposes of testing.
@@ -51,10 +51,10 @@ For example, imagine we want to test how our application behaves when the server
 
 This is where a local mock backend excels. It's very easy from a Cucumber step definition to force the mock backend to return a 500 error for a given API call, then assert in another step that the application is handling the error as expected (displaying an appropriate error message, for example).
 
-The downside of the mock server is mostly the manual effort required to keep it in sync with the real API. 
+The downside of the mock server is mostly the manual effort required to keep it in sync with the real API.
 
-We always try to avoid implementing business logic in the mock backend and limit it to returning static resources (JSON, images). 
- 
+We always try to avoid implementing business logic in the mock backend and limit it to returning static resources (JSON, images).
+
 ### Cucumber
 
 We consider Cucumber to be an esential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view over other lower level, platform specific options.
@@ -72,17 +72,17 @@ Cross-platform test automation framework that builds on top the [JSON Wire Proto
 ## How it works
 
  * It starts a local Appium server.
- * It starts a local mock server which is binded to the local IP address of the machine running the tests (developer's machine, CI server). Note that it can't use ```localhost``` since **when on a device ```localhost``` would resolve to the device itself**. 
- * It sets the base URL for the API/backend to the local IP address the previous step binded the mock server to.   
- * It compiles the app. 
+ * It starts a local mock server which is binded to the local IP address of the machine running the tests (developer's machine, CI server). Note that it can't use ```localhost``` since **when on a device ```localhost``` would resolve to the device itself**.
+ * It sets the base URL for the API/backend to the local IP address the previous step binded the mock server to.
+ * It compiles the app.
  * It starts Cucumber.
- 
+
 At this point is Cucumber business as usual, for example:
- 
+
  * Define which data is going to be given to the app : ```Given there are no commits in the repo```.
  * Launch the app, take it to the point we want to test: ```And we are on the commit list screen```.
  * Assert the expected behaviour: ```Then we should see the no commits indicator```.
- 
+
 ## Expected usage
 
 
@@ -100,8 +100,8 @@ This in turn:
 
  * Prepares and compiles the app pointing it to the mock server
  * Boots up the mock server, if required
- * Boots up a local Appium server, if required   
- 
+ * Boots up a local Appium server, if required
+
 Once all is up and running you can open up a new terminal and try something like (note that for Android this requires a device connected or the emulator running already):
 
 ```ruby
@@ -148,7 +148,7 @@ Even assuming that you could achieve 100% automation coverage, is always importa
 
 ## Links
 
-Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS). 
+Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS).
 
 [Appium concepts](https://github.com/appium/appium/blob/master/docs/en/about-appium/intro.md).
 
