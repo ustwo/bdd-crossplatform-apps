@@ -15,13 +15,13 @@ After do |scenario|
   GitHubMockBackend::API.set_response body: nil, status: nil, type: nil
   requests = GitHubMockBackend::API.get_requests
   if !requests.nil? && requests.size > 0
-    $stdout.puts "\t#{requests.size} requests made to the mocked backend"
+    $stdout.puts "\t#{requests.size} requests made to the mock backend"
 
     requests.each_with_index do |request, index|
-      $stdout.puts "\t\t##{index+1} #{request.fullpath}"
+      $stdout.puts "\t\t##{index} #{request['fullpath']}"
     end
   else
-    $stdout.puts "\tNo requests made to the mocked backend"
+    $stdout.puts "\tNo requests made to the mock backend"
   end
 
   GitHubMockBackend::API.init
