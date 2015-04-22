@@ -22,7 +22,6 @@ task :android_set_mock_server_url do
   # update strings.xml
   strings_xml = tenjin.render('strings.xml', {url: mock_backend_url})
   File.write('android/app/src/local/res/values/strings.xml', strings_xml)
-
 end
 
 desc 'Compiles the Android app'
@@ -47,8 +46,8 @@ task :android_appium_config do
   File.write('appium.txt', appium_txt)
 end
 
-desc 'Boots up an Appium server if there isn\'t one running'
-task :boot_up_appium, [:platform] do |t, args|
+desc 'Boots up an Appium server if there isn\'t one running. Blocks execution afterwards by default.'
+task :boot_appium, [:platform, :block] do |t, args|
 
   platform = args[:platform]
   appium_server_url = URI(get_configuration(platform)['appium_server_url'])
@@ -56,28 +55,31 @@ task :boot_up_appium, [:platform] do |t, args|
   appium_server_port = appium_server_url.port
 
   AppiumServer.boot(appium_server_host, appium_server_port)
+
+  unless args[:block] && args[:block] == 'false'
+    Rake::Task[:block].invoke()
+  end
 end
 
 desc 'Starts an interactive session for Android'
 task :android_interactive =>
             [:android_set_mock_server_url,
             :android_compile,
-            :android_appium_config,
-            :boot_up_mock] do
+            :android_appium_config] do
 
 
-  Rake::Task[:boot_up_appium].invoke('android')
-
-  puts "All ready, do your thing now. CTRL + C when you are done."
-
-  while true
-    sleep 0.1
-  end
+  Rake::Task[:boot_appium].invoke('android', 'false')
+  Rake::Task[:boot_mock].invoke()
 end
 
-desc 'Boots up the mock server'
-task :boot_up_mock do
+desc 'Boots up the mock server if there isn\'t one running. Blocks execution afterwards by default.'
+task :boot_mock, [:block] do |t, args|
+
   GitHubMockBackend::Boot.boot
+
+  unless args[:block] && args[:block] == 'false'
+    Rake::Task[:block].invoke()
+  end
 end
 
 desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
@@ -112,7 +114,8 @@ task :android_bdd, [:tags] => [:android_set_mock_server_url,
                       :android_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_up_appium].invoke('android')
+  Rake::Task[:boot_appium].invoke('android', 'false')
+  Rake::Task[:boot_mock].invoke('false')
   Rake::Task[:cucumber].invoke('android', args[:tags])
 end
 
@@ -156,12 +159,16 @@ end
 desc 'Starts an interactive session for iOS'
 task :ios_interactive => [:ios_set_mock_server_url,
               :ios_compile,
-              :ios_appium_config,
-              :boot_up_mock] do
+              :ios_appium_config] do
 
-  Rake::Task[:boot_up_appium].invoke('ios')
+  Rake::Task[:boot_appium].invoke('ios', 'false')
+  Rake::Task[:boot_mock].invoke()
+end
 
-  puts "All ready, do your thing now. CTRL + C when you are done."
+desc 'Holds the terminal until it\'s time to manually quit'
+task :block do
+
+  puts "Waiting here. CTRL + C when you are done."
 
   while true
     sleep 0.1
@@ -175,7 +182,8 @@ task :ios_bdd, [:tags] =>
                   :ios_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_up_appium].invoke('ios')
+  Rake::Task[:boot_appium].invoke('ios', 'false')
+  Rake::Task[:boot_mock].invoke('false')
   Rake::Task[:cucumber].invoke('ios', args[:tags])
 end
 
