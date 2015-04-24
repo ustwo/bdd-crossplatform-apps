@@ -38,8 +38,7 @@ module GitHubMockBackend
     def is_running?
       begin
         HTTParty.get(Bind.url).response.code.to_i == 200
-      rescue Exception => e
-        puts e
+      rescue Errno::ECONNREFUSED => e
         false
       end
     end
