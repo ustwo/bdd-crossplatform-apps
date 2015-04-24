@@ -50,6 +50,8 @@ You can see all tasks available by running ```rake -T```.
 
 Can be run standalone:
 
-```rackup features/support/mock_backend/config.ru```
+```bash
+rake boot_mock
+```
 
-By default binds [http://localhost:9393](http://localhost:9393), use ```-o``` and ```-p``` to change the host or port.
+By default binds the mock server to your local IP address and port 9999.
