@@ -57,7 +57,7 @@ task :boot_appium, [:platform, :block] do |t, args|
   AppiumServer.boot(appium_server_host, appium_server_port)
 
   unless args[:block] && args[:block] == 'false'
-    Rake::Task[:block].invoke()
+    block
   end
 end
 
@@ -78,7 +78,7 @@ task :boot_mock, [:block] do |t, args|
   GitHubMockBackend::Boot.boot
 
   unless args[:block] && args[:block] == 'false'
-    Rake::Task[:block].invoke()
+    block
   end
 end
 
@@ -165,20 +165,6 @@ task :ios_interactive => [:ios_set_mock_server_url,
   Rake::Task[:boot_mock].invoke()
 end
 
-desc 'Holds the terminal until it\'s time to manually quit'
-task :block do
-
-  puts "Waiting here. CTRL + C when you are done."
-
-  while true
-    sleep 0.1
-    # http://en.wikipedia.org/wiki/Unix_signal
-    Signal.trap("INT") do
-      exit
-    end
-  end
-end
-
 desc 'Runs the BDD test suite for iOS'
 task :ios_bdd, [:tags] =>
                   [:ios_set_mock_server_url,
@@ -189,6 +175,19 @@ task :ios_bdd, [:tags] =>
   Rake::Task[:boot_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke('false')
   Rake::Task[:cucumber].invoke('ios', args[:tags])
+end
+
+def block
+
+  puts "Waiting here. CTRL + C when you are done."
+
+  while true
+    sleep 0.1
+    # http://en.wikipedia.org/wiki/Unix_signal
+    Signal.trap("INT") do
+      exit
+    end
+  end
 end
 
 def tenjin
