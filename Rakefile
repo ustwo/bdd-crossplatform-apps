@@ -172,6 +172,10 @@ task :block do
 
   while true
     sleep 0.1
+    # http://en.wikipedia.org/wiki/Unix_signal
+    Signal.trap("INT") do
+      exit
+    end
   end
 end
 
