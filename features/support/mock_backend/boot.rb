@@ -45,8 +45,10 @@ module GitHubMockBackend
     end
 
     def close
-      @command.close
-      puts "Mock server finished"
+      if !@command.nil?
+        @command.close
+        puts "Mock server finished"
+      end
     end
 
     # Boots a local mock server, if required.
