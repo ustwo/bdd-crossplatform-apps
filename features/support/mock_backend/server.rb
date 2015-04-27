@@ -30,9 +30,28 @@ module GitHubMockBackend
       def empty_json
         JSON.parse('{}')
       end
+
+      def backdoor_api fullpath
+        [
+          '/',
+          '/init',
+          '/request_delay',
+          '/repo_json',
+          '/commits_json',
+          '/response',
+          '/requests'
+        ].include?(fullpath)
+      end
     end
 
     before do
+
+      # NOTE (JD): We don't mess around with requests to the backdoor API.
+      # This means we don't log them, delay them, force their status, etc.
+      if backdoor_api(request.fullpath)
+        return
+      end
+
       @@requests << request
 
       if !@@request_delay.nil?
@@ -41,24 +60,14 @@ module GitHubMockBackend
 
       if !@@forced_type.nil?
         content_type @@forced_type
-        @@forced_type = nil
       end
 
       if !@@forced_status.nil?
         status @@forced_status
-        @@forced_status = nil
       end
 
       if !@@forced_body.nil?
-
-        forced_body = @@forced_body
-        forced_status = @@forced_status
-
-        @@forced_body = nil
-        @@forced_status = nil
-
-        body forced_body
-        halt forced_status || 200
+        halt @@forced_body
       end
 
       if !@@error_json.nil?
