@@ -1,30 +1,3 @@
-# Full cycle testing for data driven client side applications
-
-## Introduction
-
-At ustwo we define, design, build and test digital products, for our clients and for ourselves.
-
-We think collaboration is key to putting together amazing products and we have found in BDD the perfect excuse to make that collaboration happen.
-
-The setup we describe below is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how *we* do it. One of the expected outcomes of making it public is gathering feedback and improving it. So yeah, we are all ears.
-
-### What this is about
-
-A reference for a project setup that enables:
-
- * Collaboration, particularly with non-technical people.
- * Visibility over the development process.
- * Robust client-side applications.
- * Faster and cheaper testing of cross-platform applications.
- * Faster, cheaper integration with backend.
-
-### What this is not about
-
- * Not a tutorial about BDD or Cucumber.
- * Not about testing backend applications.
- * Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
- * Not an end-to-end testing setup.
- * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
 ## Main actors
 
@@ -54,6 +27,12 @@ This is where a local mock backend excels. It's very easy from a Cucumber step d
 The downside of the mock server is mostly the manual effort required to keep it in sync with the real API.
 
 We always try to avoid implementing business logic in the mock backend and limit it to returning static resources (JSON, images).
+
+Can be run standalone:
+
+```bash
+rake boot_mock
+```
 
 ### Cucumber
 
