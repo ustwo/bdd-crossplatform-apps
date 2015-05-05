@@ -62,51 +62,6 @@ At this point is Cucumber business as usual, for example:
  * Launch the app, take it to the point we want to test: ```And we are on the commit list screen```.
  * Assert the expected behaviour: ```Then we should see the no commits indicator```.
 
-## Expected usage
-
-
-### Interactive sessions
-
-During early stages of the development it's likely that we have an idea of what we want to test, but not sure how.
-
-An interactive session facilitates this by preparing the whole system for a session in which we can poke around with the data coming from the mock server or the elements of the application. Run:
-
-```ruby
-rake ios_interactive
-```
-
-This in turn:
-
- * Prepares and compiles the app pointing it to the mock server
- * Boots up the mock server, if required
- * Boots up a local Appium server, if required
-
-Once all is up and running you can open up a new terminal and try something like (note that for Android this requires a device connected or the emulator running already):
-
-```ruby
-require 'appium_lib'
-caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
-driver = Appium::Driver.new({caps: caps})
-driver.start_driver
-```
-
-At that point Appium will install and start the app. You can beging the session by getting a dump of what is on screen:
-
-```ruby
-driver.page
-```
-
-Use ```CTRL+C``` on the main tab to finish off the interactive session.  
-
-### CI run through
-
-This is when the CI (or a developer's machine) runs the tests or a subset of them.
-
-This is done by running something like:
-
- * ```rake android_bdd```
- * ```rake android_ios[@wip]```
-
 ## Tips and tricks
 
 Keep instances of the mock backend and the local Appium server running on their own tabs so consecutive test runs are faster and there is less noise on the terminal.

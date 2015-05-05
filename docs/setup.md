@@ -7,7 +7,7 @@ You'll need to install these dependencies by hand, please follow their installat
  * Ruby and RubyGems
  * Node
 
-Once the basic dependencies are installed, please run: 
+Once the basic dependencies are in place please run: 
  
  * ```gem install bundler```
  * ```bundle```
