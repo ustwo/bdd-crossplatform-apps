@@ -1,5 +1,7 @@
 require 'json'
-require 'grape'
+require 'sinatra'
+require 'sinatra/reloader'
+require 'sinatra/json'
 
 require_relative 'utils'
 
@@ -8,10 +10,7 @@ module GitHubMockBackend
   # Web server implementing a subset of the GitHub API.
   # Mostly returns static JSON files store in ```responses/json```.
   # It has a 'backdoor' API that allows to force specific responses, error codes, etc., see API for more info.
-  class Server < Grape::API
-
-    version 'v1', using: :header, vendor: 'ustwo'
-    format :json
+  class Server < Sinatra::Base
 
     @@requests = []
     @@repo_json = nil
@@ -23,7 +22,36 @@ module GitHubMockBackend
     @@request_delay = nil
     @@error_json = nil
 
+    configure do
+      register Sinatra::Reloader
+    end
+
+    helpers do
+      def empty_json
+        JSON.parse('{}')
+      end
+
+      def backdoor_api fullpath
+        [
+          '/',
+          '/init',
+          '/request_delay',
+          '/repo_json',
+          '/commits_json',
+          '/response',
+          '/requests'
+        ].include?(fullpath)
+      end
+    end
+
     before do
+
+      # NOTE (JD): We don't mess around with requests to the backdoor API.
+      # This means we don't log them, delay them, force their status, etc.
+      if backdoor_api(request.fullpath)
+        return
+      end
+
       @@requests << request
 
       if !@@request_delay.nil?
@@ -39,7 +67,7 @@ module GitHubMockBackend
       end
 
       if !@@forced_body.nil?
-        body @@forced_body
+        halt @@forced_body
       end
 
       if !@@error_json.nil?
@@ -54,6 +82,8 @@ module GitHubMockBackend
       else
         @@repo_json
       end
+
+      json @@repo_json
     end
 
     # Returns repo's commit JSON file.
@@ -63,6 +93,8 @@ module GitHubMockBackend
       else
         @@commits_json
       end
+
+      json @@commits_json
     end
 
     # Returns a commit JSON file.
@@ -72,12 +104,13 @@ module GitHubMockBackend
       else
         @@commit_json
       end
+
+      json @@commit_json
     end
 
     # NOT part of the official API, just a helper to know we are up and running.
     get '/' do
-      content_type 'text/plain'
-      body 'Hello World'
+      'Hello World'
     end
 
     # Below this point there is the API used to
@@ -94,41 +127,42 @@ module GitHubMockBackend
       @@forced_type = nil
       @@request_delay = nil
       @@error_json = nil
-      {}
+      json empty_json
     end
 
     post '/request_delay' do
 
       delay = params[:delay].to_i
       @@request_delay = delay
-      {}
+      json empty_json
     end
 
     get '/repo_json' do
-      @@repo_json
+      json @@repo_json
     end
 
     get '/commits_json' do
-      @@commits_json
+      json @@commits_json
     end
 
     post '/repo_json' do
       file_name = params[:filename]
       @@repo_json = Utils.static_json(file_name: file_name)
-      {}
+      json empty_json
     end
 
     post '/commits_json' do
       file_name = params[:filename]
       @@commits_json = Utils.static_json(file_name: file_name)
-      {}
+      json empty_json
     end
 
     post '/response' do
+
       @@forced_body = (params[:body].empty?)? nil : params[:body]
       @@forced_status = (params[:status].empty?)? nil : params[:status]
       @@forced_type = (params[:type].empty?)? nil : params[:type]
-      {}
+      json empty_json
     end
 
     get '/requests' do
@@ -139,7 +173,7 @@ module GitHubMockBackend
         requests << {fullpath: request.fullpath} unless request.fullpath == '/requests'
       end
 
-      requests
+      json requests
     end
   end
 end

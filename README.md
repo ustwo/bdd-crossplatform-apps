@@ -46,7 +46,6 @@ Please note that filtering scenarios using tags can get pretty complex, so if yo
 
 You can see all tasks available by running ```rake -T```.
 
-
 ## Mock backend
 
 Can be run standalone:

@@ -1,5 +1,7 @@
+include GitHubMockBackend
+
 Before do
-  GitHubMockBackend::API.init
+  API.init
 end
 
 After do |scenario|
@@ -12,8 +14,9 @@ After do |scenario|
   end
   $stdout.puts "\n\t#{title}"
 
-  GitHubMockBackend::API.set_response body: nil, status: nil, type: nil
-  requests = GitHubMockBackend::API.get_requests
+  API.set_response body: nil, status: nil, type: nil
+  requests = API.get_requests
+
   if !requests.nil? && requests.size > 0
     $stdout.puts "\t#{requests.size} requests made to the mock backend"
 
@@ -24,11 +27,11 @@ After do |scenario|
     $stdout.puts "\tNo requests made to the mock backend"
   end
 
-  GitHubMockBackend::API.init
+  API.init
   app_close
 end
 
 at_exit do
-  GitHubMockBackend::Boot.exit
+  Boot.exit
   CustomWorld.exit
 end
