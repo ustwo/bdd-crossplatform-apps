@@ -28,6 +28,12 @@ A reference for a project setup that enables:
  * Not an end-to-end testing setup.
  * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
+### Audience
+
+This document and repository are intentended for technical people involved with automated functional testing, typically developers and testers.
+
+While it should be approachable for the less technical folks, it helps having some knowledge of platform tools, architecture of client/server applications, being comfortable with the terminal, etc. 
+
 ### Next steps
 
  * [Install dependencies and set up](docs/setup.md).
