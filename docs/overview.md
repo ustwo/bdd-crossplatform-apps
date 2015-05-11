@@ -16,11 +16,11 @@ Ideally the application needs little code or modification for the purposes of te
 
 Most client side applications are driven by data, typically coming from several sources. What happens on the client is mostly dictated by the data the server feeds it.
 
-So if we are going to thoroughly test how client side applications behave, particularly in non-ideal scenarios, then we need full control of what data that the server is giving them.
+So if we are going to thoroughly test how client side applications behave, particularly in non-ideal scenarios, then we need full control of what data the server is giving them.
 
 Other ways of achieving a similar outcome are using services like [Apiary](http://apiary.io/), staging servers or local development servers. We think a mock server that is a drop-in replacement for the real API offers advantages over those methods: simpler, lightweight, more flexible.
 
-For example, imagine that we need to test how our application behaves when the server returns a 500 error for an API call. Forcing this on an instance of the real server, even if it's running locally, is not straightforward. Sometimes fronted teams don't even have the possibly of locally running the backend (complicated dev environments, belongs to a 3rd party, software licenses).
+For example, imagine that we need to test how our application behaves when the server returns a 500 error for an API call. Forcing this on an instance of the real server, even if it's running locally, is not straightforward. Sometimes fronted teams don't even have the possibility of locally running the backend (complicated dev environments, belongs to a 3rd party, software licenses).
 
 This is where a local mock backend excels. It's very easy from a Cucumber step definition to force the mock backend to return a 500 error for a given API call, then assert in another step that the application is handling the error as expected (displaying an appropriate error message, for example).
 
