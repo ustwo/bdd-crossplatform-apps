@@ -40,7 +40,7 @@ rake boot_mock
 
 ### Cucumber
 
-We consider Cucumber to be an esential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view over other lower level, platform specific options.
+We consider Cucumber to be an essential part of the workflow. The benefits it brings in terms of collaboration far exceed the complexities it adds from a technical point of view over other lower level, platform specific options.
 
 Cucumber scenarios are written in plain text enabling tests written in a language that is very close to the domain problem ([DSLs](http://martinfowler.com/bliki/BusinessReadableDSL.html)). This increases the chances of engaging non-technical people and reduces the chances of misunderstandings.
 
@@ -54,7 +54,7 @@ We use Appium since it provides a cross-platform set of APIs for test automation
 
 But please keep in mind that like any abstraction layer, it also has its downsides, particularly around stability, speed and features.
 
-We personally feel that, currently, it brings has more pros than cons and that the time spent maintaining different platform specific testing codebases can be used to improve and contribute back to a cross-platform tool. Appium in this case.   
+We personally feel that, currently, it has more pros than cons and that the time spent maintaining different platform specific testing codebases can be used to improve and contribute back to a cross-platform tool. Appium in this case.   
 
 ## How it works
 
@@ -91,7 +91,7 @@ An API is just a contract that defines the signature of the communication betwee
 
 This is why we encourage development across the stack and [staying shippable](http://tech.ustwo.com/2014/10/15/the-definition-of-done-and-staying-shippable/) as soon as possible.
 
-The risk of integration, however, can be reduced by using a subset of the BDD tests for end-to-end tests, using the real application server and the real application under test. Most of the times this subset of tests require a database seeded with known dataset so the test can make certain assumptions.
+The risk of integration, however, can be reduced by using a subset of the BDD tests for end-to-end tests, using the real application server and the real application under test. Most of the times this subset of tests require a database seeded with a known dataset so the tests can make certain assumptions.
 
 ### Always put time aside for exploratory testing
 
