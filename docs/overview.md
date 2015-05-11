@@ -10,7 +10,7 @@
 
 We asume that the application solves the same business problems in all platforms which will naturally lead to a similar interface. However, this setup still leaves room for some platform specific differences, see the Cucumber section below.
 
-Ideally, the application needs little code or modification for the purposes of testing.
+Ideally the application needs little code or modification for the purposes of testing. Appium doesn't require adding testing specific libraries to the code, keeping the application as close as possible to what will be released, hence reducing the risk of unexpected behaviour only showed (or avoided) during testing. 
 
 ### Mock backend
 
@@ -102,5 +102,7 @@ Even assuming that 100% automation coverage would be feasible (it's not, particu
 Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS) so it will always be bound by their APIs.
 
 Appium [concepts](https://github.com/appium/appium/blob/master/docs/en/about-appium/intro.md), [documentation](https://github.com/appium/appium/tree/master/docs/en) and [finding elements](https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/finding-elements.md).
+
+[Writing testable code](http://misko.hevery.com/attachments/Guide-Writing%20Testable%20Code.pdf) (2008, PDF).
 
 
