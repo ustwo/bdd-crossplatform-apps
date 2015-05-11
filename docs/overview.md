@@ -67,11 +67,17 @@ Here's a high level overview of the tasks required to run the tests:
  * Boot up a local mock server, if required. The mock server is bound to local IP address defined above.
  * Run Cucumber.
 
-At this point is Cucumber business as usual, for example:
+At this point it is Cucumber business as usual, for example:
 
  * Define which data is going to be given to the app : ```Given there are no commits in the repo```.
- * Launch the app, take it to the point we want to test: ```And we are on the commit list screen```.
+ * Launch the app, take it to the point we want to test: ```And I am on the commit list screen```.
  * Assert the expected behaviour: ```Then we should see the no commits indicator```.
+ 
+The first step uses the mock backend backdoor API to force a specific server response: no commits.
+
+The second step uses Appium to install and launch the app. Because the commit list screen is the first in the app there is no need to navigate to it (pressing buttons, filling forms or whatever might be necessary).
+
+The third step uses Appium API's to assert that the right error message is on screen.
 
 ## Tips and tricks
 
