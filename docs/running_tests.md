@@ -22,7 +22,7 @@ This in turn:
  * Boots up the mock server, if required.
  * Boots up a local Appium server, if required.
 
-Once all is up and running you can open up a new terminal and try something like this:
+Once all is up and running you can open up a new terminal, start IRB or PRY, and try something like this:
 
 ```ruby
 require 'appium_lib'
