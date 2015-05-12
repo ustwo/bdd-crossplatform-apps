@@ -1,57 +1,43 @@
-# Full cycle application testing
+# Thorough testing of client side, cross platform applications
 
-## Requirements
+## Introduction
 
- * Ruby and RubyGems
- * Bundler (```gem install bundler```)
- * Node
+At ustwo we define, design, build and test digital products.
 
-### iOS
+We think collaboration is key to putting together amazing products and we have found in BDD a perfect excuse to make that collaboration happen.
 
-TBD
+The setup we describe here is what underpins the process from a technical point of view. We don't claim it's perfect or the only way of doing it, it's simply how *we* do it. One of the expected outcomes of making it public is gathering feedback and improving it. So yeah, we are all ears.
 
-### Android
+Please keep in mind that test automation is "only" a side effect of practicing BDD. A very valuable one, of course, but if you are only doing test automation and not collaboration you are missing out big time. Read more about it in [Are you doing BDD? Or are you just using Cucumber?](https://cukes.info/blog/2015/03/24/single-source-of-truth)
 
- * Android SDK v21
- * Java 7
+The opposite is also true. Just because you can't automate a test (tool limitations often prevent you from full automation) it doesn't mean that you shouldn't write the corresponding BDD scenario in collaboration with the team. Scenarios also serve as manual test specs and future improvements to automation tools might allow their implementation.
 
- Note: when opening the project in to Android Studio, be sure to choose the 'android' subdirectory or you may have problems compiling.
+### What this is about
 
-## Installation
+A reference for a project setup that enables:
 
-For all platforms:
+ * Collaboration, particularly with non-technical people.
+ * Visibility over the development process.
+ * Robust client-side applications.
+ * Faster and cheaper testing of cross-platform applications.
+ * Faster, cheaper integration with backend.
 
- * ```bundle```
- * ```npm install```
+### What this is not about
 
-### iOS
+ * Not a tutorial about BDD or Cucumber.
+ * Not about testing backend applications.
+ * Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
+ * Not an end-to-end testing setup.
+ * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 
-TBD
+### Audience
 
-### Android
+This document and repository are intentended for technical people involved with automated functional testing, typically developers and testers.
 
-TBD
+While it should be approachable for the less technical folks, it helps having some knowledge of platform tools, architecture of client/server applications, being comfortable with the terminal, etc. 
 
-## Running tests
+### Next steps
 
-Copy to the root folder the sample iOS and/or Android configuration files from the templates folder, updating the values as required. Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
-
-Use either ```rake android_bdd``` or ```rake ios_bdd```.
-
-You can limit the set of tests to be run by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!):
-
-```rake android_bdd[@wip]```
-
-Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced you can call Cucumber directly but you'll need to call the the dependant rake tasks first.
-
-You can see all tasks available by running ```rake -T```.
-
-## Mock backend
-
-Can be run standalone:
-
-```bash
-rake boot_mock
-```
-
-By default binds the mock server to your local IP address and port 9999.
+ * [Install dependencies and set up](docs/setup.md).
+ * [Run the tests](docs/running_tests.md).
+ * [Dig deeper into what's going on](docs/overview.md).
