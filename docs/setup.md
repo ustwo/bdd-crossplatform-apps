@@ -27,7 +27,7 @@ Note: when opening the project into Android Studio be sure to choose the 'androi
 
 ## Configuration
 
-Copy to the root folder the sample iOS and/or Android configuration files from the templates folder, updating the values as required. 
+Copy to the root folder the sample iOS and/or Android YAML configuration files from the templates folder, updating the values as required.
 
 Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
 
