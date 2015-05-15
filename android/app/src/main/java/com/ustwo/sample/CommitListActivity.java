@@ -72,8 +72,16 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     }
 
     private void refresh() {
-        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
+        createProgressDialog("commit_list_loading_indicator");
+
         retrieveRepositoryInfo();
+    }
+
+    private void createProgressDialog(CharSequence contentDescription) {
+        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
+
+        View v = mProgressDialog.findViewById(android.R.id.progress);
+        v.setContentDescription(contentDescription);
     }
 
     @Override
