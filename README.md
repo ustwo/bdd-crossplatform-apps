@@ -1,3 +1,21 @@
+Hello alpha testers!
+
+First of all thank you for your time to review what we have done so far.
+
+We would appreciate any kind feedback on all fronts: the concept itself, the actual code implementation, documentation (covers enough, at the right level), etc.
+
+You all have write access, but please work off a branch and send a PR for review.
+
+You can also email direct the people from ustwo involved in this so far (all emails are the names @ustwo.com):
+
+Emma, Mark, Martin, Jarod and Juan.
+
+Thanks : )
+
+Now for beef!
+
+//
+
 # Thorough testing of client side, cross platform applications
 
 ## Introduction
