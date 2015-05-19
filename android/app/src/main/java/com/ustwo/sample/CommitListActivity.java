@@ -115,7 +115,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         ImageView privacyStateView = (ImageView) findViewById(R.id.commit_list_imageview_privacy_state);
         privacyStateView.setImageResource(repositoryInfo.isPrivate ? R.drawable.ic_private : R.drawable.ic_public);
         privacyStateView.setContentDescription(
-                getString(repositoryInfo.isPrivate ? R.string.repo_private : R.string.repo_public));
+                getString(repositoryInfo.isPrivate ? R.string.commit_list_repo_private : R.string.commit_list_repo_public));
 
         getSupportActionBar().setTitle(repositoryInfo.name);
     }
