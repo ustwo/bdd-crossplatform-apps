@@ -14,5 +14,7 @@
     <string name="commit_list_refresh">Refresh</string>
     <string name="commit_list_no_commits">No commits available</string>
     <string name="commit_list_error">Could not load commits</string>
+    <string name="commit_list_repo_private">Private repository</string>
+    <string name="commit_list_repo_public">Public repository</string>
 
 </resources>

@@ -1,27 +1,41 @@
-<RelativeLayout android:id="@+id/commit_list_relativelayout_root"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.ustwo.sample.CommitListActivity">
+<RelativeLayout
+    android:id="@+id/commit_list_relativelayout_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ustwo.sample.CommitListActivity">
 
-    <TextView
-        android:id="@+id/commit_list_textview_title"
+    <LinearLayout
+        android:id="@+id/commit_list_viewgroup_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top"
         android:paddingBottom="@dimen/commit_list_margin_bottom"
         android:paddingLeft="@dimen/commit_list_margin_horizontal"
         android:paddingRight="@dimen/commit_list_margin_horizontal"
         android:paddingTop="@dimen/commit_list_margin_top"
-        android:textColor="@android:color/black"
-        tools:text="Exciting repo name" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/commit_list_textview_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/commit_list_margin_horizontal"
+            android:textColor="@android:color/black"
+            android:ellipsize="end"
+            tools:text="Exciting repo name" />
+        <ImageView
+            android:id="@+id/commit_list_imageview_privacy_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/commit_list_listview_commits"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/commit_list_textview_title"
+        android:layout_below="@id/commit_list_viewgroup_header"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
