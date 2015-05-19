@@ -95,3 +95,19 @@ end
 Then(/^I should see an indicator slow server$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+Given(/^the repository is private$/) do
+  API.set_repo_json(file_name: 'private_repo')
+end
+
+Then(/^I should see a private repository indicator$/) do
+  expect(@screen.has_private_repository_indicator).to be(true)
+end
+
+Given(/^the repository is public$/) do
+  API.set_repo_json(file_name: 'public_repo')
+end
+
+Then(/^I should see a public repository indicator$/) do
+  expect(@screen.has_public_repository_indicator).to be(true)
+end
