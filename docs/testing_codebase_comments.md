@@ -1,8 +1,10 @@
-We go in here through some of the choices we've made after a few BDD projects under our belt. Hardly any of them are something that you can blindly apply to your project. They are trade-offs based on our needs and those of our clients.
+We go here through some of the code choices that we've made after a few BDD projects under our belt. Hardly any of them are something that you can blindly apply to your project. They are trade-offs based on our needs and those of our clients.
+
+Please don't forget to read the [technical overview](overview.md).
 
 ## Custom world
 
-It acts as a bit of a page object for the app itself, the custom world allows to have high level helpers in the step definitions ([Cucumber docs](https://github.com/cucumber/cucumber/wiki/A-Whole-New-World) for more info), helping keeping them simple and easier to read.
+The custom world acts as a page object for the app itself, allowing access to high level helpers in the step definitions (see [Cucumber docs](https://github.com/cucumber/cucumber/wiki/A-Whole-New-World) for more info). This helps keeping them simple and easy to read.
 
 ## All calls to the driver wrapped up in POs
 
@@ -12,21 +14,25 @@ This makes step definitons fairly readable, particularly since accessing UI elem
 
 ## Screen Factory
 
-### Accomodating platform differences
+The screen factory is responsible for returning appropiate page object instances based on the platform under test. 
 
-While Appium provides a cross-platform API there are times when platform-specific code is required, there are valid reasons for this. We do not only need page objects, we need platform specific page objects.
+Note that this defined in the rake task executed and passed down through the Cucumber command as an [environment variable](https://github.com/cucumber/cucumber/wiki/Environment-Variables).
 
-#### The implementation of a user behaviour is different per platform
+## Accomodating platform differences
 
-This happens when trying to conform to platform specific interaction guidelines so a user behaviour has to be implemented differently. Say removing an element from a list could be implemented as a swipe in one platform vs a long press in another.
+While Appium provides a cross-platform API there are times when platform-specific page objects are required. There are a few reasons for this.
 
-#### Different view hierarchy per-platfom
+### The implementation of a user behaviour is different per platform
+
+This happens when trying to conform to platform specific interaction guidelines and a user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs a long press in another.
+
+### Different view hierarchy per-platfom
 
 Sometimes even if the user behaviour is the same (say pressing a button), different platforms might have a view hierarchy that's different enough to require a different way of accessing those elements.
 
-#### Different element IDs per platform
+### Different element IDs per platform
 
-Each platform has slightly different naming conventions and while it would be theoretically possible to force all IDs to be exactly the same, some developers might find that requirement too intrusive.
+Each platform has slightly different naming conventions and while it would be theoretically possible to force all element IDs to be exactly the same, some developers might find that requirement too intrusive.
 
 ## BDD vs TDD
 
@@ -49,7 +55,7 @@ We get this a lot.
 
 Ok, so slow compared to *what*? Yes, they tend to be slower than unit tests, but in our experience they are much faster than manual tests.
 
-A BDD suite for a normal size app can easily take a couple of hours to run. Is that slow? Running 500 tests manually will take considerably longer, putting aside how boring is to repeat the same test script manually over and over again.
+A BDD suite for a normal size app can easily take a couple of hours to run. Is that slow? Running full regression manually will take considerably longer, putting aside how error prone and boring is to repeat the same test script manually over and over again.
 
 You can and should use [tags](https://github.com/cucumber/cucumber/wiki/Tags) to limit the number of tests you run and leave full regressions to for example nightly builds. 
 
