@@ -1,7 +1,17 @@
 class BaseScreen
 
-	def initialize driver
+	def initialize platform, driver
+		@platform = platform
 		@driver = driver
+
+		# Load the platform specific String resource handler.
+	    case @platform
+	    when 'android'
+	    	content = File.read('android/app/src/main/res/values/strings.xml')
+	        @string_resource = AndroidStringResource.new(file_content: content)
+	    when 'ios'
+	        #TODO: Create IOSStringResource handler
+	    end
 	end
 
 	def id
@@ -63,4 +73,8 @@ class BaseScreen
 	def get_text id
 		element(id).text
 	end
+
+	def get_string_resource key
+		@string_resource.get(key: key)
+    end
 end
