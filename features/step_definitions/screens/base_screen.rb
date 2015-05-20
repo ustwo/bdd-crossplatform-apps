@@ -5,14 +5,14 @@ class BaseScreen
 		@driver = driver
 
 		# Load the platform specific String resource handler.
-	    case @platform
-	    when 'android'
-	    	# TODO: Load in the correct locale Strings for the current test run
-	    	content = File.read('android/app/src/main/res/values/strings.xml')
-	        @string_resource = AndroidStringResource.new(file_content: content)
-	    when 'ios'
-	        # TODO: Create IOSStringResource handler
-	    end
+		case @platform
+		when 'android'
+			# TODO: Load in the correct locale Strings for the current test run
+			content = File.read('android/app/src/main/res/values/strings.xml')
+			@string_resource = AndroidStringResource.new(file_content: content)
+		when 'ios'
+			# TODO: Create IOSStringResource handler
+		end
  	end
 
 	def id
@@ -77,5 +77,5 @@ class BaseScreen
 
 	def get_string_resource key
 		@string_resource.get(key: key)
-    end
+	end
 end
