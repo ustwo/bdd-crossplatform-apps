@@ -7,12 +7,13 @@ class BaseScreen
 		# Load the platform specific String resource handler.
 	    case @platform
 	    when 'android'
+	    	# TODO: Load in the correct locale Strings for the current test run
 	    	content = File.read('android/app/src/main/res/values/strings.xml')
 	        @string_resource = AndroidStringResource.new(file_content: content)
 	    when 'ios'
-	        #TODO: Create IOSStringResource handler
+	        # TODO: Create IOSStringResource handler
 	    end
-	end
+ 	end
 
 	def id
 		raise 'Abstract'
