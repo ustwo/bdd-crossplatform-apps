@@ -49,4 +49,14 @@ class CommitListScreen < BaseScreen
 	def get_commits_error
 		get_text(ids[:commitlist_no_commits_indicator])
 	end
+
+	def has_private_repository_indicator
+		# TODO: Localise
+		has_element('Private repository')
+	end
+
+	def has_public_repository_indicator
+		# TODO: Localise
+		has_element('Public repository')
+	end
 end
