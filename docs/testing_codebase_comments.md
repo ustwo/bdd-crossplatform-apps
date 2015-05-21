@@ -1,12 +1,12 @@
-We go here through some of the code choices that we've made after a few BDD projects under our belt. Hardly any of them are something that you can blindly apply to your project. They are trade-offs based on our needs and those of our clients.
+We go here through some of the code choices that we've made after a few BDD projects under our belt. Hardly any of them are something that you can blindly apply to your project, they are trade-offs based on our needs and those of our clients.
 
-Please don't forget to read the [technical overview](overview.md).
+Please don't forget to read the [technical overview](overview.md) first.
 
 ## Custom world
 
 The custom world acts as a page object for the app itself, allowing access to high level helpers in the step definitions (see [Cucumber docs](https://github.com/cucumber/cucumber/wiki/A-Whole-New-World) for more info). This helps keeping them simple and easy to read.
 
-## All calls to the driver wrapped up in POs
+## Wrap calls to the driver inside the POs
 
 We barely have any calls to the driver (Appium in this case) outside of page objects. Specifically, there are none in the step definitions, which are all "pure" Ruby and RSpec.
 
@@ -20,11 +20,13 @@ Note that this defined in the rake task executed and passed down through the Cuc
 
 ## Accomodating platform differences
 
-While Appium provides a cross-platform API there are times when platform-specific page objects are required. There are a few reasons for this.
+While Appium provides a cross-platform API there are times when platform-specific page objects are required. We implement this by having a "base" PO for each screen, extended by platform specific POs. 
+
+Here are a few reasons for this.
 
 ### The implementation of a user behaviour is different per platform
 
-This happens when trying to conform to platform specific interaction guidelines and a user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs a long press in another.
+This happens when trying to conform to platform specific interaction guidelines so an user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs. a long press in another.
 
 ### Different view hierarchy per-platfom
 
@@ -53,7 +55,7 @@ As they say, "TDD helps coding the thing right, BDD helps coding the right thing
 
 We get this a lot. 
 
-Ok, so slow compared to *what*? Yes, they tend to be slower than unit tests, but in our experience they are much faster than manual tests.
+Ok, so slow compared to *what*? Yes, they tend to be slower than unit tests, but they are much faster than manual tests.
 
 A BDD suite for a normal size app can easily take a couple of hours to run. Is that slow? Running full regression manually will take considerably longer, putting aside how error prone and boring is to repeat the same test script manually over and over again.
 
