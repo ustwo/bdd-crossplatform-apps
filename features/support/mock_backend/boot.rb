@@ -4,7 +4,6 @@ require_relative 'bind'
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
-
   # Wraps functionality to boot up the local mock server.
   class Boot
     @command = nil
@@ -24,30 +23,28 @@ module GitHubMockBackend
         @command = BootupServerCommand.new(host, port)
         @command.execute
 
-        while true
-
+        loop do
           break if self.is_running?
           puts 'Waiting for mock backend'
           sleep 2
         end
 
-        puts "Mock server up and running"
+        puts 'Mock server up and running'
       end
     end
 
     def is_running?
       begin
         HTTParty.get(Bind.url).response.code.to_i == 200
-      rescue Errno::ECONNREFUSED => e
+      rescue Errno::ECONNREFUSED
         false
       end
     end
 
     def close
-      if !@command.nil?
-        @command.close
-        puts "Mock server finished"
-      end
+      return unless @command.nil?
+      @command.close
+      puts 'Mock server finished'
     end
 
     # Boots a local mock server, if required.
@@ -57,10 +54,7 @@ module GitHubMockBackend
 
     # Ends the local mock server.
     def self.exit
-      if !@@boot.nil?
-        @@boot.close
-      end
+      @@boot.close unless @@boot.nil?
     end
   end
-
 end

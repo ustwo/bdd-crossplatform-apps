@@ -1,10 +1,8 @@
 require 'socket'
 
 module GitHubMockBackend
-
   # Utility class used to define the URL of the local mock server.
   class Bind
-
     # Returns the local IP address of the machine.
     # @return [String]
     def self.host
@@ -27,5 +25,4 @@ module GitHubMockBackend
       "http://#{Bind.host}:#{Bind.port}"
     end
   end
-
 end

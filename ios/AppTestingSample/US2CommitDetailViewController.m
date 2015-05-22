@@ -14,6 +14,7 @@
 @interface US2CommitDetailViewController ()
 @property (nonatomic, strong, readwrite) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
 @property (nonatomic, strong, readwrite) IBOutlet UILabel *authorNameLabel;
+@property (nonatomic, strong, readwrite) IBOutlet UILabel *commitMessage;
 @property (nonatomic, assign, readwrite) BOOL isLoading;
 @end
 
@@ -61,6 +62,8 @@
     [self __initView];
     [self __initAuthorNameLabel];
     [self __updateAuthor];
+    [self __updateTitle];
+    [self __updateCommitMessage];
     [self __updateLoadingIndicator];
 }
 
@@ -85,6 +88,20 @@
     else {
         self.authorNameLabel.text = @"No author name available";
     }
+}
+
+- (void)__updateCommitMessage {
+    if (self.commit &&
+        self.commit.message) {
+        self.commitMessage.text = self.commit.message;
+    }
+    else {
+        self.commitMessage.text = @"No commit message available";
+    }
+}
+
+- (void)__updateTitle {
+        self.title = @"";
 }
 
 - (void)__updateLoadingIndicator {

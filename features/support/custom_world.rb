@@ -1,26 +1,22 @@
 # https://github.com/cucumber/cucumber/wiki/A-Whole-New-World
 
 class CustomWorld
-
-  def initialize driver, screen_factory
+  def initialize(driver, screen_factory)
     @@driver = driver
     @screen_factory = screen_factory
   end
 
-  def launch_to_commit_list_screen wait_for_load: true
-
+  def launch_to_commit_list_screen(wait_for_load: true)
     app_launch
-    screen = @screen_factory.get_commit_list_screen()
+    screen = @screen_factory.get_commit_list_screen
 
-    if wait_for_load
-      screen.wait_for_load
-    end
+    screen.wait_for_load if wait_for_load
 
     screen
   end
 
   def get_commit_detail_screen
-    @screen_factory.get_commit_detail_screen()
+    @screen_factory.get_commit_detail_screen
   end
 
   def is_on_screen screen
@@ -37,8 +33,8 @@ class CustomWorld
   end
 
   private
-  def app_launch
 
+  def app_launch
     # NOTE (JD): Not been able to find a cleaner way
     # to workout whether an Appium session is already going
     # Accessing the session id triggers an exception if there

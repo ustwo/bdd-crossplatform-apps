@@ -10,7 +10,7 @@ After do |scenario|
   elsif scenario.is_a?(Cucumber::Ast::Scenario)
     title = "#{scenario.feature.title}: #{scenario.title}"
   else
-    title = ""
+    title = ''
   end
   $stdout.puts "\n\t#{title}"
 

@@ -1,19 +1,15 @@
 require 'open3'
 
 class BlockingCommand
-
   attr_accessor :cmd, :status
 
   def execute
-
     puts "About to execute: #{@cmd}"
 
-    Open3.popen3 @cmd do |stdin, stdout, stderr, wait_thr|
-
+    Open3.popen3 @cmd do |_stdin, stdout, stderr, wait_thr|
       [stdout, stderr].each do |stream|
-
         Thread.new do
-          until (line = stream.gets).nil? do
+          until (line = stream.gets).nil?
             puts line
           end
         end
