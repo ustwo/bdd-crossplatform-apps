@@ -148,7 +148,7 @@ end
 desc 'Starts an interactive session for iOS'
 task :ios_interactive => [:ios_set_mock_server_url,
               :ios_compile,
-              :ios_appium_config] do”
+              :ios_appium_config] do
   Rake::Task[:boot_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke()
 end
