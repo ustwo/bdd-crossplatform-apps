@@ -149,7 +149,7 @@ desc 'Starts an interactive session for iOS'
 task :ios_interactive => [:ios_set_mock_server_url,
               :ios_compile,
               :ios_appium_config] do
-  Rake::Task[:boot_appium].invoke('ios', 'false')
+  Rake::Task[:boot_up_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke()
 end
 
@@ -159,7 +159,7 @@ task :ios_bdd, [:tags] =>
                   :ios_compile,
                   :ios_appium_config] do |t, args|
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_appium].invoke('ios', 'false')
+  Rake::Task[:boot_up_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke('false')
   Rake::Task[:cucumber].invoke('ios', args[:tags])
 end
