@@ -1,3 +1,8 @@
+#
+# Class BaseScreen
+#
+# @author Juan Delgato <juan@ustwo.com>
+#
 class BaseScreen
   def initialize(driver)
     @driver = driver

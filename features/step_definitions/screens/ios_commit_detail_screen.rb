@@ -2,8 +2,6 @@ require_relative 'commit_detail_screen'
 
 class IosCommitDetailScreen < CommitDetailScreen
   def ids
-    map = {}
-    map[:commit_detail_root] = 'commit_detail_view'
-    map
+    { commit_detail_root: 'commit_detail_view' }
   end
 end

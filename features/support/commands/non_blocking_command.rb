@@ -15,7 +15,6 @@ class NonBlockingCommand
     end
 
     @pid = wait_thr[:pid]
-    @pid
   end
 
   def close
