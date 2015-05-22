@@ -1,7 +1,6 @@
 require_relative 'blocking_command'
 
 class XCodeBuildCommand < BlockingCommand
-
   def initialize
     build_dir = 'build/'
     scheme = 'AppTestingSample-BDD'

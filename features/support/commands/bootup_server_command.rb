@@ -1,17 +1,15 @@
 require 'rack'
-class BootupServerCommand
 
-  def initialize host, port
+class BootupServerCommand
+  def initialize(host, port)
     @host = host
     @port = port
   end
 
   def execute
-
-    @thread = Thread.new {
+    @thread = Thread.new do
       Rack::Server.start app: GitHubMockBackend::API, Host: @host, Port: @port
-    }
-
+    end
   end
 
   def close

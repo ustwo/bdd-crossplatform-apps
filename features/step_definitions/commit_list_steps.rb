@@ -5,7 +5,7 @@ Given(/^I am on the commit list screen$/) do
 end
 
 Then(/^I should be able to see the repository title$/) do
-  json = GitHubMockBackend::API.get_repo_json()
+  json = GitHubMockBackend::API.get_repo_json
 
   expected_title = json['name']
   actual_title = @screen.get_title
@@ -18,10 +18,9 @@ Then(/^I should be able to see the latest 10 commits$/) do
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  commits_json = GitHubMockBackend::API.get_commits_json()
+  commits_json = GitHubMockBackend::API.get_commits_json
 
   6.times do |index|
-
     commit_json = commits_json[index]
     expected_message = commit_json['commit']['message']
     expected_date = commit_json['commit']['author']['date']
@@ -62,7 +61,7 @@ Given(/^the repository has no commits$/) do
 end
 
 Then(/^I should see an indicator of no commits$/) do
-  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
+  expect(@screen.has_commits_error_indicator).to be(true), 'Expected commit error indicator is displayed'
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do
@@ -74,15 +73,15 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'commits_error'), status: 405
+  GitHubMockBackend::API.set_response(body: GitHubMockBackend::Utils.file_content(file_name: 'commits_error'), status: 405)
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response body: GitHubMockBackend::Utils.file_content(file_name: 'broken_json')
+  GitHubMockBackend::API.set_response(body: GitHubMockBackend::Utils.file_content(file_name: 'broken_json'))
 end
 
 Then(/^I should see an indicator of server error$/) do
-  expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
+  expect(@screen.has_commits_error_indicator).to be(true), 'Expected commit error indicator is displayed'
 end
 
 Given(/^the server times out when requesting data$/) do

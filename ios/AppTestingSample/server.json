@@ -1,6 +1,7 @@
 {
     "server": {
-        "scheme": "https",
-        "host": "api.github.co"
+        "scheme": "http",
+        "host": "10.100.1.250",
+        "port": "9999"
     }
 }

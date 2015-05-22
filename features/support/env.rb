@@ -8,29 +8,25 @@ require_relative 'mock_backend/boot'
 require_relative '../step_definitions/screen_factory'
 
 class CustomWorld
-
-  def initialize driver, screen_factory
+  def initialize(driver, screen_factory)
     @@driver = driver
     @screen_factory = screen_factory
   end
 
-  def launch_to_commit_list_screen wait_for_load: true
-
+  def launch_to_commit_list_screen(wait_for_load: true)
     app_launch
-    screen = @screen_factory.get_commit_list_screen()
+    screen = @screen_factory.get_commit_list_screen
 
-    if wait_for_load
-      screen.wait_for_load
-    end
+    screen.wait_for_load if wait_for_load
 
     screen
   end
 
   def get_commit_detail_screen
-    @screen_factory.get_commit_detail_screen()
+    @screen_factory.get_commit_detail_screen
   end
 
-  def is_on_screen screen
+  def is_on_screen(screen)
     begin
       element = @@driver.find_element(id: screen.id)
       !element.nil? && element.displayed?
@@ -44,8 +40,8 @@ class CustomWorld
   end
 
   private
-  def app_launch
 
+  def app_launch
     # NOTE (JD): Not been able to find a cleaner way
     # to workout whether an Appium session is already going
     # Accessing the session id triggers an exception if there
@@ -69,7 +65,7 @@ end
 GitHubMockBackend::Boot.boot
 
 caps = Appium.load_appium_txt file: 'appium.txt', verbose: true
-driver = Appium::Driver.new({:caps => caps, :custom_url => ENV['APPIUM_SERVER_URL']})
+driver = Appium::Driver.new(caps: caps, custom_url: ENV['APPIUM_SERVER_URL'])
 Appium.promote_appium_methods CustomWorld
 
 World do

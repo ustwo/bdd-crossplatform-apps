@@ -1,10 +1,8 @@
 require 'json'
 
 module GitHubMockBackend
-
   # Utility class
   class Utils
-
     # Returns the content of a JSON file in the responses folder.
     # @param file_name [String] Name of the JSON file to read
     # @return [String] The contents of the JSON file
@@ -19,5 +17,4 @@ module GitHubMockBackend
       JSON.parse(file_content(file_name: file_name))
     end
   end
-
 end

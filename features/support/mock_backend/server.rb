@@ -4,12 +4,10 @@ require 'grape'
 require_relative 'utils'
 
 module GitHubMockBackend
-
   # Web server implementing a subset of the GitHub API.
   # Mostly returns static JSON files store in ```responses/json```.
   # It has a 'backdoor' API that allows to force specific responses, error codes, etc., see API for more info.
   class Server < Grape::API
-
     version 'v1', using: :header, vendor: 'ustwo'
     format :json
 
@@ -26,25 +24,11 @@ module GitHubMockBackend
     before do
       @@requests << request
 
-      if !@@request_delay.nil?
-        sleep @@request_delay
-      end
-
-      if !@@forced_type.nil?
-        content_type @@forced_type
-      end
-
-      if !@@forced_status.nil?
-        status @@forced_status
-      end
-
-      if !@@forced_body.nil?
-        body @@forced_body
-      end
-
-      if !@@error_json.nil?
-        error!(@@error_json)
-      end
+      sleep @@request_delay unless @@request_delay.nil?
+      content_type @@forced_type unless @@forced_type.nil?
+      status @@forced_status unless @@forced_status.nil?
+      body @@forced_body unless @@forced_body.nil?
+      error!(@@error_json) unless @@error_json.nil?
     end
 
     # Returns repo JSON file.
@@ -98,9 +82,7 @@ module GitHubMockBackend
     end
 
     post '/request_delay' do
-
-      delay = params[:delay].to_i
-      @@request_delay = delay
+      @@request_delay = params[:delay].to_i
       {}
     end
 
@@ -113,30 +95,27 @@ module GitHubMockBackend
     end
 
     post '/repo_json' do
-      file_name = params[:filename]
-      @@repo_json = Utils.static_json(file_name: file_name)
+      @@repo_json = Utils.static_json(file_name: params[:filename])
       {}
     end
 
     post '/commits_json' do
-      file_name = params[:filename]
-      @@commits_json = Utils.static_json(file_name: file_name)
+      @@commits_json = Utils.static_json(file_name: params[:filename])
       {}
     end
 
     post '/response' do
-      @@forced_body = (params[:body].empty?)? nil : params[:body]
-      @@forced_status = (params[:status].empty?)? nil : params[:status]
-      @@forced_type = (params[:type].empty?)? nil : params[:type]
+      @@forced_body = (params[:body].empty?) ? nil : params[:body]
+      @@forced_status = (params[:status].empty?) ? nil : params[:status]
+      @@forced_type = (params[:type].empty?) ? nil : params[:type]
       {}
     end
 
     get '/requests' do
-
       requests = []
 
       @@requests.each do |request|
-        requests << {fullpath: request.fullpath} unless request.fullpath == '/requests'
+        requests << { fullpath: request.fullpath } unless request.fullpath == '/requests'
       end
 
       requests

@@ -4,7 +4,6 @@ require_relative 'bind'
 require_relative '../commands/bootup_server_command'
 
 module GitHubMockBackend
-
   # Wraps functionality to boot up the local mock server.
   class Boot
     @@boot = nil
@@ -23,14 +22,13 @@ module GitHubMockBackend
         @bootup = BootupServerCommand.new(host, port)
         @bootup.execute
 
-        while true
-
+        loop do
           break if self.is_running?
           puts 'Waiting for mock backend'
           sleep 0.5
         end
 
-        puts "Mock server up and running"
+        puts 'Mock server up and running'
       end
     end
 
@@ -44,7 +42,7 @@ module GitHubMockBackend
 
     def close
       @bootup.close
-      puts "Mock server finished"
+      puts 'Mock server finished'
     end
 
     # Boots a local mock server, if required.
@@ -54,10 +52,7 @@ module GitHubMockBackend
 
     # Ends the local mock server.
     def self.exit
-      if !@@boot.nil?
-        @@boot.close
-      end
+      @@boot.close unless @@boot.nil?
     end
   end
-
 end
