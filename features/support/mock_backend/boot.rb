@@ -6,6 +6,7 @@ require_relative '../commands/bootup_server_command'
 module GitHubMockBackend
   # Wraps functionality to boot up the local mock server.
   class Boot
+    @command = nil
     @@boot = nil
 
     def initialize
@@ -19,13 +20,13 @@ module GitHubMockBackend
 
         puts "About to boot up mock server at: #{full_url}"
 
-        @bootup = BootupServerCommand.new(host, port)
-        @bootup.execute
+        @command = BootupServerCommand.new(host, port)
+        @command.execute
 
         loop do
           break if self.is_running?
           puts 'Waiting for mock backend'
-          sleep 0.5
+          sleep 2
         end
 
         puts 'Mock server up and running'
@@ -35,13 +36,14 @@ module GitHubMockBackend
     def is_running?
       begin
         HTTParty.get(Bind.url).response.code.to_i == 200
-      rescue
+      rescue Errno::ECONNREFUSED
         false
       end
     end
 
     def close
-      @bootup.close
+      return unless @command.nil?
+      @command.close
       puts 'Mock server finished'
     end
 

@@ -1,3 +1,5 @@
+require 'open3'
+
 class BlockingCommand
   attr_accessor :cmd, :status
 

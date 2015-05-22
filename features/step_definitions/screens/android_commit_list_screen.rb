@@ -14,19 +14,17 @@ class AndroidCommitListScreen < CommitListScreen
   end
 
   def ids
-    map = {}
+    {
+      # Commit List Screen
+      commitlist_button_refresh: 'com.ustwo.sample:id/commit_list_button_refresh',
+      commitlist_no_commits_indicator: 'com.ustwo.sample:id/commit_list_textview_status_information',
+      commitlist_loading_indicator: 'android:id/progress',
 
-    # Commit List Screen
-    map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
-    map[:commitlist_no_commits_indicator] = 'com.ustwo.sample:id/commit_list_textview_status_information'
-    map[:commitlist_loading_indicator] = 'android:id/progress'
-
-    # Commit List Row
-    map[:commitlist_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
-    map[:commitlist_row_textview_date] = 'com.ustwo.sample:id/commit_list_row_textview_date'
-    map[:commitlist_row_textview_message] = 'com.ustwo.sample:id/commit_list_row_textview_message'
-    map[:commitlist_list] = 'com.ustwo.sample:id/commit_list_listview_commits'
-
-    map
+      # Commit List Row
+      commitlist_list_row: 'com.ustwo.sample:id/commit_list_linearlayout_row',
+      commitlist_row_textview_date: 'com.ustwo.sample:id/commit_list_row_textview_date',
+      commitlist_row_textview_message: 'com.ustwo.sample:id/commit_list_row_textview_message',
+      commitlist_list: 'com.ustwo.sample:id/commit_list_listview_commits'
+    }
   end
 end

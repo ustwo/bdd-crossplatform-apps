@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -94,9 +95,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
         mGitHubService.repository(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<RepositoryInfo>() {
             @Override
             public void success(RepositoryInfo repositoryInfo, Response response) {
-                ((TextView) findViewById(R.id.commit_list_textview_title)).setText(repositoryInfo.description);
-                getSupportActionBar().setTitle(repositoryInfo.name);
-
+                updateRepositoryInfo(repositoryInfo);
                 retrieveCommitList();
             }
 
@@ -108,6 +107,17 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
                 Log.e(TAG, "Failed to get repository information", error);
             }
         });
+    }
+
+    private void updateRepositoryInfo(RepositoryInfo repositoryInfo) {
+        ((TextView) findViewById(R.id.commit_list_textview_title)).setText(repositoryInfo.description);
+
+        ImageView privacyStateView = (ImageView) findViewById(R.id.commit_list_imageview_privacy_state);
+        privacyStateView.setImageResource(repositoryInfo.isPrivate ? R.drawable.ic_private : R.drawable.ic_public);
+        privacyStateView.setContentDescription(
+                getString(repositoryInfo.isPrivate ? R.string.commit_list_repo_private : R.string.commit_list_repo_public));
+
+        getSupportActionBar().setTitle(repositoryInfo.name);
     }
 
     private void showErrorMessage() {

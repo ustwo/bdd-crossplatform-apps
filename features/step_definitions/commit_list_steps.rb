@@ -1,11 +1,12 @@
 require_relative '../support/mock_backend/utils'
+include GitHubMockBackend
 
 Given(/^I am on the commit list screen$/) do
   @screen = launch_to_commit_list_screen
 end
 
 Then(/^I should be able to see the repository title$/) do
-  json = GitHubMockBackend::API.get_repo_json
+  json = API.get_repo_json
 
   expected_title = json['name']
   actual_title = @screen.get_title
@@ -18,7 +19,7 @@ Then(/^I should be able to see the latest 10 commits$/) do
 end
 
 Then(/^I should see the commit message and date of each commit$/) do
-  commits_json = GitHubMockBackend::API.get_commits_json
+  commits_json = API.get_commits_json
 
   6.times do |index|
     commit_json = commits_json[index]
@@ -45,7 +46,7 @@ Then(/^I should be taken to the commit details screen$/) do
 end
 
 Given(/^the server is slow responding with data$/) do
-  GitHubMockBackend::API.set_request_delay(delay: 3)
+  API.set_request_delay(delay: 3)
 end
 
 And(/^I am on the commit list screen before data has loaded/) do
@@ -59,7 +60,7 @@ Then(/^I should see a loading indicator until reponse has been received$/) do
 end
 
 Given(/^the repository has no commits$/) do
-  GitHubMockBackend::API.set_commits_json(file_name: 'no_commits_repo')
+  API.set_commits_json(file_name: 'no_commits_repo')
 end
 
 Then(/^I should see an indicator of no commits$/) do
@@ -75,11 +76,13 @@ Then(/^it should be cut off and ellipses added$/) do
 end
 
 Given(/^there is a server error retriving data$/) do
-  GitHubMockBackend::API.set_response(body: GitHubMockBackend::Utils.file_content(file_name: 'commits_error'), status: 405)
+  API.set_repo_json(file_name: 'commits_error')
+  API.set_commits_json(file_name: 'commits_error')
+  API.set_response(status: 405)
 end
 
 Given(/^the json retrieved from the server is broken$/) do
-  GitHubMockBackend::API.set_response(body: GitHubMockBackend::Utils.file_content(file_name: 'broken_json'))
+  API.set_response body: Utils.file_content(file_name: 'broken_json')
 end
 
 Then(/^I should see an indicator of server error$/) do
@@ -92,4 +95,20 @@ end
 
 Then(/^I should see an indicator slow server$/) do
   pending # express the regexp above with the code you wish you had
+end
+
+Given(/^the repository is private$/) do
+  API.set_repo_json(file_name: 'private_repo')
+end
+
+Then(/^I should see a private repository indicator$/) do
+  expect(@screen.has_private_repository_indicator).to be(true)
+end
+
+Given(/^the repository is public$/) do
+  API.set_repo_json(file_name: 'public_repo')
+end
+
+Then(/^I should see a public repository indicator$/) do
+  expect(@screen.has_public_repository_indicator).to be(true)
 end
