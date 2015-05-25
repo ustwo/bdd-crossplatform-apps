@@ -4,7 +4,7 @@ This set up has only been tested on Unix machines, which is what we have at hand
 
 You'll need to install these dependencies by hand, please follow their installation and set up guidelines for your platform.
 
- * Ruby and RubyGems
+ * Ruby and RubyGems. Appium seems to be a bit picky with the Ruby version, the one we've seen being most stable is 2.1.2.
  * Node
 
 Once the basic dependencies are in place please run: 
