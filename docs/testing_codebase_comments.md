@@ -12,11 +12,13 @@ We barely have any calls to the driver (Appium in this case) outside of page obj
 
 This makes step definitons fairly readable, particularly since accessing UI elements can get pretty tricky/ugly. We hide all that complexity behind the POs.
 
+Incidentaly, this also helps handling cross-platform differences and decreases the chances of vendor lock-in to a specific driver.
+
 ## Screen Factory
 
 The screen factory is responsible for returning appropiate page object instances based on the platform under test. 
 
-Note that this defined in the rake task executed and passed down through the Cucumber command as an [environment variable](https://github.com/cucumber/cucumber/wiki/Environment-Variables).
+Note that this is defined in the rake task executed and passed down through the Cucumber command as an [environment variable](https://github.com/cucumber/cucumber/wiki/Environment-Variables).
 
 ## Accomodating platform differences
 
@@ -28,7 +30,7 @@ Here are a few reasons for this.
 
 This happens when trying to conform to platform specific interaction guidelines so an user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs. a long press in another.
 
-### Different view hierarchy per-platfom
+### Different view hierarchy per-platform
 
 Sometimes even if the user behaviour is the same (say pressing a button), different platforms might have a view hierarchy that's different enough to require a different way of accessing those elements.
 
@@ -42,9 +44,9 @@ This question comes around 100 times per project: should we BDD or TDD? And the 
 
 Keep a few things in mind to make that call:
 
-* Unit tests tends to be faster (more below).
+* Unit tests tend to be faster (more below).
 * Unit tests test code, not user journeys.
-* Because of the above, unit tests will hardly fail in different devices or OS versions, hence they give no visibility over the state of the app on a per-device, per-OS basis. BDD tests do.
+* Because of the above, unit tests will hardly fail on different devices or OS versions, hence they give no visibility over the state of the app on a per-device, per-OS basis. BDD tests do.
 * Unit tests are platform specific, you need to code them once per platform.
 * Unit tests tend to be written by developers only, no collaboration with the rest of the team.
 * BDD tests tend to be more brittle... but they exercise a deeper piece of the stack.
