@@ -51,7 +51,7 @@ Keep a few things in mind to make that call:
 * Unit tests tend to be written by developers only, no collaboration with the rest of the team.
 * BDD tests tend to be more brittle... but they exercise a deeper piece of the stack.
 
-As they say, "TDD helps coding the thing right, BDD helps coding the right thing", so plan accordingly!
+As they say, "unit tests ensure you build the thing right, while acceptance tests ensure you build the right thing". So yeah, plan accordingly!
 
 ## BDD tests are slow!
 
