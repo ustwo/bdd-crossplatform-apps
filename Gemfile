@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'cucumber', '>= 1.3.18'
+gem 'cucumber', '>= 2.0.0'
 gem 'rspec'
 gem 'rake'
 gem 'sinatra'
