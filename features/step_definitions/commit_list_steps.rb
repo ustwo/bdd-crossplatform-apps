@@ -21,6 +21,7 @@ end
 Then(/^I should see the commit message and date of each commit$/) do
   commits_json = API.get_commits_json()
 
+  # See: https://github.com/ustwo/bdd-crossplatform-apps/issues/38
   6.times do |index|
 
     commit_json = commits_json[index]
