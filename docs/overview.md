@@ -48,6 +48,8 @@ We favour [declarative vs imperative](http://benmabey.com/2008/05/19/imperative-
 
 Step definitions are kept free of UI and automation framework specifics, making them easier to read and less brittle. The complexities of extracting information or interacting with the interface are kept inside the page objects. We aim for "*clean steps and dirty POs*".
 
+For more information about the choices and trade-offs of the testing codebase please read the [in-depth code comments](testing_codebase_comments.md).
+
 ### Appium
 
 We use Appium since it provides a cross-platform set of APIs for test automation. It's built on top of the [JSON Wire Protocol](https://code.google.com/p/selenium/wiki/JsonWireProtocol) making it easier to find testers with at least some familiarity with its APIs.

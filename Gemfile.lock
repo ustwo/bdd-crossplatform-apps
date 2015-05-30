@@ -22,12 +22,15 @@ GEM
     chronic_duration (0.10.6)
       numerizer (~> 0.1.1)
     coderay (1.1.0)
-    cucumber (1.3.18)
+    cucumber (2.0.0)
       builder (>= 2.1.2)
+      cucumber-core (~> 1.1.3)
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.12)
       multi_json (>= 1.7.5, < 2.0)
-      multi_test (>= 0.1.1)
+      multi_test (>= 0.1.2)
+    cucumber-core (1.1.3)
+      gherkin (~> 2.12.0)
     diff-lcs (1.2.5)
     ffi (1.9.6)
     gherkin (2.12.2)
@@ -38,8 +41,8 @@ GEM
     json (1.8.1)
     method_source (0.8.2)
     mini_portile (0.6.0)
-    multi_json (1.10.1)
-    multi_test (0.1.1)
+    multi_json (1.11.0)
+    multi_test (0.1.2)
     multi_xml (0.5.5)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -102,7 +105,7 @@ PLATFORMS
 DEPENDENCIES
   appium_console
   appium_lib
-  cucumber
+  cucumber (>= 2.0.0)
   httparty
   json
   rake
