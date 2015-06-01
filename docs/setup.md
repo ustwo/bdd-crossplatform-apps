@@ -15,7 +15,9 @@ Once the basic dependencies are in place please run:
 
 ### iOS
 
-TBD
+ * Xcode 6.1+
+ * Xcode Command Line Tools
+ * iOS Simulator 7.x or 8.x
 
 ### Android
 
