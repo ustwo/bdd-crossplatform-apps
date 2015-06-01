@@ -49,11 +49,13 @@ Feature: display list of commits
     Given I am on the commit list screen
     Then I should see an indicator of server error
 
+  @ios-not-ready
   Scenario: private repository
     Given the repository is private
     Given I am on the commit list screen
     Then I should see a private repository indicator
 
+  @ios-not-ready
   Scenario: public repository
     Given the repository is public
     Given I am on the commit list screen
