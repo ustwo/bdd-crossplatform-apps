@@ -12,7 +12,7 @@ class AndroidStringResource < StringResource
     if element.size == 1
       element.text
     else
-      nil
+      raise "No string resource found for: #{key}"
     end
   end
 end
