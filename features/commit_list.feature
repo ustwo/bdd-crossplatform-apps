@@ -31,32 +31,32 @@ Feature: display list of commits
 
   Scenario: commit message is too long
     Given one of the commits has a message that doesn't fit in one line
-    When I am on the commit list screen
+    And I am on the commit list screen
     Then it should be cut off and ellipses added
 
   Scenario: server error
     Given there is a server error retriving data
-    When I am on the commit list screen
+    And I am on the commit list screen
     Then I should see an indicator of server error
 
   Scenario: client-side time out
     Given the server times out when requesting data
-    When I am on the commit list screen
+    And I am on the commit list screen
     Then I should see an indicator slow server
 
   Scenario: broken JSON
     Given the json retrieved from the server is broken
-    Given I am on the commit list screen
+    And I am on the commit list screen
     Then I should see an indicator of server error
 
   @ios-not-ready
   Scenario: private repository
     Given the repository is private
-    Given I am on the commit list screen
+    And I am on the commit list screen
     Then I should see a private repository indicator
 
   @ios-not-ready
   Scenario: public repository
     Given the repository is public
-    Given I am on the commit list screen
+    And I am on the commit list screen
     Then I should see a public repository indicator
