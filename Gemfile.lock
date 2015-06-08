@@ -108,6 +108,7 @@ DEPENDENCIES
   cucumber (>= 2.0.0)
   httparty
   json
+  nokogiri
   rake
   rspec
   shotgun

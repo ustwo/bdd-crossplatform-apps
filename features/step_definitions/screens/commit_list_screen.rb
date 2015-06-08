@@ -51,12 +51,10 @@ class CommitListScreen < BaseScreen
 	end
 
 	def has_private_repository_indicator
-		# TODO: Localise
-		has_element('Private repository')
+		has_element(get_string_resource('commit_list_repo_private'))
 	end
 
 	def has_public_repository_indicator
-		# TODO: Localise
-		has_element('Public repository')
+		has_element(get_string_resource('commit_list_repo_public'))
 	end
 end
