@@ -28,7 +28,7 @@ Here are a few reasons for this.
 
 ### The implementation of a user behaviour is different per platform
 
-This happens when trying to conform to platform specific interaction guidelines so an user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs. a long press in another.
+This happens when trying to conform to platform specific interaction guidelines so an user behaviour has to be implemented differently. For example, removing an element from a list could be implemented as a swipe in one platform vs a long press in another.
 
 ### Different view hierarchy per-platform
 
@@ -38,20 +38,37 @@ Sometimes even if the user behaviour is the same (say pressing a button), differ
 
 Each platform has slightly different naming conventions and while it would be theoretically possible to force all element IDs to be exactly the same, some developers might find that requirement too intrusive.
 
-## BDD vs TDD
+#### Android
 
-This question comes around 100 times per project: should we BDD or TDD? And the most common answer is that you probably need both, since they serve different purposes.
+There are two ways to reference elements on the screen, ids and accessibility labels.
+
+For example, we have given the list that contains all the commits an android id of `com.ustwo.sample:id/commit_list_listview_commits` (we use the convention <screen name>_<type>_<purpose>) - but we could also set an accessibility label using the attribute 'contentDescription'. This attribute is used by screen readers and will be read aloud to users, so it must be kept understandable to a non developer and translated. 
+
+To be able to have different element IDs per platform, we maintain a map of identifiers - so the step definition can simply use a common identifier, e.g. `map[:commitlist_list]` and each platform specific screen is responsible for adding the actual element ID. This is not ideal, because it's a bit of an overhead to maintain the map of keys/values, but it also makes it not product flavour or refactor friendly as the package name is contained with in the id - changing the overall package name will break the tests. It's also harder to copy/paste things in to tools like arc or pry because the id is defined in a different place to the usage.
+
+To minimise any potential refactoring pain, the package name should be defined in one place and appended at runtime. The complication to this, is that system UI uses the 'android' package name, for example an alert dialog button's id is `android:id/button1`.
+
+A significant benefit of using content descriptions is that they can be changed at runtime, allowing greater flexibility for testing things like images or custom UI elements which don't expose text. In this sample, we set a locked/unlocked padlock for private/public repositories and set a human readable content description, read from the strings.xml resources file. To test using a localised version of the app, we would just load the resource file from the relevant language's subdirectory, e.g. `values-fr/strings.xml`.
+
+
+##### iOS
+
+Elements can have an accessibility identifier, and an accessibility label - the latter of these will be read out by a screen reader, so using the identifier is preferable.
+
+## Acceptance tests vs unit tests
+
+This question comes around 100 times per project: should we write acceptance tests or unit tests? And the most common answer is that you probably need both, since they serve different purposes.
 
 Keep a few things in mind to make that call:
 
-* Unit tests tend to be faster (more below).
+* Unit tests tend to be faster.
 * Unit tests test code, not user journeys.
-* Because of the above, unit tests will hardly fail on different devices or OS versions, hence they give no visibility over the state of the app on a per-device, per-OS basis. BDD tests do.
+* Because of the above, unit tests will hardly fail on different devices or OS versions, hence they give no visibility over the state of the app on a per-device, per-OS basis. Acceptance tests do.
 * Unit tests are platform specific, you need to code them once per platform.
 * Unit tests tend to be written by developers only, no collaboration with the rest of the team.
-* BDD tests tend to be more brittle... but they exercise a deeper piece of the stack.
+* Acceptance tests tend to be more brittle... but they exercise a deeper piece of the stack, writing more unit tests are never going to replace automated acceptance tests, only a human tapping their way through the app will.
 
-As they say, "unit tests ensure you build the thing right, while acceptance tests ensure you build the right thing". So yeah, plan accordingly!
+Test at the level which makes the most sense, generally as high as possible - verifiying something like whether a date formatter works in the way you expect is small and isolated and would be easy to test at the unit level. As they say, "unit tests ensure you build the thing right, while acceptance tests ensure you build the right thing". So, plan accordingly!
 
 ## BDD tests are slow!
 
