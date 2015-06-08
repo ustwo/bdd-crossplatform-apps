@@ -2,26 +2,12 @@ require_relative 'base_screen'
 
 class CommitListScreen < BaseScreen
 
-	def wait_for_load
-		has_no_loading_indicator
-	end
-
+	# Title
 	def get_title
 		get_text(ids[:commitlist_title])
 	end
 
-	def has_error_indicator
-		has_element(ids[:commitlist_no_commits_indicator])
-	end
-
-	def click_on_commit index
-		elements(ids[:commitlist_list_row])[index].click
-	end
-
-	def get_commit index
-		raise 'Abstract'
-	end
-
+	# Loading
 	def has_no_commits_indicator
 		has_element(ids[:commitlist_no_commits_indicator])
 	end
@@ -34,6 +20,11 @@ class CommitListScreen < BaseScreen
 		has_no_element(ids[:commitlist_loading_indicator])
 	end
 
+	# Commit list
+	def get_commit index
+		raise 'Abstract'
+	end
+
 	def get_number_of_commits
 		elements_by_text(ids[:commit_list_list_row]).count
 	end
@@ -42,6 +33,15 @@ class CommitListScreen < BaseScreen
 		element(ids[:commitlist_list])
 	end
 
+	def click_on_commit index
+		elements(ids[:commitlist_list_row])[index].click
+	end
+
+	# Errors
+	def has_error_indicator
+		has_element(ids[:commitlist_no_commits_indicator])
+	end
+	
 	def has_commits_error_indicator
 		has_element(ids[:commitlist_no_commits_indicator])
 	end
@@ -50,6 +50,7 @@ class CommitListScreen < BaseScreen
 		get_text(ids[:commitlist_no_commits_indicator])
 	end
 
+	# Public/private repository
 	def has_private_repository_indicator
 		has_element(get_string_resource('commit_list_repo_private'))
 	end

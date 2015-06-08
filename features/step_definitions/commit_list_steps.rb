@@ -68,11 +68,11 @@ Then(/^I should see an indicator of no commits$/) do
 end
 
 When(/^one of the commits has a message that doesn't fit in one line$/) do
-  pending # express the regexp above with the code you wish you had
+  # Default commit list json returned already does this, do nothing
 end
 
 Then(/^it should be cut off and ellipses added$/) do
-  pending # express the regexp above with the code you wish you had
+  # Manual only
 end
 
 Given(/^there is a server error retriving data$/) do
@@ -90,11 +90,7 @@ Then(/^I should see an indicator of server error$/) do
 end
 
 Given(/^the server times out when requesting data$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^I should see an indicator slow server$/) do
-  pending # express the regexp above with the code you wish you had
+  API.set_request_delay(delay: 61)
 end
 
 Given(/^the repository is private$/) do
