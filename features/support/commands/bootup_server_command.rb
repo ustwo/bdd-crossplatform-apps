@@ -1,22 +1,8 @@
-require 'rack'
-require_relative '../mock_backend/server'
+require_relative 'non_blocking_command'
 
-class BootupServerCommand
+class BootupServerCommand < NonBlockingCommand
 
   def initialize host, port
-    @host = host
-    @port = port
-  end
-
-  def execute
-
-    @thread = Thread.new {
-      Rack::Server.start app: GitHubMockBackend::Server, Host: @host, Port: @port
-    }
-
-  end
-
-  def close
-    @thread.exit
+    @cmd = "rackup features/support/mock_backend/config.ru -o #{host} -p #{port}"
   end
 end
