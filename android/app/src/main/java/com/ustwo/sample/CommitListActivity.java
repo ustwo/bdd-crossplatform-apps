@@ -1,7 +1,6 @@
 package com.ustwo.sample;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -23,10 +22,6 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
-import static com.ustwo.sample.Constants.DEFAULT_REPOSITORY_NAME;
-import static com.ustwo.sample.Constants.DEFAULT_REPOSITORY_USER;
-import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
 
 /**
  * Created by emma@ustwo.com on 1/8/15.
@@ -92,7 +87,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     }
 
     private void retrieveRepositoryInfo() {
-        mGitHubService.repository(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<RepositoryInfo>() {
+        mGitHubService.repository(getString(R.string.default_repository_user), getString(R.string.default_repository_name), new Callback<RepositoryInfo>() {
             @Override
             public void success(RepositoryInfo repositoryInfo, Response response) {
                 updateRepositoryInfo(repositoryInfo);
@@ -128,7 +123,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     }
 
     private void retrieveCommitList() {
-        mGitHubService.commitList(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, new Callback<List<CommitSummary>>() {
+        mGitHubService.commitList(getString(R.string.default_repository_user), getString(R.string.default_repository_name), new Callback<List<CommitSummary>>() {
             @Override
             public void success(List<CommitSummary> commits, Response response) {
                 if (commits.isEmpty()) {
@@ -162,8 +157,6 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CommitSummary commit = (CommitSummary) (parent.getAdapter()).getItem(position);
 
-        Intent intent = new Intent(this, CommitDetailActivity.class);
-        intent.putExtra(INTENT_KEY_COMMIT_SHA, commit.sha);
-        startActivity(intent);
+        startActivity(CommitDetailActivity.getIntent(this, commit));
     }
 }

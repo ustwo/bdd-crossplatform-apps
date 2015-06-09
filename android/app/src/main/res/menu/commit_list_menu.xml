@@ -3,6 +3,7 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.ustwo.sample.MainActivity">
 
+    <!-- Refresh button -->
     <item
         android:id="@+id/commit_list_button_refresh"
         android:icon="@android:drawable/ic_popup_sync"

@@ -15,21 +15,39 @@ class BaseScreen
 		end
  	end
 
-	def id
-		raise 'Abstract'
-	end
-
 	def wait_for_load
 		# NOTE (JD): get rid of the sleep
 		# and monitor the state of the loaders
 		sleep 2
 	end
 
+	def id
+		raise 'SubclassResponsibility - your AndroidScreen/IosScreen should override this method!'
+	end
+
 	def ids
-		raise "SubclassResponsibility - your AndroidScreen/IosScreen should override this method!"
+		raise 'SubclassResponsibility - your AndroidScreen/IosScreen should override this method!'
 	end
 
 	private
+	def get_id id
+		element_id = ''
+		case @platform
+		when 'android'
+			# We need the package name at the start of the id for android unless what we're 
+			# testing has already been fully qualified, e.g. if it's part of the system UI
+			element = ids[id]
+			element_id = element[:id] 
+			if !element[:is_fully_qualified]
+				element_id = 'com.ustwo.sample.local:id/' + element[:id] 
+			end
+		when 'ios'
+			element_id = ids[id]
+		end
+
+		element_id
+	end
+
 	def element id
 		@driver.find_element(id: id)
 	end
@@ -56,7 +74,6 @@ class BaseScreen
 	end
 
 	def has_no_element id
-
 		@driver.set_wait(0)
 
 		has = nil

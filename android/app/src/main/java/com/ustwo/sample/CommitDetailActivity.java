@@ -1,12 +1,15 @@
 package com.ustwo.sample;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.ustwo.sample.data.Commit;
+import com.ustwo.sample.data.CommitSummary;
 import com.ustwo.sample.data.GitHub;
 
 import retrofit.Callback;
@@ -14,15 +17,12 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static com.ustwo.sample.Constants.DEFAULT_REPOSITORY_NAME;
-import static com.ustwo.sample.Constants.DEFAULT_REPOSITORY_USER;
-import static com.ustwo.sample.Constants.INTENT_KEY_COMMIT_SHA;
-
 /**
  * Created by emma on 1/8/15.
  */
 public class CommitDetailActivity extends ActionBarActivity {
     private static final String TAG = CommitDetailActivity.class.getSimpleName();
+    private static final String INTENT_KEY_COMMIT_SHA = "key_commit_sha";
 
     private ProgressDialog mProgressDialog;
 
@@ -55,9 +55,9 @@ public class CommitDetailActivity extends ActionBarActivity {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.app_endpoint_url))
                 .build();
-        
+
         GitHub service = restAdapter.create(GitHub.class);
-        service.commit(DEFAULT_REPOSITORY_USER, DEFAULT_REPOSITORY_NAME, commit, new Callback<Commit>() {
+        service.commit(getString(R.string.default_repository_user), getString(R.string.default_repository_name), commit, new Callback<Commit>() {
             @Override
             public void success(Commit commit, Response response) {
                 mProgressDialog.cancel();
@@ -77,5 +77,11 @@ public class CommitDetailActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.commit_detail_textview_email)).setText(commit.author.email);
         ((TextView) findViewById(R.id.commit_detail_textview_date)).setText(commit.author.date);
         ((TextView) findViewById(R.id.commit_detail_textview_message)).setText(commit.message);
+    }
+
+    public static Intent getIntent(Context context, CommitSummary commit) {
+        Intent intent = new Intent(context, CommitDetailActivity.class);
+        intent.putExtra(INTENT_KEY_COMMIT_SHA, commit.sha);
+        return intent;
     }
 }

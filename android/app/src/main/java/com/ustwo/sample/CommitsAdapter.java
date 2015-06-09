@@ -45,10 +45,7 @@ public class CommitsAdapter extends BaseAdapter {
         if (v == null) {
             v = mLayoutInflater.inflate(R.layout.item_commit, null);
 
-            holder = new ViewHolder();
-            holder.message = (TextView) v.findViewById(R.id.commit_list_row_textview_message);
-            holder.date = (TextView) v.findViewById(R.id.commit_list_row_textview_date);
-
+            holder = new ViewHolder(v);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
@@ -62,7 +59,12 @@ public class CommitsAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        public TextView message;
-        public TextView date;
+        private TextView message;
+        private TextView date;
+
+        public ViewHolder(View v) {
+            message = (TextView) v.findViewById(R.id.commit_list_row_textview_message);
+            date = (TextView) v.findViewById(R.id.commit_list_row_textview_date);
+        }
     }
 }

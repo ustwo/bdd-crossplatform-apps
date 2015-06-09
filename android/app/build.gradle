@@ -15,10 +15,16 @@ android {
         production {
             // default flavour, hits GitHub's api
             // see strings.xml for endpoint
+            resValue "string", "app_name", "BDD Cross Platform"
         }
         local {
             // testing flavour, uses local mock server
             // strings.xml file is generated into local directory
+            resValue "string", "app_name", "BDD - Local"
+
+            // change the package name of the local build so we can have them
+            // installed side by side on a device
+            applicationId "com.ustwo.sample.local"
         }
     }
     buildTypes {
@@ -30,5 +36,5 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.squareup.retrofit:retrofit:1.9.+'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 }
