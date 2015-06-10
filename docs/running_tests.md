@@ -49,6 +49,7 @@ Tests can be filtered out by using [Cucumber tags](https://github.com/cucumber/c
 
  * ```rake android_bdd```
  * ```rake android_bdd[@wip]``` <-- only runs tests tagged @wip
+ * ```rake android_bdd[~@manual-only]``` <-- run all tests that do not have the @manual-only tag
 
 Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced (or use [Cucumber profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml)) you can call Cucumber directly but you'll need to call the the dependant rake tasks first.
 

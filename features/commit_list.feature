@@ -1,6 +1,6 @@
 Feature: display list of commits
 
-
+  # Business scenarios
   Scenario: display repository title
     Given I am on the commit list screen
     Then I should be able to see the repository title
@@ -18,7 +18,7 @@ Feature: display list of commits
     When I choose to see the details of a specific commit
     Then I should be taken to the commit details screen
 
-  # UI scenarios below
+  # UI scenarios
   Scenario: display loading indicator
     Given the server is slow responding with data
     And I am on the commit list screen before data has loaded
@@ -29,6 +29,7 @@ Feature: display list of commits
     And I am on the commit list screen
     Then I should see an indicator of no commits
 
+  @manual-only
   Scenario: commit message is too long
     Given one of the commits has a message that doesn't fit in one line
     And I am on the commit list screen
@@ -42,7 +43,7 @@ Feature: display list of commits
   Scenario: client-side time out
     Given the server times out when requesting data
     And I am on the commit list screen
-    Then I should see an indicator slow server
+    Then I should see an indicator of server error
 
   Scenario: broken JSON
     Given the json retrieved from the server is broken

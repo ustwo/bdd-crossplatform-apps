@@ -94,14 +94,15 @@ task :cucumber, [:platform, :tags] do |t, args|
   raw_tags = args[:tags]
 
   tags = []
-
   if !raw_tags.nil?
-    raw_tags.split('@').each do |tag|
+    raw_tags.split(',').each do |tag|
       if tag.size > 0
-        tags << '@' + tag
+        tags << tag
       end
     end
   end
+
+  puts "Running with tags: '#{tags.join("','")}'"
 
   appium_server_url = get_configuration(platform)['appium_server_url'] || 'http://localhost:4723'
 
