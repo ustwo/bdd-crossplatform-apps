@@ -12,10 +12,10 @@ After do |scenario|
   requests = API.get_requests
 
   if !requests.nil? && requests.size > 0
-    puts "\t#{requests.size} requests made to the mock backend"
+    puts "\t#{requests.size} request(s) made to the mock backend"
 
     requests.each_with_index do |request, index|
-      puts "\t\t##{index} #{request['fullpath']}"
+      puts "\t\t##{index} #{request['fullpath']}".white
     end
   else
     puts "\tNo requests made to the mock backend"

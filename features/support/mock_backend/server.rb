@@ -45,7 +45,6 @@ module GitHubMockBackend
     end
 
     before do
-
       # NOTE (JD): We don't mess around with requests to the backdoor API.
       # This means we don't log them, delay them, force their status, etc.
       if backdoor_api(request.fullpath)
@@ -116,7 +115,6 @@ module GitHubMockBackend
     # Below this point there is the API used to
     # force specific mock server behaviours such as
     # slow responses, broken JSON responses, etc
-
     get '/init' do
       @@requests = []
       @@repo_json = nil
@@ -131,7 +129,6 @@ module GitHubMockBackend
     end
 
     post '/request_delay' do
-
       delay = params[:delay].to_i
       @@request_delay = delay
       json empty_json
@@ -158,7 +155,6 @@ module GitHubMockBackend
     end
 
     post '/response' do
-
       @@forced_body = (params[:body].empty?)? nil : params[:body]
       @@forced_status = (params[:status].empty?)? nil : params[:status]
       @@forced_type = (params[:type].empty?)? nil : params[:type]
@@ -166,7 +162,6 @@ module GitHubMockBackend
     end
 
     get '/requests' do
-
       requests = []
 
       @@requests.each do |request|
