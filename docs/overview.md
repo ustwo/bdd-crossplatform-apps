@@ -105,6 +105,19 @@ The risk of integration, however, can be reduced by using a subset of the BDD te
 
 Even assuming that 100% automation coverage would be feasible (it's not, particularly on mobile devices), is important to do some exploratory testing so please always plan accordingly. 
 
+### Technical limitations
+
+Some scenarios are more difficult to implement than others. It's good to strike a balance - if a particular scenario contains something that's very tricky to automate and may end up being flakey and require some serious maintenance in the future, consider whether the cost of this automation is actually more than the time taken to manually QA - if it's a UI thing, chances are it could be cheaper and easier to have a person check it rather than take the hit trying to automate it. Not saying that it's not worth having a go automating it, but just something to be mindful of.
+
+In this sample, we've tagged the 'commit message is too long' scenario as ```@manual-only``` to indicate that it needs to be tested manually. Automating this was very challenging - the scenario verifies that if a commit message is very long, the text becomes ellipsised and truncated, so that each row in the list will be the same height. If we call the 'text' method in Appium on the element, it retrieves the entire string, regardless of the fact the string that's visible to the user is on a single line and correctly ellipsised.
+
+UIAutomator, which is what Appium uses on newer versions of Android, only exposes the full text rather than the ellipsised text, which explains why Appium does the same.
+![manual only ellipsis scenario](ellipsis-manual-only.png)
+
+All manual scenarios can be considered technical debt. As a team, we can choose to build up some debt in the form of manual testing AS LONG AS we know we are going to be paying for it whenever we have to release. Additionally, Appium is improving all the time, and in subsequent versions something marked as manual could be very easy.
+
+To find all scenarios tagged as manual only, run the following: ```grep -ir "manual-only" features/```
+
 ## Links
 
 Appium uses [UIAutomator](http://developer.android.com/tools/help/uiautomator/index.html) (Android) and [UIAutomation](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/UsingtheAutomationInstrument/UsingtheAutomationInstrument.html) (iOS) so it will always be bound by their APIs.
