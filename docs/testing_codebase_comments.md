@@ -38,15 +38,28 @@ Sometimes even if the user behaviour is the same (say pressing a button), differ
 
 Each platform has slightly different naming conventions and while it would be theoretically possible to force all element IDs to be exactly the same, some developers might find that requirement too intrusive.
 
+To be able to have different element IDs per platform, we maintain a map of identifiers - so the step definition can simply use a common identifier, e.g. ```map[:commitlist_list]``` and each platform specific screen is responsible for adding the actual element ID. This is not ideal because of the effort required to maintain the map of keys/values. 
+
 #### Android
 
 There are two ways to reference elements on the screen, ids and accessibility labels.
 
 For example, we have given the list that contains all the commits an android id of ```com.ustwo.sample.local:id/commit_list_listview_commits``` (we use the convention <screen name>_<type>_<purpose>) - but we could also set an accessibility label using the attribute 'contentDescription'. This attribute is used by screen readers and will be read aloud to users, so it must be kept understandable to a non developer and translated. 
 
-To be able to have different element IDs per platform, we maintain a map of identifiers - so the step definition can simply use a common identifier, e.g. ```map[:commitlist_list]``` and each platform specific screen is responsible for adding the actual element ID. This is not ideal because of the effort required to maintain the map of keys/values. It is also not product flavor or refactor friendly as the package name is contained with in the id; changing the overall package name will break the tests.
+A specific Android disadvantage of using a map of identifiers (see above) is that it is not product flavor or refactor friendly as the package name is contained with in the id; changing the overall package name will break the tests.
 
-To minimise any potential refactoring pain the package name should be defined in one place and appended at runtime. A complication is that the system UI uses the 'android' package name, for example an alert dialog button's id is ```android:id/button1```. To get around this, the android map contains both the view id and a boolean specifying whether the id is already fully qualified or not.
+To minimise any potential refactoring pain the package name should be defined in one place and appended at runtime. In this example, this logic can be found in the ```base_screen.rb```.
+
+A complication is that the system UI uses the 'android' package name, e.g. a default progress dialog's id is ```android:id/progress```. To get around this, the android map contains both the view id and a boolean specifying whether the id is already fully qualified or not. We assume the default value is false, as most of the ids will be from our app and will need the package name to be appended.
+
+```ruby
+	def ids
+	{
+		commit_detail_root: {id: 'commit_detail_linearlayout_root'},
+		commit_detail_loading_indicator: {id: 'android:id/progress', is_fully_qualified: true}
+	}
+	end
+```
 
 A significant benefit of using content descriptions is that they can be changed at runtime, allowing greater flexibility for testing things like images or custom UI elements which don't expose text. In this sample, we set a locked/unlocked padlock for private/public repositories and set a human readable content description, read from the strings.xml resources file. To test using a localised version of the app, we would just load the resource file from the relevant language's subdirectory, e.g. ```values-fr/strings.xml```.
 
