@@ -22,7 +22,7 @@ import retrofit.client.Response;
  */
 public class CommitDetailActivity extends ActionBarActivity {
     private static final String TAG = CommitDetailActivity.class.getSimpleName();
-    private static final String INTENT_KEY_COMMIT_SHA = "key_commit_sha";
+    private static final String EXTRA_KEY_COMMIT_SHA = "key_commit_sha";
 
     private ProgressDialog mProgressDialog;
 
@@ -34,7 +34,7 @@ public class CommitDetailActivity extends ActionBarActivity {
 
         mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
 
-        retrieveCommitInfo(getIntent().getStringExtra(INTENT_KEY_COMMIT_SHA));
+        retrieveCommitInfo(getIntent().getStringExtra(EXTRA_KEY_COMMIT_SHA));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class CommitDetailActivity extends ActionBarActivity {
 
     public static Intent getIntent(Context context, CommitSummary commit) {
         Intent intent = new Intent(context, CommitDetailActivity.class);
-        intent.putExtra(INTENT_KEY_COMMIT_SHA, commit.sha);
+        intent.putExtra(EXTRA_KEY_COMMIT_SHA, commit.sha);
         return intent;
     }
 }
