@@ -39,7 +39,7 @@ class BaseScreen
 			# testing has already been fully qualified, e.g. if it's part of the system UI
 			element = ids[id]
 			element_id = element[:id] 
-			if !element[:is_fully_qualified]
+			if !ids.has_key?('is_fully_qualified') || !element[:is_fully_qualified]
 				element_id = ANDROID_PACKAGE_ELEMENT_ID_PREFIX + element[:id] 
 			end
 		when 'ios'

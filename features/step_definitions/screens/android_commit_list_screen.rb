@@ -15,20 +15,18 @@ class AndroidCommitListScreen < CommitListScreen
 	end
 
 	def ids
-	    map = Hash.new
-
+	{
 	    # Commit List Screen
-	    map[:commitlist_button_refresh] = {id: 'commit_list_button_refresh', is_fully_qualified: false}
-	    map[:commitlist_no_commits_indicator] = {id: 'commit_list_textview_status_information', is_fully_qualified: false}
-	    map[:commitlist_loading_indicator] = {id: 'android:id/progress', is_fully_qualified: true}
+	    commitlist_button_refresh: {id: 'commit_list_button_refresh'},
+	    commitlist_no_commits_indicator: {id: 'commit_list_textview_status_information'},
+	    commitlist_loading_indicator: {id: 'android:id/progress', is_fully_qualified: true},
 
 	    # Commit List Row
-	    map[:commitlist_list_row] = {id: 'commit_list_linearlayout_row', is_fully_qualified: false}
-	    map[:commitlist_row_textview_date] = {id: 'commit_list_row_textview_date', is_fully_qualified: false}
-	    map[:commitlist_row_textview_message] = {id: 'commit_list_row_textview_message', is_fully_qualified: false}
-	    map[:commitlist_list] = {id: 'commit_list_listview_commits', is_fully_qualified: false}
-
-    	map
+	    commitlist_list_row: {id: 'commit_list_linearlayout_row'},
+	    commitlist_row_textview_date: {id: 'commit_list_row_textview_date'},
+	    commitlist_row_textview_message: {id: 'commit_list_row_textview_message'},
+	    commitlist_list: {id: 'commit_list_listview_commits'}
+	}
   end
 
 end
