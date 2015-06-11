@@ -1,4 +1,5 @@
 class BaseScreen
+	ANDROID_PACKAGE_ELEMENT_ID_PREFIX = 'com.ustwo.sample.local:id/'
 
 	def initialize platform, driver
 		@platform = platform
@@ -39,7 +40,7 @@ class BaseScreen
 			element = ids[id]
 			element_id = element[:id] 
 			if !element[:is_fully_qualified]
-				element_id = 'com.ustwo.sample.local:id/' + element[:id] 
+				element_id = ANDROID_PACKAGE_ELEMENT_ID_PREFIX + element[:id] 
 			end
 		when 'ios'
 			element_id = ids[id]
