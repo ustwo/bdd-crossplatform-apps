@@ -8,9 +8,13 @@
 
 ### The application under test
 
-We asume that the application solves the same business problems in all platforms which will naturally lead to a similar interface. However, this setup still leaves room for some platform specific differences, see the Cucumber section below.
+We asume that the application solves the same business problems in all platforms, which naturally leads to a similar interface. However, this setup still leaves room for some platform specific differences, see the Cucumber section below.
 
 Ideally the application needs little code or modification for the purposes of testing. Appium doesn't require adding testing specific libraries to the code, keeping the application as close as possible to what will be released, hence reducing the risk of unexpected behaviour only showed (or avoided) during testing. 
+
+The app in this sample is a simple one: go to a specific repository on GitHub, show its description, an icon to see if it's public or private and a list of the most recent commits. If you tap on one of the commits, it takes you to a details screen, on which you can see further information about that commit.
+
+![app example](app-example.gif)
 
 ### Mock backend
 
