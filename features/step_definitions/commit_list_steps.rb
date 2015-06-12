@@ -96,6 +96,7 @@ end
 
 Then(/^it should be cut off and ellipses added$/) do
   # Manual only
+  raise 'This step is not automated and should be tested manually!'
 end
 
 Given(/^there is a server error retriving data$/) do
