@@ -48,7 +48,7 @@ For example, we have given the list that contains all the commits an android id 
 
 A specific Android disadvantage of using a map of identifiers (see above) is that it is not product flavor or refactor friendly as the package name is contained with in the id; changing the overall package name will break the tests.
 
-To minimise any potential refactoring pain the package name should be defined in one place and appended at runtime. In this example, this logic can be found in the ```base_screen.rb```.
+To minimise any potential refactoring pain the package name should be defined in one place and appended at runtime. In this example, this logic can be found in the ```base_screen.rb```. To test with multiple flavors - free, paid etc, we could pass the package name in as a parameter.
 
 A complication is that the system UI uses the 'android' package name, e.g. a default progress dialog's id is ```android:id/progress```. To get around this, the android map contains both the view id and a boolean specifying whether the id is already fully qualified or not. We assume the default value is false, as most of the ids will be from our app and will need the package name to be appended.
 
@@ -63,9 +63,21 @@ A complication is that the system UI uses the 'android' package name, e.g. a def
 
 A significant benefit of using content descriptions is that they can be changed at runtime, allowing greater flexibility for testing things like images or custom UI elements which don't expose text. In this sample, we set a locked/unlocked padlock for private/public repositories and set a human readable content description, read from the strings.xml resources file. To test using a localised version of the app, we would just load the resource file from the relevant language's subdirectory, e.g. ```values-fr/strings.xml```.
 
-Translating accessibility strings on top of other strings in the app is comes at an additional cost, but also a win that by setting those content descriptions, the app is now accessible for users who have visual impairments. 
+We set the content description on the privacy view as follows
+```java
+privacyStateView.setImageResource(repositoryInfo.isPrivate ? R.drawable.ic_private : R.drawable.ic_public);
+```
+
+Then in the test, we verify that the localised string 'Private repository' is on screen:
+```ruby
+has_element(get_string_resource('commit_list_repo_private'))
+```
+
+Translating accessibility strings on top of other strings in the app comes at an additional cost, but also a win that by setting those content descriptions, the app is now accessible for users who have visual impairments. 
 
 Neither of these options is perfect - it's always preferable to lookup something by an unique id rather than just some text, but we have found that we often need the flexibility of changing the accessibility labels at runtime. 
+
+There could be an argument that we should be black box testing this and therefore using resource ids would not be an option. Only content descriptions for where they are needed (image views, custom views) and everywhere else look for String literals.
 
 It's a balance - if your app is only ever going to be in one language, or automating the testing in one language is an option, then it might be a better choice. On the other hand, if you have little or no custom UI components, then looking items up by id could be all you need.
 
@@ -81,11 +93,13 @@ Keep a few things in mind:
 
 * Unit tests tend to be faster.
 * Unit tests test code, not user journeys.
-* Because of the above, unit tests will rarely fail on different devices or OS versions, hence they give no visibility over the state of the app on a per-device, per-OS basis. Acceptance tests do.
 * Unit tests are platform specific, you need to code them for each platform.
 * Unit tests tend to be written by developers only, no collaboration with the rest of the team.
 * Unit tests usually change more often than acceptance tests.
+* Acceptance tests give visibility over the app on a per-device basis, unit tests only verify a small isolated piece of logic.
 * Acceptance tests tend to be more brittle... but they exercise a deeper piece of the stack, writing more unit tests are never going to replace automated acceptance tests, only a human tapping their way through the app will.
+
+In our experience acceptance tests fail on different platforms due to instability of the tools or flakiness of the implementation, not because of some wild difference in the app on other platforms.
 
 Test at the level which makes the most sense, generally this is as low as possible - verifiying something like whether a date formatter works in the way you expect is a small, isolated unit of behaviour - so it makes cover this logic with unit tests.
 
