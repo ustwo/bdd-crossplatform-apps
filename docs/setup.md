@@ -31,7 +31,7 @@ Note: when opening the project into Android Studio be sure to choose the 'androi
 
 Copy to the root folder the sample iOS and/or Android YAML configuration files from the templates folder, updating the values as required.
 
-Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS emulator should be available in the system already.
+Please note that for Android the emulator or device should be already connected or running and for iOS the combination of device and OS simulator should be available in the system already.
 
 Once installation and configuration are done you can [run the tests](running_tests.md).
 

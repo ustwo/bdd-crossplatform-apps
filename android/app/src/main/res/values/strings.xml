@@ -25,11 +25,15 @@
     -->
 <resources>
 
-    <string name="app_name">Full Cycle App Testing Sample</string>
     <string name="title_activity_main">@string/app_name</string>
     <string name="title_activity_detail">@string/app_name</string>
 
+    <!-- Default endpoint used to retrieve commits -->
     <string name="app_endpoint_url">https://api.github.com</string>
+
+    <!-- Default repository user/name -->
+    <string name="default_repository_user">ustwo</string>
+    <string name="default_repository_name">US2FormValidator</string>
 
     <!-- Shared strings -->
     <string name="shared_loading">Loading...</string>

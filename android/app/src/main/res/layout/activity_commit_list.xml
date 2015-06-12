@@ -24,38 +24,45 @@
     *
     -->
 <RelativeLayout
-    android:id="@+id/commit_list_relativelayout_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/commit_list_relativelayout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ustwo.sample.CommitListActivity">
 
+    <!-- Repository information container -->
     <LinearLayout
         android:id="@+id/commit_list_viewgroup_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/commit_list_margin_bottom"
         android:paddingLeft="@dimen/commit_list_margin_horizontal"
         android:paddingRight="@dimen/commit_list_margin_horizontal"
-        android:paddingTop="@dimen/commit_list_margin_top"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:paddingTop="@dimen/commit_list_margin_top">
+
+        <!-- Repository title -->
         <TextView
             android:id="@+id/commit_list_textview_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ellipsize="end"
             android:paddingRight="@dimen/commit_list_margin_horizontal"
             android:textColor="@android:color/black"
-            android:ellipsize="end"
             tools:text="Exciting repo name" />
+
+        <!-- Repository privacy state indicator, e.g. public/private -->
         <ImageView
             android:id="@+id/commit_list_imageview_privacy_state"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
+    <!-- List of commits -->
     <ListView
         android:id="@+id/commit_list_listview_commits"
         android:layout_width="match_parent"
@@ -68,6 +75,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:scrollbarStyle="outsideOverlay" />
 
+    <!-- Status information, e.g. if no commits or can't talk to server -->
     <TextView
         android:id="@+id/commit_list_textview_status_information"
         android:layout_width="match_parent"

@@ -31,27 +31,25 @@ class AndroidCommitListScreen < CommitListScreen
 	end
 
 	def get_commit index
-		text = @driver.find_elements(id: "com.ustwo.sample:id/commit_list_row_textview_message")[index].text
-		date = @driver.find_elements(id: "com.ustwo.sample:id/commit_list_row_textview_date")[index].text
+		text = elements(get_id(:commitlist_row_textview_message))[index].text
+		date = elements(get_id(:commitlist_row_textview_date))[index].text
 
 		{text: text, date: date}
 	end
 
 	def ids
-	    map = Hash.new
-
+	{
 	    # Commit List Screen
-	    map[:commitlist_button_refresh] = 'com.ustwo.sample:id/commit_list_button_refresh'
-	    map[:commitlist_no_commits_indicator] = 'com.ustwo.sample:id/commit_list_textview_status_information'
-	    map[:commitlist_loading_indicator] = 'android:id/progress'
+	    commitlist_button_refresh: {id: 'commit_list_button_refresh'},
+	    commitlist_no_commits_indicator: {id: 'commit_list_textview_status_information'},
+	    commitlist_loading_indicator: {id: 'android:id/progress', is_fully_qualified: true},
 
 	    # Commit List Row
-	    map[:commitlist_list_row] = 'com.ustwo.sample:id/commit_list_linearlayout_row'
-	    map[:commitlist_row_textview_date] = 'com.ustwo.sample:id/commit_list_row_textview_date'
-	    map[:commitlist_row_textview_message] = 'com.ustwo.sample:id/commit_list_row_textview_message'
-	    map[:commitlist_list] = 'com.ustwo.sample:id/commit_list_listview_commits'
-
-    	map
+	    commitlist_list_row: {id: 'commit_list_linearlayout_row'},
+	    commitlist_row_textview_date: {id: 'commit_list_row_textview_date'},
+	    commitlist_row_textview_message: {id: 'commit_list_row_textview_message'},
+	    commitlist_list: {id: 'commit_list_listview_commits'}
+	}
   end
 
 end
