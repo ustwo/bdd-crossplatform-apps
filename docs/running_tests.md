@@ -7,6 +7,12 @@ Tests are run sequentially, results are displayed at the end.
 Use the following commands:
 ```rake android_bdd[~@manual-only]``` or ```rake ios_bdd[~@manual-only]```
 
+With this command, we run all of the tests for a particular platform (Android or iOS) that are not marked with a tag as `@manual-only`. We tag scenarios with this if the test is not automated (to read about why, see [codebase comments](testing_codebase_comments.md)). 
+
+We consider everything to be working as expected when a run excluding all the manual tests passes.
+
+![a successful run](success.png)
+
 ### Running specific tests using tags
 
 Tests can be filtered out by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!):
