@@ -90,15 +90,6 @@ Then(/^I should see an indicator of no commits$/) do
   expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
-When(/^one of the commits has a message that doesn't fit in one line$/) do
-  # Default commit list json returned already does this, do nothing
-end
-
-Then(/^it should be cut off and ellipses added$/) do
-  # Manual only
-  raise 'This step is not automated and should be tested manually!'
-end
-
 Given(/^there is a server error retriving data$/) do
   API.set_repo_json(file_name: 'commits_error')
   API.set_commits_json(file_name: 'commits_error')
