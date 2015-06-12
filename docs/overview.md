@@ -24,11 +24,11 @@ So if we are going to thoroughly test how client side applications behave, parti
 
 Other ways of achieving a similar outcome are using services like [Apiary](http://apiary.io/), staging servers or local development servers. We think a mock server that is a drop-in replacement for the real API offers advantages over those methods: simpler, lightweight, more flexible.
 
-For example, imagine that we need to test how our application behaves when the server returns a 500 error for an API call. Forcing this on an instance of the real server, even if it's running locally, is not straightforward. Sometimes fronted teams don't even have the possibility of locally running the backend (complicated dev environments, belongs to a 3rd party, software licenses).
+For example, imagine that we need to test how our application behaves when the server returns a 500 error for an API call. Forcing this on an instance of the real server, even if it's running locally, is not straightforward. Sometimes fronted teams don't even have the possibility of locally running the backend (complicated dev environments, belongs to a 3rd party, software licenses, etc).
 
 This is where a local mock backend excels. It's very easy from a Cucumber step definition to force the mock backend to return a 500 error for a given API call, then assert in another step that the application is handling the error as expected (displaying an appropriate error message, for example).
 
-Forcing specific responses, statuses or content types in the mock server is done via a "backdoor" API. This API, obviously, wouldn't be part of a production server, but it's what gives its flexibility (and helpfulness) to the local mock server.
+Forcing specific responses, statuses or content types in the mock server is done via a "backdoor" API. This API, obviously, wouldn't be part of a production server, but it is what gives its flexibility (and helpfulness) to the local mock server.
 
 The downside of the mock server is mostly the manual effort required to keep it in sync with the signature of the real API.
 
@@ -48,7 +48,7 @@ We consider Cucumber to be an essential part of the workflow. The benefits it br
 
 Cucumber scenarios are written in plain text enabling tests written in a language that is very close to the domain problem ([DSLs](http://martinfowler.com/bliki/BusinessReadableDSL.html)). This increases the chances of engaging non-technical people and reduces the chances of misunderstandings.
 
-We favour [declarative vs imperative](http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html) tests and use [page objects](http://developer.xamarin.com/guides/testcloud/calabash/xplat-best-practices/) (POs) so the testing codebase is highly reusable across platforms. This combination also enables platform specific implementation of behaviours. For example, selecting an item on a list could be implemented as a swipe on iOS and as a long press on Android.
+We favour [declarative vs imperative](http://benmabey.com/2008/05/19/imperative-vs-declarative-scenarios-in-user-stories.html) tests and use [page objects](http://developer.xamarin.com/guides/testcloud/calabash/xplat-best-practices/) (POs) so the testing codebase is highly reusable across platforms. This combination also enables platform specific implementation of behaviours. For example, selecting an item on a list could be implemented as a swipe on iOS and as a press on Android.
 
 Step definitions are kept free of UI and automation framework specifics, making them easier to read and less brittle. The complexities of extracting information or interacting with the interface are kept inside the page objects. We aim for "*clean steps and dirty POs*".
 
@@ -60,7 +60,7 @@ We use Appium since it provides a cross-platform set of APIs for test automation
 
 But please keep in mind that like any abstraction layer, it also has its downsides, particularly around stability, speed and features.
 
-We personally feel that, currently, it has more pros than cons and that the time spent maintaining different platform specific testing codebases can be used to improve and contribute back to a cross-platform tool. Appium in this case.   
+We personally feel that, currently, it has more pros than cons and that the time spent maintaining different platform specific testing codebases can be used to improve and contribute back to a cross-platform tool.
 
 ## How it works
 
@@ -89,7 +89,7 @@ The third step uses Appium API's to assert that the right error message is on sc
 
 You can keep instances of the mock backend and the local Appium server running on their own tabs so consecutive test runs are faster and there is less noise on the terminal running the tests.
 
-At the end of each scenario there's a list of the API calls made to the mock during that scenario. Overtime this helps spot mistakes around missing or unexpected API calls.
+At the end of each scenario there's a list of the API calls made to the mock during that scenario. Over time this helps spot mistakes around missing or unexpected API calls.
 
 ## Limitations, considerations
 
