@@ -44,7 +44,7 @@ A reference for a project setup that enables:
 
  * Not a tutorial about BDD or Cucumber.
  * Not about testing backend applications.
- * Not about showing off iOS or Android skills. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
+ * Not creating elaborate iOS or Android apps. We've deliberately kept things as simple as possible to minimise the risk of distracting from the bigger picture.
  * Not an end-to-end testing setup.
  * Not a project template that you can clone, modify a few values on a configuration file and get your project up and running quickly.
 

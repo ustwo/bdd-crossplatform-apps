@@ -26,6 +26,8 @@ package com.ustwo.sample.data;
 
 /**
  * Created by emma@ustwo.com on 1/8/15.
+ *
+ * Object representing a single commit, containing full information
  */
 public class Commit {
     public String message;

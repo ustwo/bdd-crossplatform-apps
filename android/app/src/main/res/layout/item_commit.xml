@@ -23,14 +23,16 @@
     * SOFTWARE.
     *
     -->
-<LinearLayout android:id="@+id/commit_list_linearlayout_row"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingBottom="10dp"
-              android:paddingTop="10dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/commit_list_linearlayout_row"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
+    <!-- Commit message -->
     <TextView
         android:id="@+id/commit_list_row_textview_message"
         android:layout_width="match_parent"
@@ -40,9 +42,11 @@
         android:singleLine="true"
         android:textColor="@android:color/black" />
 
+    <!-- Commit date -->
     <TextView
         android:id="@+id/commit_list_row_textview_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black" />
+
 </LinearLayout>
