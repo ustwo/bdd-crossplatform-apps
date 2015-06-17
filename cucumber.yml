@@ -1,0 +1,5 @@
+# See:
+#   https://github.com/cucumber/cucumber/wiki/cucumber.yml
+#   https://github.com/cucumber/cucumber/wiki/Tags
+default: --tags ~@manual-only
+wip: --tags @wip

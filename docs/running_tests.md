@@ -2,26 +2,20 @@ Please make sure you have gone through [installation and setup](setup.md).
 
 ## Running the tests
 
-Tests are run sequentially, results are displayed at the end.
+Use either ```rake android_bdd``` or ```rake ios_bdd```
 
-Use the following commands:
-```rake android_bdd[~@manual-only]``` or ```rake ios_bdd[~@manual-only]```
+With this command we run all of the tests for a particular platform (Android or iOS) that are not tagged as `@manual-only`, since that's what is defined as the default Cucumber profile in `cucumber.yml`. You can read more about why we write scenarios that we know we won't be able to automate in the [codebase comments](testing_codebase_comments.md). 
 
-With this command, we run all of the tests for a particular platform (Android or iOS) that are not marked with a tag as `@manual-only`. We tag scenarios with this if the test is not automated (to read about why, see [codebase comments](testing_codebase_comments.md)). 
+We consider everything to be working as expected when a run excluding all the manual tests passes. Test are run sequentially and the results displayed at the end:
 
-We consider everything to be working as expected when a run excluding all the manual tests passes.
+![A successful run](success.png)
 
-![a successful run](success.png)
+### Running specific tests using profiles or tags
 
-### Running specific tests using tags
+Tests can be filtered out by using Cucumber [tags](https://github.com/cucumber/cucumber/wiki/Tags) and [profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml):
 
-Tests can be filtered out by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!):
-
- * ```rake android_bdd``` <-- run everything (not commonly used seeing as we have some manual tests)
- * ```rake android_bdd[@wip]``` <-- only runs tests tagged @wip
- * ```rake android_bdd[~@manual-only]``` <-- run all tests that do not have the @manual-only tag
-
-Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced (or use [Cucumber profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml)) you can call Cucumber directly but you'll need to call the the dependant rake tasks first.
+ * ```rake android_bdd``` <-- runs everything but manual tests
+ * ```rake android_bdd[wip]``` <-- only runs tests tagged @wip (as defined in the wip profile)
 
 You can see all tasks available by running ```rake -T```.
 

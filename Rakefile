@@ -1,8 +1,8 @@
- # 
+ #
  # The MIT License (MIT)
- # 
+ #
  # Copyright (c) 2015 ustwo™
- # 
+ #
  # Permission is hereby granted, free of charge, to any person obtaining a copy
  # of this software and associated documentation files (the "Software"), to deal
  # in the Software without restriction, including without limitation the rights
@@ -12,7 +12,7 @@
 
  # The above copyright notice and this permission notice shall be included in all
  # copies or substantial portions of the Software.
- # 
+ #
  # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -105,8 +105,8 @@ task :boot_mock, [:block] do |t, args|
   end
 end
 
-desc 'Runs Cucumber, please pass tags using @ and NO space between them!'
-task :cucumber, [:platform, :tags] do |t, args|
+desc 'Runs Cucumber, you can specify an optional profile'
+task :cucumber, [:platform, :profile] do |t, args|
 
   platform = args[:platform]
 
@@ -114,33 +114,28 @@ task :cucumber, [:platform, :tags] do |t, args|
     raise "Please set a valid platform [ios|android]"
   end
 
-  raw_tags = args[:tags]
+  profile = args[:profile]
 
-  tags = []
-  if !raw_tags.nil?
-    raw_tags.split(',').each do |tag|
-      if tag.size > 0
-        tags << tag
-      end
-    end
+  if profile.nil?
+    puts "Running Cucumber with default profile"
+  else
+    puts "Running Cucumber with profile #{profile}"
   end
-
-  puts "Running with tags: '#{tags.join("','")}'"
 
   appium_server_url = get_configuration(platform)['appium_server_url'] || 'http://localhost:4723'
 
-  CucumberCommand.new(platform, tags, appium_server_url).execute
+  CucumberCommand.new(platform, profile, appium_server_url).execute
 end
 
-desc 'Runs the BDD test suite for Android'
-task :android_bdd, [:tags] => [:android_set_mock_server_url,
+desc 'Runs the BDD test suite for Android. Cucumber profile is optional.'
+task :android_bdd, [:profile] => [:android_set_mock_server_url,
                       :android_compile,
                       :android_appium_config] do |t, args|
 
   # need to invoke by hand to pass on parameters
   Rake::Task[:boot_appium].invoke('android', 'false')
   Rake::Task[:boot_mock].invoke('false')
-  Rake::Task[:cucumber].invoke('android', args[:tags])
+  Rake::Task[:cucumber].invoke('android', args[:profile])
 end
 
 desc 'Sets the URL for the mock backend'
@@ -189,8 +184,8 @@ task :ios_interactive => [:ios_set_mock_server_url,
   Rake::Task[:boot_mock].invoke()
 end
 
-desc 'Runs the BDD test suite for iOS'
-task :ios_bdd, [:tags] =>
+desc 'Runs the BDD test suite for iOS. Cucumber profile is optional.'
+task :ios_bdd, [:profile] =>
                   [:ios_set_mock_server_url,
                   :ios_compile,
                   :ios_appium_config] do |t, args|
@@ -198,7 +193,7 @@ task :ios_bdd, [:tags] =>
   # need to invoke by hand to pass on parameters
   Rake::Task[:boot_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke('false')
-  Rake::Task[:cucumber].invoke('ios', args[:tags])
+  Rake::Task[:cucumber].invoke('ios', args[:profile])
 end
 
 def block
