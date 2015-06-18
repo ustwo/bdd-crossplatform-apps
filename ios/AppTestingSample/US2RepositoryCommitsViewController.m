@@ -115,10 +115,7 @@
                     self.repositoryName = repositoryName;
                 }
                 
-                NSNumber *isPrivateRepository = [jsonDictionary objectForKey:@"private"];
-                if ([repositoryName isKindOfClass:NSNumber.class]) {
-                    self.isPrivateRepository = isPrivateRepository.boolValue;
-                }
+                self.isPrivateRepository = ((NSNumber *)[jsonDictionary objectForKey:@"private"]).boolValue;
                 
                 // Only if valid repository data is retrieved request the final commits data
                 [self __requestCommitsByRepositoryName:@"US2FormValidator" withCount:4];
