@@ -24,6 +24,8 @@
 require_relative '../support/mock_backend/utils'
 include GitHubMockBackend
 
+SERVER_TIME_OUT_DELAY = 61
+
 Given(/^I am on the commit list screen$/) do
   @screen = launch_to_commit_list_screen
 end
@@ -109,11 +111,12 @@ Given(/^the json retrieved from the server is broken$/) do
 end
 
 Then(/^I should see an indicator of server error$/) do
+  sleep SERVER_TIME_OUT_DELAY
   expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
 Given(/^the server times out when requesting data$/) do
-  API.set_request_delay(delay: 61)
+  API.set_request_delay(delay: SERVER_TIME_OUT_DELAY)
 end
 
 Given(/^the repository is private$/) do
