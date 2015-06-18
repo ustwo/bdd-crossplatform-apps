@@ -37,22 +37,27 @@ class IosCommitListScreen < CommitListScreen
 
 	# Public/private repository
 	def has_private_repository_indicator
-		has_element('commit_list_repo_private')
+		has_element(get_id(:commit_list_repo_private))
 	end
 
 	def has_public_repository_indicator
-		has_element('commit_list_repo_public')
+		has_element(get_id(:commit_list_repo_public))
 	end
 
 	def ids
 	{
+    # Commit List Screen
 	  commitlist_button_refresh: 'commitlist_button_refresh',
+	  commitlist_no_commits_indicator: 'commitlist_no_commits_indicator',
+	  commitlist_loading_indicator: 'commit_list_loading_indicator',
+		commit_list_repo_public: 'commit_list_repo_public',
+		commit_list_repo_private: 'commit_list_repo_private',
+
+    # Commit List Row
 	  commitlist_list: 'commitlist_list',
 	  commitlist_list_row: 'commit_list_list_row',
 	  commitlist_list_row_label_author: 'commitlist_list_row_label_author',
-	  commitlist_no_commits_indicator: 'commitlist_no_commits_indicator',
-	  commitlist_title: 'commitlist_title',
-	  commitlist_loading_indicator: 'commit_list_loading_indicator'
+	  commitlist_title: 'commitlist_title'
 	}
 	end
 
