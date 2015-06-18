@@ -15,7 +15,7 @@ We consider everything to be working as expected when a run excluding all the ma
 Tests can be filtered out by using Cucumber [tags](https://github.com/cucumber/cucumber/wiki/Tags) and [profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml):
 
  * ```rake android_bdd``` <-- runs everything but manual tests
- * ```rake android_bdd[wip]``` <-- only runs tests tagged @wip (as defined in the wip profile)
+ * ```rake android_bdd[wip]``` <-- only runs tests tagged @wip (only because that's how it's been defined in the cucumber.yml profile, not because of name match!)
 
 You can see all tasks available by running ```rake -T```.
 
