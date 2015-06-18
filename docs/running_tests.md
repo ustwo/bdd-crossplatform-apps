@@ -2,13 +2,30 @@ Please make sure you have gone through [installation and setup](setup.md).
 
 ## Running the tests
 
-The simplest way to run the tests is "unattended", typically what a CI server would do. Tests are run sequentially, results are displayed at the end.
+Use either ```rake android_bdd``` or ```rake ios_bdd```
 
-But unless you are a test automation wizard already, that's hardly how you start writing tests. We typically go through "interactive" sessions, please read on for more info.
+With this command we run all of the tests for a particular platform (Android or iOS) that are not tagged as `@manual-only`, since that's what is defined as the default Cucumber profile in `cucumber.yml`. You can read more about why we write scenarios that we know we won't be able to automate in the [codebase comments](testing_codebase_comments.md). 
 
-### Interactive
+We consider everything to be working as expected when a run excluding all the manual tests passes. Test are run sequentially and the results displayed at the end:
 
-During early stages of the development it's likely that we have an idea of what we want to test, but not sure how. Maybe we have doubts about the mock server, maybe about some interface elements of the app, maybe about the Appium APIs involved.
+![A successful run](success.png)
+
+### Running specific tests using profiles or tags
+
+Tests can be filtered out by using Cucumber [tags](https://github.com/cucumber/cucumber/wiki/Tags) and [profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml):
+
+ * ```rake android_bdd``` <-- runs everything but manual tests
+ * ```rake android_bdd[wip]``` <-- only runs tests tagged @wip (only because that's how it's been defined in the cucumber.yml profile, not because of name match!)
+
+You can see all tasks available by running ```rake -T```.
+
+Read on about the [main concepts](overview.md) if you want to have an overview of what is going on.
+
+## Writing new tests
+
+It can be difficult to write a new test just by running the scenario over and over - we typically go through "interactive" sessions.
+
+During early stages of the development it's likely that we have an idea of what we want to test, but we're not sure how. Maybe we have doubts about the mock server, maybe about some interface elements of the app, maybe about the Appium APIs involved.
 
 An interactive session facilitates this "discovery" by preparing the whole system for a session in which we can poke around with the data coming from the mock server or the elements of the application. For example run:
 
@@ -40,19 +57,3 @@ driver.page
 ```
 
 Use ```CTRL+C``` on the main tab to finish off the interactive session.  
-
-### Unattended
-
-As mentioned before, the unnattended mode simply runs all the tests as you would expect. Typically what the CI would do, or maybe a developer running regression after implementing a new feature or fixing a bug.
-
-Tests can be filtered out by using [Cucumber tags](https://github.com/cucumber/cucumber/wiki/Tags) (pass the tags using @ and NO spaces!):
-
- * ```rake android_bdd```
- * ```rake android_bdd[@wip]``` <-- only runs tests tagged @wip
- * ```rake android_bdd[~@manual-only]``` <-- run all tests that do not have the @manual-only tag
-
-Please note that filtering scenarios using tags can get pretty complex, so if you need something more advanced (or use [Cucumber profiles](https://github.com/cucumber/cucumber/wiki/cucumber.yml)) you can call Cucumber directly but you'll need to call the the dependant rake tasks first.
-
-You can see all tasks available by running ```rake -T```.
-
-Read on about the [main concepts](overview.md) if you want to have an overview of what is going on.
