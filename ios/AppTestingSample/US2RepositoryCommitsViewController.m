@@ -43,11 +43,13 @@
 @property (nonatomic, strong, readwrite) IBOutlet UITableView *tableView;
 @property (nonatomic, strong, readwrite) IBOutlet UIActivityIndicatorView *loadingActivityIndicatorView;
 @property (nonatomic, strong, readwrite) IBOutlet UILabel *errorLabel;
+@property (nonatomic, strong, readwrite) IBOutlet UIImageView *repositoryIndicatorImageView;
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, assign, readwrite) BOOL isLoading;
 @property (nonatomic, strong, readwrite) NSData *urlData;
 @property (nonatomic, strong, readwrite) NSArray *commits;
 @property (nonatomic, copy, readwrite) NSString *repositoryName;
+@property (nonatomic, assign, readwrite) BOOL isPrivateRepository;
 @property (nonatomic, copy, readwrite) NSString *errorMessage;
 @end
 
@@ -113,6 +115,11 @@
                     self.repositoryName = repositoryName;
                 }
                 
+                NSNumber *isPrivateRepository = [jsonDictionary objectForKey:@"private"];
+                if ([repositoryName isKindOfClass:NSNumber.class]) {
+                    self.isPrivateRepository = isPrivateRepository.boolValue;
+                }
+                
                 // Only if valid repository data is retrieved request the final commits data
                 [self __requestCommitsByRepositoryName:@"US2FormValidator" withCount:4];
             }
@@ -121,6 +128,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self __updateRepositoryTitle];
             [self __updateLoadingIndicator];
+            [self __updateRepositoryIndicatorImageView];
             
             if (self.errorMessage) {
                 [self __presentErrorWithMessage:self.errorMessage];
@@ -224,7 +232,7 @@
     return commits;
 }
 
-#pragma mark - User interface
+#pragma mark - Initialize user interface
 
 - (void)__initUserInterface {
     [self __initTableView];
@@ -257,6 +265,8 @@
     self.loadingActivityIndicatorView.accessibilityIdentifier = @"commit_list_loading_indicator";
 }
 
+#pragma mark - Update user interface
+
 - (void)__updateUserInterface {
     [self __updateRepositoryTitle];
     [self __updateCommitList];
@@ -274,6 +284,23 @@
 - (void)__updateLoadingIndicator {
     self.loadingActivityIndicatorView.hidden = !self.isLoading;
 }
+
+- (void)__updateRepositoryIndicatorImageView {
+    UIImage *image;
+    NSString *accessibilityIdentifier;
+    if (self.isPrivateRepository) {
+        image = [UIImage imageNamed:@"icon_private"];
+        accessibilityIdentifier = @"commit_list_repo_private";
+    }
+    else {
+        image = [UIImage imageNamed:@"icon_public"];
+        accessibilityIdentifier = @"commit_list_repo_public";
+    }
+    self.repositoryIndicatorImageView.image = image;
+    self.repositoryIndicatorImageView.accessibilityIdentifier = accessibilityIdentifier;
+}
+
+#pragma mark - Error message
 
 - (void)__presentErrorWithMessage:(NSString *)message {
     self.errorLabel.text = message;

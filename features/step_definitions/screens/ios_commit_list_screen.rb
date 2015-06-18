@@ -29,11 +29,22 @@ class IosCommitListScreen < CommitListScreen
 		text = @driver.find_element(xpath: "//UIATableCell[#{index+1}]/UIAStaticText[1]").text
 		date = @driver.find_element(xpath: "//UIATableCell[#{index+1}]/UIAStaticText[2]").text
 
-		{text: text, date: date}
+		{
+			text: text,
+			date: date
+		}
 	end
 
-	def ids
-	{
+	# Public/private repository
+	def has_private_repository_indicator
+		has_element('commit_list_repo_private')
+	end
+
+	def has_public_repository_indicator
+		has_element('commit_list_repo_public')
+	end
+
+	def ids {
 	  commitlist_button_refresh: 'commitlist_button_refresh',
 	  commitlist_list: 'commitlist_list',
 	  commitlist_list_row: 'commit_list_list_row',
