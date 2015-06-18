@@ -44,7 +44,8 @@ class IosCommitListScreen < CommitListScreen
 		has_element('commit_list_repo_public')
 	end
 
-	def ids {
+	def ids
+	{
 	  commitlist_button_refresh: 'commitlist_button_refresh',
 	  commitlist_list: 'commitlist_list',
 	  commitlist_list_row: 'commit_list_list_row',
