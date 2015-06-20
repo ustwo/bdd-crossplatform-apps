@@ -47,4 +47,3 @@ While it should be approachable for the less technical folks, it helps having so
  * [Install dependencies and set up](docs/setup.md).
  * [Run the tests](docs/running_tests.md).
  * [Dig deeper into what's going on](docs/overview.md).
-I
