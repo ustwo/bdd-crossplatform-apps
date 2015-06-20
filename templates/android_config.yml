@@ -1,3 +1,6 @@
-#  emulator or device ID, must be connected and/or already running
+# Emulator or device ID, must be connected and/or already running
+# If you have the SDK tools in your path, you can find devices and emulators by:
+#   adb devices
+#   emulator -list-avds
 device: 'XXXXX'
 appium_server_url: 'http://localhost:4723'
