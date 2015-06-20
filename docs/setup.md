@@ -21,8 +21,8 @@ Once the basic dependencies are in place please run:
 
 ### Android
 
+ * JDK +7
  * Android SDK v21
- * Java 7
  * Android Studio
 
 Note: when opening the project into Android Studio be sure to choose the 'android' subdirectory or you may have problems compiling.
