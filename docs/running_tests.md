@@ -50,10 +50,10 @@ driver.start_driver
 
 [Note that for Android this requires the device connected or the emulator running already.]
 
-Appium will install and start the app and when done you can begin the session by getting a dump of what is on screen:
+Appium will install and start the app and when done you can begin the interactive session by getting a dump of what is on screen:
 
 ```ruby
 driver.page
 ```
 
-Use ```CTRL+C``` on the main tab to finish off the interactive session.  
+Once you are finished, close the driver (```driver.driver_quit```) and ```CTRL+C``` on the main tab to finish off the interactive session.  
