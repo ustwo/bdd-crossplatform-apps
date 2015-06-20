@@ -3,12 +3,12 @@
 
  * Mobile app (iOS/Android) as the application under test.
  * [Sinatra](http://www.sinatrarb.com/) as our local mock server.
- * [Cucumber](http://cukes.info/) as the BDD tool of choice.
+ * [Cucumber](https://cucumber.io/) as the BDD tool of choice.
  * [Appium](http://appium.io/) as the functional automation framework.
 
 ### The application under test
 
-We assume that the application solves the same business problems in all platforms, which naturally leads to a similar interface. However, this setup still leaves room for some platform specific differences, see the Cucumber section below.
+We assume that the application solves the same business problems in all platforms, which naturally leads to similar interfaces. However, this setup still leaves room for some platform specific differences, see the Cucumber section below.
 
 Ideally the application needs little code or modification for the purposes of testing. Appium doesn't require adding testing specific libraries to the code, keeping the application as close as possible to what will be released, hence reducing the risk of unexpected behaviour only showed (or avoided) during testing. 
 
@@ -34,9 +34,9 @@ The downside of the mock server is mostly the manual effort required to keep it 
 
 We always try to avoid implementing business logic in the mock backend and limit it as much as possible to returning static resources (JSON, images).
 
-The mock server can not only be run as part of an [unattended test run](running_tests.md#unattended), it can also be run on its own for development purposes. This again simplifies testing against edge or very specific cases by modifiying a JSON response, forcing a HTTP status code, etc.
+The mock server can not only be used during the normal test runs, it can also be run on its own during development and [interactive sessions](running_tests.md#writing-new-tests). This again simplifies testing against edge or very specific cases by modifiying a JSON response, forcing a HTTP status code, etc.
 
-Simply run the Rake task below to bind the mock server to the local IP address:
+Simply run the Rake task below to bind the mock server to your local IP address:
 
 ```bash
 rake boot_mock
