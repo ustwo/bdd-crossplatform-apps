@@ -75,10 +75,10 @@ class CommitListScreen < BaseScreen
 
 	# Public/private repository
 	def has_private_repository_indicator
-		Raise 'Abstract'
+		raise 'Abstract'
 	end
 
 	def has_public_repository_indicator
-		Raise 'Abstract'
+		raise 'Abstract'
 	end
 end

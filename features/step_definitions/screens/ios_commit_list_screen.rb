@@ -29,10 +29,7 @@ class IosCommitListScreen < CommitListScreen
 		text = @driver.find_element(xpath: "//UIATableCell[#{index+1}]/UIAStaticText[1]").text
 		date = @driver.find_element(xpath: "//UIATableCell[#{index+1}]/UIAStaticText[2]").text
 
-		{
-			text: text,
-			date: date
-		}
+		{text: text, date: date}
 	end
 
 	# Public/private repository
