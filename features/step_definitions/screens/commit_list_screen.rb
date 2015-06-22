@@ -75,10 +75,10 @@ class CommitListScreen < BaseScreen
 
 	# Public/private repository
 	def has_private_repository_indicator
-		has_element(get_string_resource('commit_list_repo_private'))
+		raise 'Abstract'
 	end
 
 	def has_public_repository_indicator
-		has_element(get_string_resource('commit_list_repo_public'))
+		raise 'Abstract'
 	end
 end
