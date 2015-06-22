@@ -1,6 +1,6 @@
 Feature: display list of commits
 
-
+  @test
   Scenario: display repository title
     Given I am on the commit list screen
     Then I should be able to see the repository title

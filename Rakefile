@@ -44,7 +44,7 @@ task :android_appium_config do
 end
 
 desc 'Boots up an Appium server if there isn\'t one running'
-task :boot_up_appium, [:platform] do |t, args|
+task :boot_appium, [:platform, :block] do |t, args|
   platform = args[:platform]
   appium_server_url = URI(get_configuration(platform)['appium_server_url'])
   appium_server_host = appium_server_url.host
@@ -68,7 +68,6 @@ end
 
 desc 'Boots up the mock server if there isn\'t one running. Blocks execution afterwards by default.'
 task :boot_mock, [:block] do |t, args|
-
   GitHubMockBackend::Boot.boot
 
   unless args[:block] && args[:block] == 'false'
@@ -149,7 +148,7 @@ desc 'Starts an interactive session for iOS'
 task :ios_interactive => [:ios_set_mock_server_url,
               :ios_compile,
               :ios_appium_config] do
-  Rake::Task[:boot_up_appium].invoke('ios', 'false')
+  Rake::Task[:boot_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke()
 end
 
@@ -159,7 +158,7 @@ task :ios_bdd, [:tags] =>
                   :ios_compile,
                   :ios_appium_config] do |t, args|
   # need to invoke by hand to pass on parameters
-  Rake::Task[:boot_up_appium].invoke('ios', 'false')
+  Rake::Task[:boot_appium].invoke('ios', 'false')
   Rake::Task[:boot_mock].invoke('false')
   Rake::Task[:cucumber].invoke('ios', args[:tags])
 end

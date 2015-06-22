@@ -8,9 +8,7 @@ class BootupServerCommand
   end
 
   def execute
-    @thread = Thread.new do
-      Rack::Server.start(app: GitHubMockBackend::API, Host: @host, Port: @port)
-    end
+    @thread = Thread.new { Rack::Server.start(app: GitHubMockBackend::Server, Host: @host, Port: @port) }
   end
 
   def close

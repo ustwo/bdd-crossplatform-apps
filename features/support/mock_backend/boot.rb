@@ -1,5 +1,4 @@
 require 'httparty'
-
 require_relative 'bind'
 require_relative '../commands/bootup_server_command'
 
