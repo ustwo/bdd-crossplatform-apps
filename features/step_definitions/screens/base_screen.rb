@@ -1,8 +1,8 @@
- # 
+ #
  # The MIT License (MIT)
- # 
+ #
  # Copyright (c) 2015 ustwo™
- # 
+ #
  # Permission is hereby granted, free of charge, to any person obtaining a copy
  # of this software and associated documentation files (the "Software"), to deal
  # in the Software without restriction, including without limitation the rights
@@ -12,7 +12,7 @@
 
  # The above copyright notice and this permission notice shall be included in all
  # copies or substantial portions of the Software.
- # 
+ #
  # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -37,7 +37,7 @@ class BaseScreen
 		when 'ios'
 			# TODO: Create IOSStringResource handler
 		end
- 	end
+	end
 
 	def wait_for_load
 		# NOTE (JD): get rid of the sleep
@@ -58,12 +58,12 @@ class BaseScreen
 		element_id = ''
 		case @platform
 		when 'android'
-			# We need the package name at the start of the id for android unless what we're 
+			# We need the package name at the start of the id for android unless what we're
 			# testing has already been fully qualified, e.g. if it's part of the system UI
 			element = ids[id]
-			element_id = element[:id] 
+			element_id = element[:id]
 			if !ids.has_key?('is_fully_qualified') || !element[:is_fully_qualified]
-				element_id = ANDROID_PACKAGE_ELEMENT_ID_PREFIX + element[:id] 
+				element_id = ANDROID_PACKAGE_ELEMENT_ID_PREFIX + element[:id]
 			end
 		when 'ios'
 			element_id = ids[id]
