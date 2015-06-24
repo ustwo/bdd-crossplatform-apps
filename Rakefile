@@ -70,7 +70,7 @@ task :android_appium_config do
 end
 
 desc 'Boots up an Appium server if there isn\'t one running. Blocks execution afterwards by default.'
-task :boot_appium, [:platform, :block] do |t, args|
+task :boot_appium, [:platform, :block] do |_t, args|
 
   platform = args[:platform]
   appium_server_url = URI(get_configuration(platform)['appium_server_url'])
@@ -96,7 +96,7 @@ task :android_interactive =>
 end
 
 desc 'Boots up the mock server if there isn\'t one running. Blocks execution afterwards by default.'
-task :boot_mock, [:block] do |t, args|
+task :boot_mock, [:block] do |_t, args|
 
   GitHubMockBackend::Boot.boot
 
@@ -106,7 +106,7 @@ task :boot_mock, [:block] do |t, args|
 end
 
 desc 'Runs Cucumber, you can specify an optional profile'
-task :cucumber, [:platform, :profile] do |t, args|
+task :cucumber, [:platform, :profile] do |_t, args|
 
   platform = args[:platform]
 
@@ -130,7 +130,7 @@ end
 desc 'Runs the BDD test suite for Android. Cucumber profile is optional.'
 task :android_bdd, [:profile] => [:android_set_mock_server_url,
                       :android_compile,
-                      :android_appium_config] do |t, args|
+                      :android_appium_config] do |_t, args|
 
   # need to invoke by hand to pass on parameters
   Rake::Task[:boot_appium].invoke('android', 'false')
@@ -188,7 +188,7 @@ desc 'Runs the BDD test suite for iOS. Cucumber profile is optional.'
 task :ios_bdd, [:profile] =>
                   [:ios_set_mock_server_url,
                   :ios_compile,
-                  :ios_appium_config] do |t, args|
+                  :ios_appium_config] do |_t, args|
 
   # need to invoke by hand to pass on parameters
   Rake::Task[:boot_appium].invoke('ios', 'false')

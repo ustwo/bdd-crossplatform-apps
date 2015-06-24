@@ -1,8 +1,8 @@
- # 
+ #
  # The MIT License (MIT)
- # 
+ #
  # Copyright (c) 2015 ustwo™
- # 
+ #
  # Permission is hereby granted, free of charge, to any person obtaining a copy
  # of this software and associated documentation files (the "Software"), to deal
  # in the Software without restriction, including without limitation the rights
@@ -12,7 +12,7 @@
 
  # The above copyright notice and this permission notice shall be included in all
  # copies or substantial portions of the Software.
- # 
+ #
  # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,7 +31,7 @@ class BlockingCommand
 
     puts "About to execute: #{@cmd}"
 
-    Open3.popen3 @cmd do |stdin, stdout, stderr, wait_thr|
+    Open3.popen3 @cmd do |_stdin, stdout, stderr, wait_thr|
 
       [stdout, stderr].each do |stream|
 
