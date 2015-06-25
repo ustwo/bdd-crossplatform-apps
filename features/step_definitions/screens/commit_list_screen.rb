@@ -31,6 +31,10 @@ class CommitListScreen < BaseScreen
 	end
 
 	# Loading
+	def wait_for_load
+		has_no_element(get_id(:commitlist_loading_indicator))
+	end
+
 	def has_no_commits_indicator
 		has_element(get_id(:commitlist_no_commits_indicator))
 	end
