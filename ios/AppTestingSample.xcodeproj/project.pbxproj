@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B539F4D1B3C08B90051B421 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B539F4C1B3C08B90051B421 /* Localizable.strings */; };
+		5B539F4E1B3C08B90051B421 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B539F4C1B3C08B90051B421 /* Localizable.strings */; };
 		5B6283B31A652E6200880D01 /* US2Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F061A5EB149006E398A /* US2Commit.m */; };
 		5B6283B41A652E6200880D01 /* US2CommitDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F0C1A6026D4006E398A /* US2CommitDetailViewController.m */; };
 		5B6283B51A652E6200880D01 /* US2CommitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC53F091A5EF6DD006E398A /* US2CommitTableViewCell.m */; };
@@ -43,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B539F4C1B3C08B90051B421 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		5B6283C21A652E6200880D01 /* AppTestingSample-BDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppTestingSample-BDD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6283C41A652EF800880D01 /* server.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server.json; sourceTree = "<group>"; };
 		5B6283C61A652F8500880D01 /* Info-BDD.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-BDD.plist"; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 				5BC53EEE1A5EAE48006E398A /* US2LaunchScreen.xib */,
 				5BC53EE91A5EAE48006E398A /* US2Main.storyboard */,
 				5BC53EEC1A5EAE48006E398A /* Images.xcassets */,
+				5B539F4C1B3C08B90051B421 /* Localizable.strings */,
 				5BC53EDF1A5EAE48006E398A /* Supporting Files */,
 			);
 			path = AppTestingSample;
@@ -263,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B6283BC1A652E6200880D01 /* US2Main.storyboard in Resources */,
+				5B539F4E1B3C08B90051B421 /* Localizable.strings in Resources */,
 				5B6283BD1A652E6200880D01 /* US2LaunchScreen.xib in Resources */,
 				5B6283C51A652EF800880D01 /* server.json in Resources */,
 				5B6283BE1A652E6200880D01 /* Images.xcassets in Resources */,
@@ -275,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC53EEB1A5EAE48006E398A /* US2Main.storyboard in Resources */,
+				5B539F4D1B3C08B90051B421 /* Localizable.strings in Resources */,
 				5BC53EF01A5EAE48006E398A /* US2LaunchScreen.xib in Resources */,
 				5BC53EED1A5EAE48006E398A /* Images.xcassets in Resources */,
 			);

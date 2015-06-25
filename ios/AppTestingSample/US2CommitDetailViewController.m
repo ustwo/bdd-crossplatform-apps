@@ -104,7 +104,7 @@
         self.authorNameLabel.text = self.commit.message;
     }
     else {
-        self.authorNameLabel.text = @"No author name available";
+        self.authorNameLabel.text = NSLocalizedString(@"error.no-author-name-available", nil);
     }
 }
 

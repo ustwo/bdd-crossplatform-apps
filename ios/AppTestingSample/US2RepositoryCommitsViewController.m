@@ -101,13 +101,13 @@
         
         if (error) {
             self.repositoryName = @"";
-            self.errorMessage = @"Could not load commits";
+            self.errorMessage = NSLocalizedString(@"error.could-not-load-commits", nil);
         }
         else {
             NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if (jsonDictionary == nil) {
                 self.repositoryName = nil;
-                self.errorMessage = @"Could not load commits";
+                self.errorMessage = NSLocalizedString(@"error.could-not-load-commits", nil);
             }
             else {
                 NSString *repositoryName = [jsonDictionary objectForKey:@"name"];
@@ -159,7 +159,7 @@
         if (error ||
             httpUrlResponse.statusCode > 400) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.errorMessage = @"Could not load commits";
+                self.errorMessage = NSLocalizedString(@"error.could-not-load-commits", nil);
             });
         }
         else {
@@ -167,7 +167,7 @@
             if (jsonArray == nil ||
                 jsonArray.count == 0) {
                 self.commits = [@[] mutableCopy];
-                self.errorMessage = @"No commits available";
+                self.errorMessage = NSLocalizedString(@"error.no-commits-available", nil);
             }
             else {
                 self.commits = [self __commitsFromJSONArray:jsonArray];
