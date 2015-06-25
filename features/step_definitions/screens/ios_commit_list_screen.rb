@@ -1,8 +1,8 @@
- # 
+ #
  # The MIT License (MIT)
- # 
+ #
  # Copyright (c) 2015 ustwo™
- # 
+ #
  # Permission is hereby granted, free of charge, to any person obtaining a copy
  # of this software and associated documentation files (the "Software"), to deal
  # in the Software without restriction, including without limitation the rights
@@ -12,7 +12,7 @@
 
  # The above copyright notice and this permission notice shall be included in all
  # copies or substantial portions of the Software.
- # 
+ #
  # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -20,7 +20,7 @@
  # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  # SOFTWARE.
- 
+
 require_relative 'commit_list_screen'
 
 class IosCommitListScreen < CommitListScreen
@@ -39,6 +39,12 @@ class IosCommitListScreen < CommitListScreen
 
 	def has_public_repository_indicator
 		has_element(get_id(:commit_list_repo_public))
+	end
+
+  def has_commits_error_indicator
+		expected = get_string_resource('error.could-not-load-commits')
+		actual = get_text(get_id(:commitlist_no_commits_indicator))
+		expected == actual
 	end
 
 	def ids
