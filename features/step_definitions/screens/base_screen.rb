@@ -62,9 +62,10 @@ class BaseScreen
 		when 'android'
 			# We need the package name at the start of the id for android unless what we're
 			# testing has already been fully qualified, e.g. if it's part of the system UI
+			# Read more about it in docs/finding_elements.md
 			element = ids[id]
 			element_id = element[:id]
-			if !ids.has_key?('is_fully_qualified') || !element[:is_fully_qualified]
+			if !element.has_key?(:is_fully_qualified) || !element[:is_fully_qualified]
 				element_id = ANDROID_PACKAGE_ELEMENT_ID_PREFIX + element[:id]
 			end
 		when 'ios'
