@@ -2,13 +2,13 @@ Please make sure you have gone through [installation and setup](setup.md).
 
 ## Running the tests
 
-Use either ```rake android_bdd``` or ```rake ios_bdd```
+Use either ```rake android_bdd``` or ```rake ios_bdd```.
 
 With this command we run all of the tests for a particular platform (Android or iOS) that are not tagged as `@manual-only`, since that's what is defined as the default Cucumber profile in `cucumber.yml`. You can read more about why we write scenarios that we know we won't be able to automate in the [codebase comments](testing_codebase_comments.md). 
 
 We consider everything to be working as expected when a run excluding all the manual tests passes. Test are run sequentially and the results displayed at the end:
 
-![A successful run](success.png)
+![A successful run](images/success.png)
 
 ### Running specific tests using profiles or tags
 

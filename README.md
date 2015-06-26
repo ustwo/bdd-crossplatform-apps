@@ -16,7 +16,7 @@ Please keep in mind that test automation is "only" a side effect of practicing B
 
 The opposite is also true. Just because you can't automate a test (tool limitations often prevent you from full automation) it doesn't mean that you shouldn't write the corresponding BDD scenario in collaboration with the team. Scenarios also serve as manual test specs and future improvements to automation tools might allow their implementation.
 
-![overview running on android](docs/android-overview.gif)
+![overview running on android](docs/images/android-overview.gif)
 
 ### What this is about
 

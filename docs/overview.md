@@ -14,7 +14,7 @@ Ideally the application needs little code or modification for the purposes of te
 
 The app in this sample is a simple one: go to a specific repository on GitHub, show its description, an icon to see if it's public or private and a list of the most recent commits. If you tap on one of the commits, it takes you to a details screen, where you can see further information about that commit.
 
-![app example](app-example.gif)
+![app example](images/app-example.gif)
 
 ### Mock backend
 
@@ -116,7 +116,7 @@ Some scenarios are more difficult to implement than others. It's good to strike 
 In this sample, we've tagged the 'commit message is too long' scenario as ```@manual-only``` to indicate that it needs to be tested manually. Automating this was very challenging - the scenario verifies that if a commit message is very long, the text becomes ellipsised and truncated, so that each row in the list will be the same height. If we call the 'text' method in Appium on the element, it retrieves the entire string, regardless of the fact the string that's visible to the user is on a single line and correctly ellipsised.
 
 UIAutomator, which is what Appium uses on newer versions of Android, only exposes the full text rather than the ellipsised text, which explains why Appium does the same.
-![manual only ellipsis scenario](ellipsis-manual-only.png)
+![manual only ellipsis scenario](images/ellipsis-manual-only.png)
 
 All manual scenarios can be considered technical debt. As a team, we can choose to build up some debt in the form of manual testing AS LONG AS we know we are going to be paying for it whenever we have to release. Additionally, Appium is improving all the time, and in subsequent versions something marked as manual could be very easy.
 
