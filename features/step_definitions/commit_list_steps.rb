@@ -103,7 +103,6 @@ Given(/^the json retrieved from the server is broken$/) do
 end
 
 Then(/^I should see an indicator of server error$/) do
-  sleep SERVER_TIME_OUT_DELAY
   expect(@screen.has_commits_error_indicator).to be(true), "Expected commit error indicator is displayed"
 end
 
