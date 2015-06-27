@@ -1,8 +1,8 @@
- # 
+ #
  # The MIT License (MIT)
- # 
+ #
  # Copyright (c) 2015 ustwo™
- # 
+ #
  # Permission is hereby granted, free of charge, to any person obtaining a copy
  # of this software and associated documentation files (the "Software"), to deal
  # in the Software without restriction, including without limitation the rights
@@ -12,7 +12,7 @@
 
  # The above copyright notice and this permission notice shall be included in all
  # copies or substantial portions of the Software.
- # 
+ #
  # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,13 +29,15 @@ class BaseScreen
 		@driver = driver
 
 		# Load the platform specific String resource handler.
+		# TODO: Load in the correct locale Strings for the current test run
+		# this would like need to come all the way from the config file and Rake task
 		case @platform
 		when 'android'
-			# TODO: Load in the correct locale Strings for the current test run
 			content = File.read('android/app/src/main/res/values/strings.xml')
 			@string_resource = AndroidStringResource.new(file_content: content)
 		when 'ios'
-			# TODO: Create IOSStringResource handler
+			content = File.read('ios/AppTestingSample/Localizable.strings')
+			@string_resource = IosStringResource.new(file_content: content)
 		end
  	end
 
@@ -59,7 +61,7 @@ class BaseScreen
 		case @platform
 		when 'android'
 			# We need the package name at the start of the id for android unless what we're
-			# testing has already been fully qualified, e.g. if it's part of the system UI.
+			# testing has already been fully qualified, e.g. if it's part of the system UI
 			# Read more about it in docs/finding_elements.md
 			element = ids[id]
 			element_id = element[:id]

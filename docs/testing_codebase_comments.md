@@ -89,3 +89,22 @@ Espresso is definitely faster and has a richer API than Appium and you would be 
 If you are only doing Android, and you are 100% sure that you won't ever need to do another platorm, then this might indeed be a better choice.
 
 But if you choose tools that are not cross-platform (like Espresso) and still need to support several platforms, you would need to code and support a codebase for each of them.
+
+## Localised strings
+
+We never check for literals in our tests, we access the platform localistation files and use text IDs instead. This provides more robust tests because it enables:
+
+ * Minor wording updates without breaking the tests.
+ * Testing translated apps using the same set of tests.
+
+We have arbitrarily implemented one of the tests to check for strings to prove the point. See the implementation of the scenario where the repository has no commits.
+
+Each platform page object implements `has_commits_error_indicator` by checking that the actual string on screen (extracted from what's on screen by the Appium API) matches the expected value (read out from the localisation file used by the app).
+
+In the current implementation we are not bothering to choose the locale at runtime from a configuration file and we simply read each of the localisation files:
+
+ * Android: `android/app/src/main/res/values/strings.xml`
+ * iOS: `ios/AppTestingSample/Localizable.strings`
+ 
+Page objects can access values in those files by `key` through  their instance of `@string_resource` (which is platform specific, set in `base_screen.rb`).
+

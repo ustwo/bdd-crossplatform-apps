@@ -1,0 +1,4 @@
+
+"error.no-commits-available" = "No commits available";
+"error.could-not-load-commits" = "Could not load commits";
+"error.no-author-name-available" = "No author name available";
