@@ -2,7 +2,7 @@
 
 A handy guide by the [ustwo](http://ustwo.com) engineering team.
 
-You can get in touch for ideas, feedback or comments at open.source@ustwo.com or drop by the [BDD channel at Slackline](http://slackline.io/shared_channels/bdd).
+You can get in touch for ideas, feedback or comments at bdd@ustwo.com or drop by the [BDD channel at Slackline](http://slackline.io/shared_channels/bdd).
 
 ## Introduction
 
@@ -40,7 +40,7 @@ A reference for a project setup that enables:
 
 This document and repository are intentended for technical people involved with automated functional testing, typically developers and testers.
 
-While it should be approachable for the less technical folks, it helps having some knowledge of platform tools, architecture of client/server applications, being comfortable with the terminal, etc. 
+While it should be approachable for the less technical folks, it helps having some knowledge of platform tools, architecture of client/server applications, being comfortable with the terminal, etc.
 
 ### Next steps
 
