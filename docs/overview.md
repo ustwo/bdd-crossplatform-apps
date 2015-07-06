@@ -118,9 +118,11 @@ In this sample, we've tagged the 'commit message is too long' scenario as ```@ma
 UIAutomator, which is what Appium uses on newer versions of Android, only exposes the full text rather than the ellipsised text, which explains why Appium does the same.
 ![manual only ellipsis scenario](images/ellipsis-manual-only.png)
 
-All manual scenarios can be considered technical debt. As a team, we can choose to build up some debt in the form of manual testing AS LONG AS we know we are going to be paying for it whenever we have to release. Additionally, Appium is improving all the time, and in subsequent versions something marked as manual could be very easy.
+Manual scenarios can be considered technical debt. As a team, we can choose to build up some debt in the form of manual testing AS LONG AS we know we are going to be paying for it whenever we want to release. In this case "paying" comes in the form of longer lead times to release seeing as there's a bigger list of manual tests that we must go through, on all devices, before we can be sure there is nothing broken. 
 
-To find all scenarios tagged as manual only, run the following: ```grep -ir "manual-only" features/```
+Additionally, automation tools are improving all the time so in subsequent versions something marked as manual test today because of technical limitations might be possible to automate in the future.
+
+To find all scenarios tagged as manual only you can try running the following: ```grep -ir "manual-only" features/```
 
 ## Links
 
