@@ -47,3 +47,7 @@ While it should be approachable for the less technical folks, it helps having so
  * [Install dependencies and set up](docs/setup.md).
  * [Run the tests](docs/running_tests.md).
  * [Dig deeper into what's going on](docs/overview.md).
+
+### Code of Conduct
+
+Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms. You can read the [Contributor Code of Conduct](code_of_conduct.md) taken from [Contributor Covenant](http://contributor-covenant.org).
