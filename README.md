@@ -4,6 +4,8 @@ A handy guide by the [ustwo](http://ustwo.com) engineering team.
 
 You can get in touch for ideas, feedback or comments at bdd@ustwo.com or drop by the [BDD channel at Slackline](http://slackline.io/shared_channels/bdd).
 
+You can also [read the blog post](http://ustwo.com/blog/bdd-cross-platform-applications-the-technical-setup/) about our bdd journey.
+
 ## Introduction
 
 At ustwo we define, design, build and test digital products.
