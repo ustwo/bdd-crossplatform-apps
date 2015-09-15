@@ -44,7 +44,7 @@ public interface GitHub {
                     @Path("repo") String repo,
                     Callback<List<CommitSummary>> commit);
 
-    @GET("/repos/{username}/{repo}/git/commits/{commit}")
+    @GET("/repos/{username}/{repo}/commits/{commit}")
     void commit(@Path("username") String username,
                 @Path("repo") String repo,
                 @Path("commit") String commit,
