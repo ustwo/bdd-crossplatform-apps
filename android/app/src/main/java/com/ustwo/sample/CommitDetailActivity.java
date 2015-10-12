@@ -24,31 +24,19 @@
  */
 package com.ustwo.sample;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.ustwo.sample.data.Commit;
-import com.ustwo.sample.data.CommitSummary;
-import com.ustwo.sample.data.GitHub;
-
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by emma on 1/8/15.
  */
 public class CommitDetailActivity extends ActionBarActivity {
-    private static final String TAG = CommitDetailActivity.class.getSimpleName();
-    private static final String EXTRA_KEY_COMMIT_SHA = "key_commit_sha";
-
-    private ProgressDialog mProgressDialog;
+    private static final String EXTRA_KEY_COMMIT = "key_commit_sha";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,56 +44,23 @@ public class CommitDetailActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_commit_detail);
 
-        mProgressDialog = ProgressDialog.show(this, "", getString(R.string.shared_loading), true, false);
-
-        retrieveCommitInfo(getIntent().getStringExtra(EXTRA_KEY_COMMIT_SHA));
+        final Commit commit = getIntent().getParcelableExtra(EXTRA_KEY_COMMIT);
+        updateUI(commit);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    private void updateUI(final Commit commit) {
+        final Commit.CommitDetail commitDetail = commit.commit;
+        final Commit.Author author = commitDetail.author;
 
-        dismissProgressDialog();
+        ((TextView) findViewById(R.id.commit_detail_textview_name)).setText(author.name);
+        ((TextView) findViewById(R.id.commit_detail_textview_email)).setText(author.email);
+        ((TextView) findViewById(R.id.commit_detail_textview_date)).setText(author.date);
+        ((TextView) findViewById(R.id.commit_detail_textview_message)).setText(commitDetail.message);
     }
 
-    private void dismissProgressDialog() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
-        }
-    }
-
-    private void retrieveCommitInfo(String commit) {
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(getString(R.string.app_endpoint_url))
-                .build();
-
-        GitHub service = restAdapter.create(GitHub.class);
-        service.commit(getString(R.string.default_repository_user), getString(R.string.default_repository_name), commit, new Callback<Commit>() {
-            @Override
-            public void success(Commit commit, Response response) {
-                mProgressDialog.cancel();
-                updateUI(commit);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                mProgressDialog.cancel();
-                Log.e(TAG, "Failed to get full commit information", error);
-            }
-        });
-    }
-
-    private void updateUI(Commit commit) {
-        ((TextView) findViewById(R.id.commit_detail_textview_name)).setText(commit.author.name);
-        ((TextView) findViewById(R.id.commit_detail_textview_email)).setText(commit.author.email);
-        ((TextView) findViewById(R.id.commit_detail_textview_date)).setText(commit.author.date);
-        ((TextView) findViewById(R.id.commit_detail_textview_message)).setText(commit.message);
-    }
-
-    public static Intent getIntent(Context context, CommitSummary commit) {
-        Intent intent = new Intent(context, CommitDetailActivity.class);
-        intent.putExtra(EXTRA_KEY_COMMIT_SHA, commit.sha);
+    public static Intent getIntent(final Context context, final Commit commit) {
+        final Intent intent = new Intent(context, CommitDetailActivity.class);
+        intent.putExtra(EXTRA_KEY_COMMIT, commit);
         return intent;
     }
 }

@@ -31,18 +31,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.ustwo.sample.data.CommitSummary;
+import com.ustwo.sample.data.Commit;
 
 import java.util.List;
 
 /**
  * Created by emma@ustwo.com on 1/8/15.
  */
-public class CommitsAdapter extends BaseAdapter {
+class CommitsAdapter extends BaseAdapter {
     private final LayoutInflater mLayoutInflater;
-    private final List<CommitSummary> mCommits;
+    private final List<Commit> mCommits;
 
-    public CommitsAdapter(Context context, List<CommitSummary> commits) {
+    CommitsAdapter(Context context, List<Commit> commits) {
         mLayoutInflater = LayoutInflater.from(context);
         mCommits = commits;
     }
@@ -67,7 +67,7 @@ public class CommitsAdapter extends BaseAdapter {
         View v = convertView;
         ViewHolder holder;
         if (v == null) {
-            v = mLayoutInflater.inflate(R.layout.item_commit, null);
+            v = mLayoutInflater.inflate(R.layout.item_commit, parent, false);
 
             holder = new ViewHolder(v);
             v.setTag(holder);
@@ -75,7 +75,7 @@ public class CommitsAdapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
 
-        CommitSummary commit = (CommitSummary) getItem(position);
+        final Commit commit = (Commit) getItem(position);
         holder.message.setText(commit.commit.message);
         holder.date.setText(commit.commit.author.date);
 
@@ -86,7 +86,7 @@ public class CommitsAdapter extends BaseAdapter {
         private TextView message;
         private TextView date;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             message = (TextView) v.findViewById(R.id.commit_list_row_textview_message);
             date = (TextView) v.findViewById(R.id.commit_list_row_textview_date);
         }

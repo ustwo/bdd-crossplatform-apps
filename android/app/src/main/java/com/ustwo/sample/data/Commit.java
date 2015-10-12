@@ -24,18 +24,57 @@
  */
 package com.ustwo.sample.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by emma@ustwo.com on 1/8/15.
- *
- * Object representing a single commit, containing full information
+ * <p/>
+ * Object representing a single commit, containing full information about it
  */
-public class Commit {
-    public String message;
-    public Author author;
+public class Commit implements Parcelable {
+    public CommitDetail commit;
+    public String sha;
 
-    public class Author {
+    public Commit(final Parcel in) {
+        final String[] data = new String[5];
+        in.readStringArray(data);
+
+        sha = data[0];
+        commit = new CommitDetail();
+        commit.message = data[1];
+        commit.author = new Author();
+        commit.author.name = data[2];
+        commit.author.email = data[3];
+        commit.author.date = data[4];
+    }
+
+    public static class CommitDetail {
+        public Author author;
+        public String message;
+    }
+
+    public static class Author {
         public String name;
         public String email;
         public String date;
     }
+
+    @Override public int describeContents() {
+        return 0;
+    }
+
+    @Override public void writeToParcel(final Parcel dest, final int flags) {
+        dest.writeStringArray(new String[] {sha, commit.message, commit.author.name, commit.author.email, commit.author.date});
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Commit createFromParcel(Parcel in) {
+            return new Commit(in);
+        }
+
+        public Commit[] newArray(int size) {
+            return new Commit[size];
+        }
+    };
 }

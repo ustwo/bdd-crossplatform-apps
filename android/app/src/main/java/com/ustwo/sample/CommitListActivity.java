@@ -36,7 +36,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ustwo.sample.data.CommitSummary;
+import com.ustwo.sample.data.Commit;
 import com.ustwo.sample.data.GitHub;
 import com.ustwo.sample.data.RepositoryInfo;
 
@@ -147,9 +147,9 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
     }
 
     private void retrieveCommitList() {
-        mGitHubService.commitList(getString(R.string.default_repository_user), getString(R.string.default_repository_name), new Callback<List<CommitSummary>>() {
+        mGitHubService.commitList(getString(R.string.default_repository_user), getString(R.string.default_repository_name), new Callback<List<Commit>>() {
             @Override
-            public void success(List<CommitSummary> commits, Response response) {
+            public void success(List<Commit> commits, Response response) {
                 if (commits.isEmpty()) {
                     getListView().setVisibility(View.GONE);
                     getStatusInformationTextView().setVisibility(View.VISIBLE);
@@ -179,7 +179,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        CommitSummary commit = (CommitSummary) (parent.getAdapter()).getItem(position);
+        final Commit commit = (Commit) (parent.getAdapter()).getItem(position);
 
         startActivity(CommitDetailActivity.getIntent(this, commit));
     }
