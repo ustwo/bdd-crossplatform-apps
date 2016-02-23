@@ -25,6 +25,7 @@
 package com.ustwo.sample;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -41,10 +42,12 @@ import com.ustwo.sample.data.GitHub;
 import com.ustwo.sample.data.RepositoryInfo;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
+import retrofit.android.MainThreadExecutor;
 import retrofit.client.Response;
 
 /**
@@ -66,6 +69,7 @@ public class CommitListActivity extends ActionBarActivity implements AdapterView
 
         mRestAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.app_endpoint_url))
+                .setExecutors(AsyncTask.THREAD_POOL_EXECUTOR, new MainThreadExecutor())
                 .build();
         mGitHubService = mRestAdapter.create(GitHub.class);
 

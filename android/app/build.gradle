@@ -10,6 +10,8 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     productFlavors {
         production {
@@ -32,9 +34,30 @@ android {
             minifyEnabled false
         }
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
 }
+ext.espressoVersion = "2.2.1"
 
 dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    // Espresso
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espressoVersion}") {
+        exclude module: "espresso-idling-resource"
+        exclude group: "com.android.support"
+    }
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:${espressoVersion}") {
+        exclude module: "espresso-core"
+        exclude module: "recyclerview-v7"
+        exclude group: "com.android.support"
+    }
+
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
+
+    // Screenshots
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.2.1'
 }
